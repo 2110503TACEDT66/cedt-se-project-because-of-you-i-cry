@@ -1,6 +1,0 @@
-{
-  "/page": "app/page.js",
-  "/(campgroundinfo)/campground/page": "app/(campgroundinfo)/campground/page.js",
-  "/(campgroundinfo)/campground/[id]/page": "app/(campgroundinfo)/campground/[id]/page.js",
-  "/api/auth/[...nextauth]/route": "app/api/auth/[...nextauth]/route.js"
-}
