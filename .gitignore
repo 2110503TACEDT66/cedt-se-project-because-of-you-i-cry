@@ -1,0 +1,11 @@
+**/node_modules
+
+**/.env.local/
+**/.env/
+
+**/.env.local
+**/config.env
+
+**/.env
+
+**/config
