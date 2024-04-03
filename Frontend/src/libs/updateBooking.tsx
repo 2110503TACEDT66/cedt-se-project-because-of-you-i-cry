@@ -6,8 +6,9 @@ export default async function updateBooking(
   token: string
 ) {
   var now = new Date();
+  const BACKEND_URL = process.env.BACKEND_URL
   const response = await fetch(
-    `https://project-backend-eight.vercel.app/api-informations/reservations/${bookingId}`,
+    `${BACKEND_URL}/api-informations/reservations/${bookingId}`,
     {
       method: "PUT",
       headers: {

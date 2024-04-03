@@ -1,6 +1,7 @@
 export default async function userLogOut() {
+  const BACKEND_URL = process.env.BACKEND_URL
   const response = await fetch(
-    "https://project-backend-eight.vercel.app/api-informations/users/logout",
+    `${BACKEND_URL}/api-informations/users/logout`,
     {
       method: "GET",
       headers: {

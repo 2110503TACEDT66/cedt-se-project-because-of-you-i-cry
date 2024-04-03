@@ -2,9 +2,10 @@ import { CampgroundJson } from "../interface";
 import fetch from "node-fetch"; // Import node-fetch
 
 export default async function getCampgrounds(): Promise<CampgroundJson> {
+  const BACKEND_URL = process.env.BACKEND_URL
   await new Promise((resolve) => setTimeout(resolve, 2000));
   const response = await fetch(
-    "https://project-backend-eight.vercel.app/api-informations/campgrounds"
+    `${BACKEND_URL}/api-informations/campgrounds`
   );
   if (!response.ok) {
     throw new Error("Failed to fetch campgrounds");

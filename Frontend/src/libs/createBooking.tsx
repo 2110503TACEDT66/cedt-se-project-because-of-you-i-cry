@@ -1,8 +1,9 @@
 import { CreateBookingItem } from "../../interface";
 
 const createBooking = async (campground: CreateBookingItem, token: string) => {
+  const BACKEND_URL = process.env.BACKEND_URL
   const response = await fetch(
-    `https://project-backend-eight.vercel.app/api-informations/campgrounds/${campground.campground}/reservations`,
+    `${BACKEND_URL}/api-informations/campgrounds/${campground.campground}/reservations`,
     {
       method: "POST",
       headers: {

@@ -4,8 +4,9 @@ const userRegister = async (
   password: string,
   tel: string
 ) => {
+  const BACKEND_URL = process.env.BACKEND_URL
   const response = await fetch(
-    "https://project-backend-eight.vercel.app/api-informations/users/register",
+    `${BACKEND_URL}/api-informations/users/register`,
     {
       method: "POST",
       headers: {

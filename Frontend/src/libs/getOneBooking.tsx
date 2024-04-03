@@ -5,8 +5,9 @@ export default async function getOneBooking(
   id: string,
   token: string
 ): Promise<BookingOneJson> {
+  const BACKEND_URL = process.env.BACKEND_URL
   const response = await fetch(
-    `https://project-backend-eight.vercel.app/api-informations/reservations/${id}`,
+    `${BACKEND_URL}/api-informations/reservations/${id}`,
     {
       headers: {
         "Content-Type": "application/json",

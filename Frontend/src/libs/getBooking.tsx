@@ -2,8 +2,9 @@ import { CampgroundItem, BookingJson } from "../../interface";
 //const fetch = require("node-fetch");
 
 export default async function getBookings(token: string): Promise<BookingJson> {
+  const BACKEND_URL = process.env.BACKEND_URL
   const response = await fetch(
-    `https://project-backend-eight.vercel.app/api-informations/reservations`,
+    `${BACKEND_URL}/api-informations/reservations`,
     {
       headers: {
         "Content-Type": "application/json",

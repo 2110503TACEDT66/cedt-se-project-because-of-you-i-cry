@@ -2,8 +2,9 @@
 import { UserJson } from "../../interface";
 
 export default async function getUserProfile(token: string): Promise<UserJson> {
+  const BACKEND_URL = process.env.BACKEND_URL
   const response = await fetch(
-    "https://project-backend-eight.vercel.app/api-informations/users/me",
+    `${BACKEND_URL}/api-informations/users/me`,
     {
       method: "GET",
       headers: {

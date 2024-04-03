@@ -4,8 +4,9 @@ export default async function userLogIn(
   userEmail: string,
   userPassword: string
 ) {
+  const BACKEND_URL = process.env.BACKEND_URL
   const response = await fetch(
-    "https://project-backend-eight.vercel.app/api-informations/users/login",
+    `${BACKEND_URL}/api-informations/users/login`,
     {
       method: "POST",
       headers: {

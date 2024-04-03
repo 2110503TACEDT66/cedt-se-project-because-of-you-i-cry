@@ -6,8 +6,9 @@ export default async function updateUser(
   userEmail: string,
   token: string
 ) {
+  const BACKEND_URL = process.env.BACKEND_URL
   const response = await fetch(
-    `https://project-backend-eight.vercel.app/api-informations/users/update/${userid}`,
+    `${BACKEND_URL}/api-informations/users/update/${userid}`,
     {
       method: "PUT",
       headers: {

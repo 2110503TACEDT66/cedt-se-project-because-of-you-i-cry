@@ -2,8 +2,9 @@ import { CampgroundItem } from "../../interface";
 //const fetch = require("node-fetch");
 
 export default async function getCampground(id: string) {
+  const BACKEND_URL = process.env.BACKEND_URL
   const response = await fetch(
-    `https://project-backend-eight.vercel.app/api-informations/campgrounds/${id}`
+    `${BACKEND_URL}/api-informations/campgrounds/${id}`
   );
 
   if (!response.ok) {
