@@ -174,3 +174,31 @@ exports.createComment = async (req, res, next) => {
     res.status(400).json({ success: false });
   }
 }
+
+exports.deleteComment = async (req, res, next) => {
+
+  try {
+    const comment = await Comment.findById(req.params.id);
+
+    if (!comment) {
+      return res.status(404).json({
+        success: false,
+        message: `Cannot find comment with id ${req.params.id}`,
+      });
+    }
+
+    if (req.user.role === 'admin') {
+      return res.status(404).json({
+        success: false,
+        message: "You can't delete any comment",
+      });
+    }
+
+    await comment.deleteOne();
+    res.status(200).json({ success: true, data: {} });
+  } catch (error) {
+    res.status(400).json({ success: false });
+  }
+
+}
+
