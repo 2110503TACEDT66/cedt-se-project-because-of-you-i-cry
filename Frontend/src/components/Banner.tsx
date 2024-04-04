@@ -4,28 +4,21 @@ import { useRouter } from "next/navigation";
 import styles from "./banner.module.css";
 import Image from "next/image";
 import { useSession } from "next-auth/react";
-
+  
 export default function Banner() {
-  const covers = [
-    "/img/camp1.jpg",
-    "/img/camp2.jpg",
-    "/img/camp3.jpg",
-    "/img/camp4.jpg",
-  ];
-  const [index, setIndex] = useState(0);
+  
   const router = useRouter();
   const { data: session } = useSession();
   //console.log(session?.user.token)
-
+  
   return (
-    <div className={styles.banner} onClick={() => setIndex(index + 1)}>
+    <div className={styles.banner} >
       <Image
-        src={covers[index % 4]}
+        src={"/img/campground.jpg"}
         alt="cover"
         fill={true}
         priority
         objectFit="cover"
-        className="opacity-50"
       />
       {/* <div className={styles.bannerText}>
         <h1 className="text-4xl font-medium z-40"> Nature Awaits </h1>
@@ -40,12 +33,12 @@ export default function Banner() {
         </div>
       ) : null} */}
       <div className="flex justify-center items-center h-screen">
-        <div className="absolute top-[20%] w-full text-center">
-          <h1 className="text-5xl font-medium text-white z-40">
+        <div className="absolute top-[20%] w-full text-center ">
+          <h1 className="text-5xl font-medium text-white z-40  font-poppins font-extralight">
             Nature Awaits
           </h1>
-          <h1 className="text-5xl font-medium text-white z-40 mt-5">
-            Unlock Boundless Camping Experiences
+          <h1 className="text-5xl font-medium text-white z-40 mt-5 font-poppins font-extralight">
+            “Unlock Boundless Camping Experiences”
           </h1>
         </div>
         <button
