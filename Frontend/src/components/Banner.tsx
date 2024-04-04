@@ -11,7 +11,7 @@ export default function Banner() {
   //console.log(session?.user.token)
 
   return (
-    <div className={styles.banner} >
+    <div className={styles.banner}>
       <Image
         src={"/img/campground.jpg"}
         alt="cover"
@@ -33,10 +33,10 @@ export default function Banner() {
       ) : null} */}
       <div className="flex justify-center items-center h-screen">
         <div className="absolute top-[20%] w-full text-center ">
-          <h1 className="text-5xl font-medium text-white z-40  font-poppins font-extralight">
+          <h1 className="text-5xl font-medium text-white z-40  font-poppins ">
             Nature Awaits
           </h1>
-          <h1 className="text-5xl font-medium text-white z-40 mt-5 font-poppins font-extralight">
+          <h1 className="text-5xl font-medium text-white z-40 mt-5 font-poppins ">
             “Unlock Boundless Camping Experiences”
           </h1>
         </div>

@@ -30,7 +30,7 @@ export default function RootLayout({
           <NextAuthProvider session={session}>
             <TopMenu />
             {children}
-            <Footer />
+            {/* <Footer /> */}
           </NextAuthProvider>
         </ReduxProvider>
       </body>
