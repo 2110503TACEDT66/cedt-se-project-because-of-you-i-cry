@@ -181,6 +181,43 @@ exports.createComment = async (req, res, next) => {
   }
 }
 
+exports.updateComment = async (req, res, next) => {
+  try {
+
+    const comment = await Comment.findById(req.params.id);
+
+    if(req.user.role === 'admin') {
+      return res.status(400).json({ success: false });
+    }
+
+    if (!comment) {
+      return res.status(404).json({
+        success: false,
+        message: `Cannot find comment with id ${req.params.id}`,
+      });
+    }
+
+    if(reservation.user.toString() !== req.user.id) {
+      return res.status(401).json({success:false,message:`User ${req.user.id} is not authorized to update this comment`});
+  }
+
+  if(req.user.role == 'admin') {
+    return res.status(401).json({success:false,message:`User ${req.user.id} is not authorized to update any comment`});
+
+  }
+
+  comment = await Campground.findByIdAndUpdate(req.params.id,req.body,{
+    new: true,
+    runValidators:true
+})
+
+    res.status(200).json({ success: true, data: comment });
+  } catch (error) {
+    res.status(400).json({ success: false });
+  }
+}
+
+
 exports.deleteComment = async (req, res, next) => {
   // console.log(req.params.commentId)
   try {
