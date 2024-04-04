@@ -35,6 +35,8 @@ router
 router.route("/:id/comment/:commentId")
   .delete(protect, deleteComment)
   .put(protect, updateComment)
+
+  router.route("/:id/comment")
   .get(getComment)
 
 module.exports = router;
