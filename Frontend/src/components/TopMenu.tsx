@@ -6,7 +6,7 @@ import Link from "next/link";
 
 export default async function TopMenu() {
   const session = await getServerSession(authOptions);
-
+  console.log(session)
   return (
     <div
       className="inset-x-0 top-0 fixed z-40 flex flex-row
