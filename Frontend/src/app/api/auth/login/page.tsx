@@ -39,7 +39,7 @@ const LoginPage: React.FC = () => {
   return (
     <div className="bg-[#F3F1EB] h-[90vh] flex justify-center items-center">
       <div className="bg-white py-8 px-16 rounded-3xl w-full max-w-sm mx-4 shadow-lg">
-        <h2 className="text-2xl font-bold mb-4 text-center text-[#285F3E]">
+        <h2 className="text-2xl font-semibold mb-4 text-center text-[#285F3E]">
           Login
         </h2>
         {error && (
@@ -79,7 +79,7 @@ const LoginPage: React.FC = () => {
           </div>
           <button
             type="submit"
-            className="w-full inline-flex items-center justify-center h-12 rounded-xl bg-[#285F3E] text-white 
+            className="w-full inline-flex items-center justify-center h-12 rounded-xl bg-[#285F3E] text-white font-bold text-lg
             focus:outline-none focus:ring-2 focus:ring-green-600 focus:ring-offset-2 hover:bg-green-500 transition duration-300"
           >
             Sign In
