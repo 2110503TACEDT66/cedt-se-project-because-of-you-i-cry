@@ -1,4 +1,5 @@
 const Campground = require("../models/Campground");
+const Comment = require('../models/Comment')
 
 //@desc Get all campgrounds
 //@route GET /api-information/campgrounds
@@ -160,3 +161,16 @@ exports.deleteCampground = async (req, res, next) => {
     res.status(400).json({ success: false });
   }
 };
+
+exports.createComment = async (req, res, next) => {
+  try {
+    const comment = await Comment.create(req.body);
+
+    const commentJson = await comment.json()
+    console.log();
+
+    res.status(200).json({ success: true, data: comment });
+  } catch (error) {
+    res.status(400).json({ success: false });
+  }
+}

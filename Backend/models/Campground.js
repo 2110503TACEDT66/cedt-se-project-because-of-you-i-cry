@@ -60,18 +60,12 @@ const CampgroundSchema = mongoose.Schema(
       type: Number,
       required: [true, "Please add a rating"],
     },
-    comment: {
-      text: {
-        type: String,
-        required: true,
-      },
-      user_rating: {
-        type: Number,
-        required: true,
-        min: 1,
-        max: 5
-      }
-    }
+    comments: {
+      type: [{
+          type:mongoose.Schema.ObjectId,
+          ref: "Comment"
+      }]
+    },
   },
   
   {
