@@ -5,7 +5,10 @@ const {
   createCampground,
   updateCampground,
   deleteCampground,
-  createComment
+  createComment,
+  deleteComment,
+  updateComment,
+  getComment
 } = require("../controllers/campgrounds");
 
 
@@ -27,7 +30,11 @@ router
   .get(getCampground)
   .put(protect, authorize("admin"), updateCampground)
   .delete(protect, authorize("admin"), deleteCampground)
-
   .post(protect, createComment)
+
+router.route("/:id/comment/:commentId")
+  .delete(protect, deleteComment)
+  .put(protect, updateComment)
+  .get(getComment)
 
 module.exports = router;

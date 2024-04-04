@@ -182,24 +182,27 @@ exports.createComment = async (req, res, next) => {
 }
 
 exports.deleteComment = async (req, res, next) => {
-
+  // console.log(req.params.commentId)
   try {
-    const comment = await Comment.findById(req.params.id);
+    const comment = await Comment.findById(req.params.commentId);
 
     if (!comment) {
       return res.status(404).json({
         success: false,
-        message: `Cannot find comment with id ${req.params.id}`,
+        message: `Cannot find comment with id ${req.params.commentId}`,
       });
     }
 
-    if(comment.user.toString() !== req.user.id ) {
+    console.log(comment.user_id)
+    console.log(req.user.id)
+    if(comment.user_id !== req.user.id) {
       return res.status(404).json({
         success: false,
         message: "You can't delete other comment",
       });
     }
 
+    const removeCommentFromCampground = await Campground.findByIdAndUpdate(comment.campground_id , {$pull : {comments : comment._id}})
     await comment.deleteOne();
     res.status(200).json({ success: true, data: {} });
   } catch (error) {
@@ -208,3 +211,17 @@ exports.deleteComment = async (req, res, next) => {
 
 }
 
+exports.getComment = async (req, res, next) => {
+
+  const comment = await Comment.findById(req.params.id);
+
+  if(!comment) {
+    return res.status(404).json({
+      success: false,
+      message: `Cannot find comment with id ${req.params.id}`,
+    });
+  }
+
+
+
+}
