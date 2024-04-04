@@ -196,10 +196,10 @@ exports.deleteComment = async (req, res, next) => {
       });
     }
 
-    if (req.user.role === 'admin') {
+    if(comment.user.toString() !== req.user.id ) {
       return res.status(404).json({
         success: false,
-        message: "You can't delete any comment",
+        message: "You can't delete other comment",
       });
     }
 
