@@ -164,14 +164,12 @@ exports.deleteCampground = async (req, res, next) => {
 
 exports.createComment = async (req, res, next) => {
   try {
-    console.log(req.user)
+
     const comment = await Comment.create(req.body);
 
     if(req.user.role === 'admin') {
       return res.status(400).json({ success: false });
     }
-
-    console.log(comment);
 
     if(comment) {
       const updateCampgroundArray = await Campground.findByIdAndUpdate(comment.campground_id , {"$push" : {"comments" : comment._id}})
@@ -179,7 +177,6 @@ exports.createComment = async (req, res, next) => {
 
     res.status(200).json({ success: true, data: comment });
   } catch (error) {
-    console.error(error);
     res.status(400).json({ success: false });
   }
 }
