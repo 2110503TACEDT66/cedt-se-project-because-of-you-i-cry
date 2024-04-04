@@ -11,7 +11,7 @@ export default async function TopMenu() {
     <div
       className="inset-x-0 top-0 fixed z-40 flex flex-row
     h-14 border border-solid border-slate-300
-    bg-stone-800 px-2 py-1.5 justify-center
+    bg-transparent px-2 py-1.5 justify-center
     text-slate-100 font-sans font-normal text-lg text-center text-wrap"
     >
       <div className="left-0 w-[50%] flex flex-row justify-start items-left justify-items-start">
@@ -25,7 +25,7 @@ export default async function TopMenu() {
         />
         <Link
           href="/"
-          className="w-28 text-center my-auto text-text-sm stone-800 border-r-2"
+          className="w-28 text-center my-auto text-base stone-800 border-r-2 font-poppins"
         >
           Home
         </Link>

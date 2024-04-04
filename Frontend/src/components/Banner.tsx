@@ -4,13 +4,12 @@ import { useRouter } from "next/navigation";
 import styles from "./banner.module.css";
 import Image from "next/image";
 import { useSession } from "next-auth/react";
-  
+
 export default function Banner() {
-  
   const router = useRouter();
   const { data: session } = useSession();
   //console.log(session?.user.token)
-  
+
   return (
     <div className={styles.banner} >
       <Image
@@ -42,8 +41,8 @@ export default function Banner() {
           </h1>
         </div>
         <button
-          className="text-xl bg-orange-600 text-white border-2 border-orange-700 hover:border-green-700 font-semibold py-6 px-5 m-2 rounded-xl z-30
-                hover:bg-green-600 hover:text-white hover:transparent hover:shadow-xl transform translate-y-10"
+          className="text-xl bg-transparent text-white border-2 border-white  font-semibold py-2   px-3 m-2 rounded-xl z-30
+           hover:shadow-xl transform translate-y-10"
           onClick={(e) => {
             e.stopPropagation();
             router.push("/campground");
@@ -51,6 +50,12 @@ export default function Banner() {
         >
           Choose Your Campground Escape!
         </button>
+        <div className="absolute bottom-5">
+          <p className="text-white">View more</p>
+          <div className="transform rotate-180 text-center">
+            <span className="text-white">^</span>
+          </div>
+        </div>
       </div>
     </div>
   );
