@@ -9,10 +9,7 @@ export default async function TopMenu() {
 
   return (
     <div
-      className="inset-x-0 top-0 fixed z-40 flex flex-row 
-    h-14 
-    bg-transparent px-2 py-1.5 justify-center
-    text-slate-100 font-sans font-normal text-lg text-center text-wrap"
+      className="inset-x-0 top-0 fixed z-40 flex flex-row h-14 bg-transparent pt-17 px-15 justify-center text-slate-100 font-sans font-normal text-lg text-center text-wrap"
     >
       <div className="left-0 w-[50%] flex flex-row justify-start items-left justify-items-start ">
         <Image

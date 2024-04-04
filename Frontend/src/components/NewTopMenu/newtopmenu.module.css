@@ -1,0 +1,90 @@
+.fullBar{
+    width: 100vw;
+    height: 9.25vh;
+    display: flex;
+    flex-direction: row;
+    background-color: rgba(255, 42, 42, 0);
+    z-index: 50;
+    position: absolute;
+    top: 0;
+    left: 0;
+    padding-top: 17px;
+    padding-left: 15px;
+}
+
+.leftBar{
+    width: 80%;
+    height: 100%;
+    /* background-color: red; */
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+}
+
+.rightBar{
+    width: 20%;
+    height: 100%;
+    /* background-color: aliceblue; */
+    display: flex;
+    justify-content: flex-end;
+    border-bottom: 2px solid #f9f9f9;
+}
+
+.textBlock{
+    width: 87%;
+    height: 100%;
+    display: flex;
+    flex-direction: row;
+    border-bottom: 2px solid #f9f9f9;
+}
+
+.imageBlock{
+    width: 13%;
+    height: 100%;
+    /* background-color: aqua; */
+    /* padding: 0px 15px; */
+}
+
+.homeBlock , .campgroundBlock{
+    width: 19%;
+    height: 100%;
+    text-align: center;
+    color: #F3F1EB;
+    font-size: 1.25rem;
+    padding-top: 0.5%;
+}
+
+.homeBlock{
+    /* background-color: aquamarine; */
+    border-bottom: 6px solid #f9f9f9;
+}
+
+.campgroundBlock{
+    /* background-color: bisque; */
+}
+
+.signinBlock{
+    width: 70%;
+    /* background-color: red; */
+    display: flex;
+    justify-content: center;
+}
+
+.button {
+    background-color: transparent;
+    height: 80%;
+    font-size: 1.25rem;
+    border: 2px solid white;
+    color: #F3F1EB;
+    border-radius: 12px; 
+    padding: 2px 14px; 
+    text-decoration: none; 
+    cursor: pointer;
+    display: inline-block;
+    transition: background-color 0.3s, color 0.3s, border-color 0.3s; 
+}
+
+.button:hover {
+    background-color: white;
+    color: black;
+}
