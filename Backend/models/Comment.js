@@ -2,7 +2,6 @@ const mongoose = require("mongoose");
 const Campground = require("./Campground");
 const CommentSchema = mongoose.Schema(
     {
-        comment: {
             campground_id: {
                 type: mongoose.Schema.ObjectId,
                 ref: "Campground",
@@ -22,7 +21,6 @@ const CommentSchema = mongoose.Schema(
               min: 1,
               max: 5
             }
-          }
     }
 )
 
