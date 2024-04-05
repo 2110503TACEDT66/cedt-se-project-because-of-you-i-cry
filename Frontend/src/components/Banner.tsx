@@ -32,11 +32,11 @@ export default function Banner() {
         </div>
       ) : null} */}
       <div className="flex justify-center items-center h-screen relative">
-        <div className="absolute top-[20%] w-full text-center ">
-          <h1 className="text-5xl font-medium text-white z-40  font-poppins ">
+        <div className="absolute top-[20%] w-full ">
+          <h1 className="text-5xl font-medium text-white z-40  font-poppins text-center">
             Nature Awaits
           </h1>
-          <h1 className="text-5xl font-medium text-white z-40 mt-5 font-poppins ">
+          <h1 className="text-5xl font-medium text-white z-40 mt-5 font-poppins text-center">
             “Unlock Boundless Camping Experiences”
           </h1>
         </div>
