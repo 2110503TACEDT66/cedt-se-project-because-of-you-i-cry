@@ -4,6 +4,7 @@ import React, { useState, useEffect } from "react";
 import { signIn } from "next-auth/react";
 import { useRouter } from "next/navigation";
 import { Link } from "@mui/material";
+import styles from "@/components/Login.module.css";
 
 const LoginPage: React.FC = () => {
   const [email, setEmail] = useState("");
@@ -16,8 +17,6 @@ const LoginPage: React.FC = () => {
 
     try {
       const result = await signIn("credentials", {
-        email,
-        password,
         redirect: false,
       });
 
@@ -37,8 +36,8 @@ const LoginPage: React.FC = () => {
   };
 
   return (
-    <div className="bg-[#F3F1EB] h-[90vh] flex justify-center items-center">
-      <div className="bg-white py-8 px-16 rounded-3xl w-full max-w-sm mx-4 shadow-lg">
+    <div className="bg-[#F9F9F9] h-[90vh] flex justify-center items-center">
+      <div className={styles.login}>
         <h2 className="text-2xl font-semibold mb-4 text-center text-[#285F3E]">
           Login
         </h2>
@@ -95,7 +94,9 @@ const LoginPage: React.FC = () => {
         <div className="mt-4 text-center flex items-center justify-center">
           <a className="text-[#10561B] mr-2 text-md">Don't have an account?</a>
           <Link href="/api/auth/register">
-            <a className="text-[#10561B] underline text-md">Register</a>
+            <a className="text-[#10561B] underline decoration-[#10561B] text-md">
+              Register
+            </a>
           </Link>
         </div>
       </div>
