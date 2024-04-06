@@ -1,7 +1,15 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
-
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;700;800;900&display=swap');
+@font-face {
+  font-family: "poppins";
+  src: url("../Poppins/Poppins-ExtraLight.ttf") ;
+}
+@font-face {
+  font-family: "poppins2";
+  src: url("../Poppins/Poppins-Regular.ttf");
+}
 @layer components {
   @keyframes zoomin {
     0% {
@@ -144,16 +152,16 @@ body {
   overflow-x: hidden;
 }
 
-body {
+/*body {
   /* color: rgb(var(--foreground-rgb)); */
-  margin-top: 56px;
+
   /* background: linear-gradient(
       to bottom,
       transparent,
       rgb(var(--background-end-rgb))
     )
     rgb(var(--background-start-rgb)); */
-}
+/*}
 
 /* a {
   color: inherit;
