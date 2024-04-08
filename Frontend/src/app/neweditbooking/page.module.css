@@ -1,0 +1,218 @@
+.page{
+    width: 100vw;
+    height: 100vh;
+    background-color: #F9F9F9;
+}
+
+.fullBlock{
+    width: 83.125%;
+    height: 66.1%;
+    /* background-color: white; */
+    margin: 0% 8.4375%;
+    margin-top: 10.25%;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+.leftBlock{
+    width: 63.4398%;
+    background-color: #ffffff;
+    display: flex;
+    flex-direction: column;
+    border: #909090 solid 1px;
+    border-radius: 10px;
+}
+
+.rightBlock{
+    width: 34.3984%;
+    flex-direction: column;
+    /* background-color: green; */
+}
+
+.topLeft{
+    width: 100%;
+    padding: 3% 4.7407%;
+    /* background-color: green; */
+    
+}
+
+.campName{
+    font-size: 1.5rem;
+    font-weight: 800;
+    margin-top: 1%;
+    /* background-color: #0079F1; */
+}
+
+.rowBlock{
+    /* background-color: bisque; */
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    border-bottom: #909090 solid 1px;
+    margin-top: 2.5%;
+}
+
+.rowBlock2{
+    /* background-color: bisque; */
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    margin-top: 2%;
+}
+
+.iconBlock{
+    /* background-color: brown; */
+    height: 35px;
+    align-content: center;
+}
+
+.icon{
+    color: #222222;
+}
+
+.detailBlock{
+    padding-left: 10px;
+    /* background-color: lightblue; */
+    font-weight: 300 ;
+}
+
+.detailBlock2 {
+    display: flex;
+    flex-direction: column;
+    padding-left: 10px;
+    /* background-color: lightblue; */
+    font-weight: 300;
+    color: #585858;
+  }
+  
+  .detailBlock2 > div {
+    margin-bottom: 7.5px;
+  }
+
+
+.address{
+    height: 35px;
+    /* background-color: brown; */
+    font-size: 1.1rem;
+    align-content: center;
+}
+
+.campLink{
+    color: #0079F1;
+    margin-top: 0.75%;
+    font-size: 0.95rem;
+}
+
+.checkIn{
+    /* color: #285F3E; */
+    padding-top: 9%;
+    font-size: 1rem;
+}
+
+.datePicker{
+    padding-bottom: 5% ;
+    width: 28.5%;
+}
+
+.botLeft{
+    /* background-color: #909090; */
+    width: 100%;
+    padding: 0% 4.7407%;
+}
+
+.contact{
+    font-size: 1.5rem;
+    font-weight: 800;
+}
+
+.topRight{
+    background-color: #ffffff;
+    padding: 7.25% 7%;
+    border: #909090 solid 1px;
+    width: 100%;
+    border-radius: 10px;
+}
+
+.priceBlock , .dateBlock{
+    width: 100%;
+    /* background-color: red; */
+}
+
+.dateBlock{
+    margin-top: 10%;
+}
+
+.priceHead , .dateHead{
+    font-size: 1.1rem;
+    color: #585858;
+}
+
+.priceDetail , .dateDetail{
+    /* background-color: brown; */
+    font-size: 1.5rem;
+    font-weight: 600;
+    color: #000000;
+}
+
+.buttonBlock{
+    width: 100%;
+    background-color: #F9F9F9;
+    display: flex;
+    flex-direction: row;
+    margin-top: 35.5%;
+    justify-content: space-between;
+}
+
+.cancel , .save{
+    width: 43.5%;
+    font-size: 1.1rem;
+    font-weight: 800;
+    padding: 3.5% 0%;
+    border-radius: 10px;
+}
+
+.save{
+    background-color: #285F3E;
+    color: #ffffff;
+}
+
+.cancel{
+    border: #AC0000 solid 2px;
+    color: #AC0000;
+    background-color: #ffffff;
+}
+
+.botRight{
+    padding-top: 7.25%;
+    width: 100%;
+    /* background-color: #285F3E; */
+}
+
+.delete{
+    background-color: #CF0101;
+    color: #ffffff;
+    width: 100%;
+    padding: 3.5% 0%;
+    border-radius: 10px;
+    font-size: 1.1rem;
+    font-weight: 800;
+}
+
+.cancel:hover {
+    background-color: #AC0000;
+    color: #ffffff;
+    transition: all 0.3s ease-in-out;
+  }
+  
+  .save:hover {
+    background-color: #1e4230;
+    color: #ffffff;
+    transition: all 0.3s ease-in-out;
+  }
+  
+  .delete:hover {
+    background-color: #b30000;
+    color: #ffffff;
+    transition: all 0.3s ease-in-out;
+  }

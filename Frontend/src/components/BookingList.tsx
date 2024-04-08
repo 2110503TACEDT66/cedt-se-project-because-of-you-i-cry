@@ -83,7 +83,7 @@ export default function ReservationBooking() {
               </tbody>
             </table>
             <Link
-              href={`/editbooking?id=${reservationItem._id}`}
+              href={`/neweditbooking?id=${reservationItem._id}`}
               className="wrap"
             >
               <button
