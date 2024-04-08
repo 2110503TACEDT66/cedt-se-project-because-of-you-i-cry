@@ -29,10 +29,8 @@ export default function RootLayout({
       <body className={inter.className}>
         <ReduxProvider>
           <NextAuthProvider session={session}>
-            {/* <TopMenu /> */}
             <NewTopMenu/>
             {children}
-            {/* <Footer /> */}
           </NextAuthProvider>
         </ReduxProvider>
       </body>

@@ -37,7 +37,7 @@ export default async function TopMenu() {
         {session ? (
           <div className="ml-2">
             <Link
-              href="/profile/information"
+              href="/profile/information" 
               className="w-32 text-center my-auto"
             >
               <Image
