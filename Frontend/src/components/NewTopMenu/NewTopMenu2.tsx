@@ -12,7 +12,7 @@ export default async function NewTopMenu() {
       <div className={styles.leftBar}>
         <div className={styles.imageBlock}>
           <Image
-            src={"/img/logo.png"}
+            src={"/img/blackologo.png"}
             className={styles.logoimg}
             alt="logo"
             width={0}
