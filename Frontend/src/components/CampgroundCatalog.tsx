@@ -1,18 +1,28 @@
-"use client";
+import React, { useState } from "react";
 import Link from "next/link";
 import Card from "./Card";
 import { CampgroundJson } from "../../interface";
-import {
-  TextField,
-  Rating,
-  Checkbox,
-  FormGroup,
-  FormControlLabel,
-} from "@mui/material";
-import { Children, useState } from "react";
+import { TextField, Rating } from "@mui/material";
 import { Suspense } from "react";
 import { LinearProgress } from "@mui/material";
-
+import { styled } from "@mui/material/styles";
+import CircularProgress, {
+  circularProgressClasses,
+  CircularProgressProps,
+} from "@mui/material/CircularProgress";
+import { linearProgressClasses } from "@mui/material/LinearProgress";
+const BorderLinearProgress = styled(LinearProgress)(({ theme }) => ({
+  height: 10,
+  borderRadius: 5,
+  [`&.${linearProgressClasses.colorPrimary}`]: {
+    backgroundColor:
+      theme.palette.grey[theme.palette.mode === "light" ? 200 : 800],
+  },
+  [`& .${linearProgressClasses.bar}`]: {
+    borderRadius: 5,
+    backgroundColor: theme.palette.mode === "light" ? "#1a90ff" : "#308fe8",
+  },
+}));
 export default function CampgroundCatalog({
   campgroundJson,
 }: {
@@ -20,19 +30,30 @@ export default function CampgroundCatalog({
 }) {
   const [valueMax, setMaxValue] = useState<number | null>(null);
   const [valueMin, setMinValue] = useState<number | null>(null);
-  const [selectedStars, setSelectedStars] = useState<number[]>([]);
-  const [cityFilter, setCityFilter] = useState<string>("");
+  const [selectedStars, setSelectedStars] = useState<number>(0);
+  const [searchQuery, setSearchQuery] = useState<string>("");
 
   const handleStarChange = (value: number) => {
-    if (selectedStars.includes(value)) {
-      setSelectedStars(selectedStars.filter((star) => star !== value));
-    } else {
-      setSelectedStars([...selectedStars, value]);
-    }
+    setSelectedStars(value);
+  };
+
+  const handleSearchChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setSearchQuery(e.target.value);
   };
 
   return (
     <>
+      <div className=" mt-14">
+        <div>
+          <input
+            type="text"
+            value={searchQuery}
+            onChange={handleSearchChange}
+            className="border-2 border-[#285F3E] rounded-xl p-1 w-[78.5%] "
+            placeholder="Search name of campground"
+          />
+        </div>
+      </div>
       <FilterPanel
         handleStarChange={handleStarChange}
         selectedStars={selectedStars}
@@ -40,15 +61,30 @@ export default function CampgroundCatalog({
         setMaxValue={setMaxValue}
         valueMin={valueMin}
         valueMax={valueMax}
-        cityFilter={cityFilter}
-        setCityFilter={setCityFilter}
       >
         <Suspense
           fallback={
-            <p className="m-10">
-              <p className="text-xl mb-5">Loading ...</p>
-              <LinearProgress />
-            </p>
+            <div className="justify-center">
+              <React.Fragment>
+                <svg width={0} height={0}>
+                  <defs>
+                    <linearGradient
+                      id="my_gradient"
+                      x1="0%"
+                      y1="0%"
+                      x2="0%"
+                      y2="100%"
+                    >
+                      <stop offset="0%" stopColor="#e01cd5" />
+                      <stop offset="100%" stopColor="#1CB5E0" />
+                    </linearGradient>
+                  </defs>
+                </svg>
+                <CircularProgress
+                  sx={{ "svg circle": { stroke: "url(#my_gradient)" } }}
+                />
+              </React.Fragment>
+            </div>
           }
         >
           <ListCampground
@@ -56,7 +92,7 @@ export default function CampgroundCatalog({
             selectedStars={selectedStars}
             valueMin={valueMin}
             valueMax={valueMax}
-            cityFilter={cityFilter}
+            searchQuery={searchQuery}
           />
         </Suspense>
       </FilterPanel>
@@ -69,34 +105,39 @@ async function ListCampground({
   selectedStars,
   valueMin,
   valueMax,
-  cityFilter,
+  searchQuery,
 }: {
   campgroundJson: Promise<CampgroundJson>;
-  selectedStars: number[];
+  selectedStars: number;
   valueMin: number | null;
   valueMax: number | null;
-  cityFilter: string;
+  searchQuery: string;
 }) {
   const campgroundReady = await campgroundJson;
 
   const filteredData = campgroundReady.data.filter((item) => {
     const passedStarFilter =
-      selectedStars.length === 0 || selectedStars.includes(item.rating);
+      selectedStars === 0 || item.rating === selectedStars;
     const passedPriceFilter =
       (valueMin === null || item.price >= valueMin) &&
       (valueMax === null || item.price <= valueMax);
-    const passedCityFilter =
-      cityFilter === "" ||
-      item.province.toLowerCase().includes(cityFilter.toLowerCase());
-    return passedStarFilter && passedPriceFilter && passedCityFilter;
+    const passedSearchQuery =
+      searchQuery.trim() === "" ||
+      item.name.toLowerCase().includes(searchQuery.toLowerCase());
+    return passedStarFilter && passedPriceFilter && passedSearchQuery;
   });
 
+  const showBorder = filteredData.length > 0;
+
   return (
-    <>
+    <div
+      className={`border ${showBorder ? 'border-black' : 'border-transparent'} rounded-lg px-3 pr-7 pt-2 pb-4`}
+      style={{ maxHeight: "500px", overflowY: "auto", overflowX: "hidden" }}
+    >
       {filteredData.map((campgroundItem) => (
         <Link
           href={`/campground/${campgroundItem.id}`}
-          className="w-[95%]"
+          className="w-[100%] "
           key={campgroundItem.id}
         >
           <Card
@@ -104,12 +145,14 @@ async function ListCampground({
             imgSrc={campgroundItem.coverpicture}
             price={campgroundItem.price}
             province={campgroundItem.province}
+            rating={campgroundItem.rating}
           />
         </Link>
       ))}
-    </>
+    </div>
   );
 }
+
 
 function FilterPanel({
   children,
@@ -119,146 +162,86 @@ function FilterPanel({
   setMaxValue,
   valueMin,
   valueMax,
-  setCityFilter,
-  cityFilter,
 }: {
   children: React.ReactNode;
   handleStarChange: (value: number) => void;
-  selectedStars: number[];
+  selectedStars: number;
   setMinValue: (value: number | null) => void;
   setMaxValue: (value: number | null) => void;
   valueMin: number | null;
   valueMax: number | null;
-  setCityFilter: (value: string) => void;
-  cityFilter: string;
 }) {
   return (
     <>
-      <div className="w[95%] m-5 p-5 flex flex-row flex-wrap space-x-10 justify-center items-start">
-        <div className="w-[25%] relative items-start">
-          <div className="bg-white w-full my-auto block border border-black rounded-lg">
+      <div className="w[95%] m-5 p-5 flex flex-row flex-wrap space-x-10 justify-center items-start ">
+        <div className="w-[20%] relative items-start">
+          <div className="bg-[#F5F5F5] w-full my-auto block border border-black rounded-lg">
             <div className="w-[100%] block items-center">
-              <div className="p-8 border-b border-black">
-                <div className="text-lg text-left">Stars</div>
-                <div>
-                  <FormGroup>
-                    <FormControlLabel
-                      control={
-                        <Checkbox
-                          checked={selectedStars.includes(1)}
-                          onChange={(e) =>
-                            handleStarChange(parseInt(e.target.value))
-                          }
-                          value={1}
-                          size="small"
-                        />
-                      }
-                      label={<Rating value={1} max={1} readOnly />}
-                    />
-                    <FormControlLabel
-                      control={
-                        <Checkbox
-                          checked={selectedStars.includes(2)}
-                          onChange={(e) =>
-                            handleStarChange(parseInt(e.target.value))
-                          }
-                          value={2}
-                          size="small"
-                        />
-                      }
-                      label={<Rating value={2} max={2} readOnly />}
-                    />
-                    <FormControlLabel
-                      control={
-                        <Checkbox
-                          checked={selectedStars.includes(3)}
-                          onChange={(e) =>
-                            handleStarChange(parseInt(e.target.value))
-                          }
-                          value={3}
-                          size="small"
-                        />
-                      }
-                      label={<Rating value={3} max={3} readOnly />}
-                    />
-                    <FormControlLabel
-                      control={
-                        <Checkbox
-                          checked={selectedStars.includes(4)}
-                          onChange={(e) =>
-                            handleStarChange(parseInt(e.target.value))
-                          }
-                          value={4}
-                          size="small"
-                        />
-                      }
-                      label={<Rating value={4} max={4} readOnly />}
-                    />
-                    <FormControlLabel
-                      control={
-                        <Checkbox
-                          checked={selectedStars.includes(5)}
-                          onChange={(e) =>
-                            handleStarChange(parseInt(e.target.value))
-                          }
-                          value={5}
-                          size="small"
-                        />
-                      }
-                      label={<Rating value={5} max={5} readOnly />}
-                    />
-                  </FormGroup>
+              <div className="p-8 ">
+                <div className="text-base  text-left font-inter">Stars</div>
+                <div className="text-left mt-2">
+                  <Rating
+                    value={selectedStars}
+                    onChange={(event, newValue) => {
+                      handleStarChange(newValue || 0);
+                    }}
+                    size="large"
+                  />
                 </div>
               </div>
-              <div className="p-8 border-b border-black">
+              <div className="flex items-center justify-center mx-2">
+                <div className="bg-[#909090] w-[80%] h-px"></div>
+              </div>
+              <div className="p-8 ">
                 <div>
-                  <div className="text-lg">Prices Range (per night)</div>
+                  <div className="text-base font-inter pb-5 text-left">
+                    Prices Range (per night)
+                  </div>
                 </div>
-                <div className="flex flex-row">
-                  <div className="m-2 ">
+                <div className="flex flex-row justify-start">
+                  <div className="mt-2 ">
                     <TextField
                       value={valueMin || ""}
-                      label={"min"}
-                      type="number"
+                      label="Min"
+                      type="string"
                       size="small"
                       variant="outlined"
+                      InputLabelProps={{
+                        shrink: true,
+                        style: { position: "absolute", top: "-7px" },
+                      }}
+                      inputProps={{ style: { paddingLeft: "10px" } }}
+                      style={{ width: "100px" }} // Adjust the width as needed
                       onChange={(e) => {
                         setMinValue(parseInt(e.target.value) || null);
                       }}
                     />
                   </div>
-                  <div className="m-2">-</div>
+                  <div className="m-2">_</div>
                   <div className="m-2 ">
                     <TextField
                       value={valueMax || ""}
-                      label={"max"}
-                      type="number"
+                      label="Max"
+                      type="string"
                       size="small"
                       variant="outlined"
+                      InputLabelProps={{
+                        shrink: true,
+                        style: { position: "absolute", top: "-7px" },
+                      }}
+                      inputProps={{ style: { paddingLeft: "10px" } }}
+                      style={{ width: "100px" }} // Adjust the width as needed
                       onChange={(e) => {
                         setMaxValue(parseInt(e.target.value) || null);
                       }}
                     />
                   </div>
                 </div>
-                <div></div>
-              </div>
-              <div className="p-8 space-y-2">
-                <div className="text-lg text-left">City</div>
-
-                <div className="items-left text-left">
-                  <TextField
-                    value={cityFilter}
-                    label={"Name of City"}
-                    helperText="Ex. Chiangmai, Bangkok"
-                    onChange={(e) => setCityFilter(e.target.value)}
-                  />
-                </div>
               </div>
             </div>
           </div>
         </div>
-        <div className="w-[70%] relative items-center">{children}</div>
+        <div className="w-[60%] relative items-center ">{children}</div>
       </div>
     </>
   );
