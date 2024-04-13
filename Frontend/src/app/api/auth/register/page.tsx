@@ -66,7 +66,7 @@ const RegisterPage: React.FC = () => {
               value={name}
               placeholder="Name"
               onChange={(e) => setName(e.target.value)}
-              className={`w-full border border-[#285F3E] rounded px-3 py-1 focus:outline-none focus:ring focus:border-green-300 ${styles.placeholderOpacity}`}
+              className={`w-full border border-[#285F3E] rounded px-3 py-1 focus:outline-none focus:ring focus:ring-green-800 focus:ring-opacity-60 ${styles.placeholderOpacity}`}
             />
           </div>
           <div>
@@ -82,7 +82,7 @@ const RegisterPage: React.FC = () => {
               value={email}
               placeholder="Enter your email"
               onChange={(e) => setEmail(e.target.value)}
-              className={`w-full border border-[#285F3E] rounded px-3 py-1 focus:outline-none focus:ring focus:border-green-300 ${styles.placeholderOpacity}`}
+              className={`w-full border border-[#285F3E] rounded px-3 py-1 focus:outline-none focus:ring focus:ring-green-800 focus:ring-opacity-60 ${styles.placeholderOpacity}`}
             />
           </div>
           <div>
@@ -98,7 +98,7 @@ const RegisterPage: React.FC = () => {
               value={password}
               placeholder="Password"
               onChange={(e) => setPassword(e.target.value)}
-              className={`w-full border border-[#285F3E] rounded px-3 py-1 focus:outline-none focus:ring focus:border-green-300 ${styles.placeholderOpacity}`}
+              className={`w-full border border-[#285F3E] rounded px-3 py-1 focus:outline-none focus:ring focus:ring-green-800 focus:ring-opacity-60 ${styles.placeholderOpacity}`}
             />
           </div>
           <div>
@@ -112,13 +112,13 @@ const RegisterPage: React.FC = () => {
               placeholder="Tel."
               style={{ color: "#333333" }}
               onChange={(e) => setTel(e.target.value)}
-              className={`w-full border border-[#285F3E] rounded px-3 py-1 focus:outline-none focus:ring focus:border-green-300 ${styles.placeholderOpacity}`}
+              className={`w-full border border-[#285F3E] rounded px-3 py-1 focus:outline-none focus:ring focus:ring-green-800 focus:ring-opacity-60 ${styles.placeholderOpacity}`}
             />
           </div>
           <button
             type="submit"
             className="w-full inline-flex items-center justify-center h-12 rounded-xl bg-[#285F3E] text-white font-bold text-lg
-            focus:outline-none focus:ring-2 focus:ring-green-600 focus:ring-offset-2 hover:bg-green-500 transition duration-300"
+            focus:outline-none focus:ring-2 focus:ring-green-600 focus:ring-offset-2 hover:bg-green-600 transition duration-200"
           >
             Register
           </button>
