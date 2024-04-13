@@ -104,7 +104,10 @@ body:has(.homeBlock:hover) .campgroundBlock {
   padding: 2px 14px;
   text-decoration: none;
   cursor: pointer;
-  display: inline-block;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
   transition: background-color 0.15s, color 0.15s, border-color 0.15s;
 }
 
