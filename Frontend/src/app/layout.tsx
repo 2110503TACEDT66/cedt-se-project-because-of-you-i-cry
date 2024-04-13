@@ -29,7 +29,7 @@ export default function RootLayout({
       <body className={inter.className}>
         <ReduxProvider>
           <NextAuthProvider session={session}>
-            <NewTopMenu/>
+            <NewTopMenu />
             {children}
           </NextAuthProvider>
         </ReduxProvider>
