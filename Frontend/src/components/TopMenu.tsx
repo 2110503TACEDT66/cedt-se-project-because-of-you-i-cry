@@ -9,12 +9,9 @@ export default async function TopMenu() {
   console.log(session)
   return (
     <div
-      className="inset-x-0 top-0 fixed z-40 flex flex-row
-    h-14 border border-solid border-slate-300
-    bg-stone-800 px-2 py-1.5 justify-center
-    text-slate-100 font-sans font-normal text-lg text-center text-wrap"
+      className="inset-x-0 top-0 fixed z-40 flex flex-row h-14 bg-transparent pt-17 px-15 justify-center text-slate-100 font-sans font-normal text-lg text-center text-wrap"
     >
-      <div className="left-0 w-[50%] flex flex-row justify-start items-left justify-items-start">
+      <div className="left-0 w-[50%] flex flex-row justify-start items-left justify-items-start ">
         <Image
           src={"/img/logo1.png"}
           className="w-auto h-full"
@@ -25,28 +22,22 @@ export default async function TopMenu() {
         />
         <Link
           href="/"
-          className="w-28 text-center my-auto text-text-sm stone-800 border-r-2"
+          className="w-28 text-center my-auto text-base stone-800  font-poppins2 "
         >
           Home
         </Link>
         <Link
           href="/campground"
-          className="w-28 text-center my-auto text-text-sm stone-800 border-r-2"
+          className="w-28 text-center my-auto text-base stone-800  font-poppins2"
         >
           Campground
         </Link>
       </div>
       <div className="right-0 flex flex-row justify-end justify-items-end items-right w-[50%]">
-        <Link
-          href="/profile/booking"
-          className="w-28 text-center my-auto text-text-sm stone-800 border-r-2"
-        >
-          Booking
-        </Link>
         {session ? (
           <div className="ml-2">
             <Link
-              href="/profile/information"
+              href="/profile/information" 
               className="w-32 text-center my-auto"
             >
               <Image
@@ -62,7 +53,8 @@ export default async function TopMenu() {
         ) : (
           <Link
             href="/api/auth/login"
-            className="w-28 text-center my-auto text-text-sm stone-800 bg-sky-500 rounded-lg px-2 ml-1"
+            className="w-28 text-center my-auto text-base stone-800 bg-transparent rounded-lg  ml-1 font-poppins2 border py-2"
+            style={{ marginTop: "-0.25rem" }} // Adjust vertical alignment
           >
             Sign-In
           </Link>

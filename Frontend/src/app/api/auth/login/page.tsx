@@ -4,6 +4,7 @@ import React, { useState, useEffect } from "react";
 import { signIn } from "next-auth/react";
 import { useRouter } from "next/navigation";
 import { Link } from "@mui/material";
+import styles from "@/components/Login.module.css";
 
 const LoginPage: React.FC = () => {
   const [email, setEmail] = useState("");
@@ -16,8 +17,6 @@ const LoginPage: React.FC = () => {
 
     try {
       const result = await signIn("credentials", {
-        email,
-        password,
         redirect: false,
       });
 
@@ -37,46 +36,67 @@ const LoginPage: React.FC = () => {
   };
 
   return (
-    <div className="bg-white min-h-screen flex justify-center items-center">
-      <div className="bg-white p-8 rounded border-2 border-black shadow-md w-full max-w-md mx-auto">
-        <h2 className="text-2xl font-bold mb-4 text-center">Login</h2>
-        {error && <div className="text-red-500 mb-4 text-center">{error}</div>}
-        <form onSubmit={handleLogin} className="space-y-4">
+    <div className="bg-[#F9F9F9] h-[90vh] flex justify-center items-center">
+      <div className={styles.login}>
+        <h2 className="text-2xl font-semibold mb-4 text-center text-[#285F3E]">
+          Login
+        </h2>
+        {error && (
+          <div className="text-red-500 mb-4 text-center my-4">{error}</div>
+        )}
+        <form onSubmit={handleLogin} className="space-y-6">
           <div>
-            <label htmlFor="email" className="block mb-1">
-              Email:
+            <label
+              htmlFor="email"
+              className="block mb-1 text-[#285F3E] text-sm"
+            >
+              Email
             </label>
             <input
-              type="email"
+              type="Email"
+              height={100}
               id="email"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
-              className="w-full border rounded px-3 py-2 focus:outline-none focus:ring focus:border-blue-300"
+              className="w-full border border-[#285F3E] rounded px-3 py-1 focus:outline-none focus:ring focus:border-green-300"
             />
           </div>
           <div>
-            <label htmlFor="password" className="block mb-1">
-              Password:
+            <label
+              htmlFor="password"
+              className="block mb-1 text-[#285F3E] text-sm"
+            >
+              Password
             </label>
             <input
-              type="password"
+              type="Password"
               id="password"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
-              className="w-full border rounded px-3 py-2 focus:outline-none focus:ring focus:border-blue-300"
+              className="w-full border border-[#285F3E] rounded px-3 py-1 focus:outline-none focus:ring focus:border-green-300"
             />
           </div>
           <button
             type="submit"
-            className="w-full inline-flex items-center justify-center h-12 border border-green-500 rounded-full bg-green-500 text-white focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-offset-2 hover:bg-green-600 transition duration-300"
+            className="w-full inline-flex items-center justify-center h-12 rounded-xl bg-[#285F3E] text-white font-bold text-lg
+            focus:outline-none focus:ring-2 focus:ring-green-600 focus:ring-offset-2 hover:bg-green-500 transition duration-300"
           >
-            Login
+            Sign In
           </button>
         </form>
+
+        <div className="flex flex-row mt-10  my-8 items-center justify-center">
+          <div className="w-[50%] border-b-2 border-[#BEBEBE]"></div>
+          <div className=" inline w-auto px-2 text-[#BEBEBE]">or</div>
+          <div className="w-[50%] border-b-2 border-[#BEBEBE]"></div>
+        </div>
+
         <div className="mt-4 text-center flex items-center justify-center">
-          <a className="text-black mr-2">Don't have an account?</a>
+          <a className="text-[#10561B] mr-2 text-md">Don't have an account?</a>
           <Link href="/api/auth/register">
-            <a className="text-blue-500 underline">Register</a>
+            <a className="text-[#10561B] underline decoration-[#10561B] text-md">
+              Register
+            </a>
           </Link>
         </div>
       </div>

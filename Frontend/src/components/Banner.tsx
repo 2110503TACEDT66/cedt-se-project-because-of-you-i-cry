@@ -6,26 +6,18 @@ import Image from "next/image";
 import { useSession } from "next-auth/react";
 
 export default function Banner() {
-  const covers = [
-    "/img/camp1.jpg",
-    "/img/camp2.jpg",
-    "/img/camp3.jpg",
-    "/img/camp4.jpg",
-  ];
-  const [index, setIndex] = useState(0);
   const router = useRouter();
   const { data: session } = useSession();
   //console.log(session?.user.token)
 
   return (
-    <div className={styles.banner} onClick={() => setIndex(index + 1)}>
+    <div className={styles.banner}>
       <Image
-        src={covers[index % 4]}
+        src={"/img/campground.jpg"}
         alt="cover"
         fill={true}
         priority
         objectFit="cover"
-        className="opacity-50"
       />
       {/* <div className={styles.bannerText}>
         <h1 className="text-4xl font-medium z-40"> Nature Awaits </h1>
@@ -39,18 +31,18 @@ export default function Banner() {
           Welcome {session.user?.name}
         </div>
       ) : null} */}
-      <div className="flex justify-center items-center h-screen">
-        <div className="absolute top-[20%] w-full text-center">
-          <h1 className="text-5xl font-medium text-white z-40">
+      <div className="flex justify-center items-center h-screen relative">
+        <div className="absolute top-[20%] w-full ">
+          <h1 className="text-5xl font-medium text-white z-40  font-poppins text-center">
             Nature Awaits
           </h1>
-          <h1 className="text-5xl font-medium text-white z-40 mt-5">
-            Unlock Boundless Camping Experiences
+          <h1 className="text-5xl font-medium text-white z-40 mt-5 font-poppins text-center">
+            “Unlock Boundless Camping Experiences”
           </h1>
         </div>
         <button
-          className="text-xl bg-orange-600 text-white border-2 border-orange-700 hover:border-green-700 font-semibold py-6 px-5 m-2 rounded-xl z-30
-                hover:bg-green-600 hover:text-white hover:transparent hover:shadow-xl transform translate-y-10"
+          className="text-xl bg-transparent text-white border-2 border-white  font-semibold py-2   px-3 m-2 rounded-xl z-30
+           hover:shadow-xl transform translate-y-40 mt-40"
           onClick={(e) => {
             e.stopPropagation();
             router.push("/campground");
@@ -58,6 +50,12 @@ export default function Banner() {
         >
           Choose Your Campground Escape!
         </button>
+        <div className="absolute bottom-5 mb-5">
+          <p className="text-white">View more</p>
+          <div className="transform rotate-180 text-center">
+            <span className="text-white">^</span>
+          </div>
+        </div>
       </div>
     </div>
   );
