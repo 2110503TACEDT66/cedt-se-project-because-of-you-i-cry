@@ -1,5 +1,6 @@
 const Campground = require("../models/Campground");
 const Comment = require('../models/Comment')
+const Reservation =require('../models/Reservation')
 
 //@desc Get all campgrounds
 //@route GET /api-information/campgrounds
@@ -171,11 +172,27 @@ exports.createComment = async (req, res, next) => {
       return res.status(400).json({ success: false });
     }
 
-    if(comment) {
-      const updateCampgroundArray = await Campground.findByIdAndUpdate(comment.campground_id , {"$push" : {"comments" : comment._id}})
+    const reservations = await Reservation.find({
+      user: req.user.id,
+      campground: req.params.id,
+    });
+
+    if(!reservations){
+      return res.status(400).json({ success: false, message: "You are not authorize to comment this campground."});
     }
 
-    res.status(200).json({ success: true, data: comment });
+    const hasPastReservation = reservations.some(reservation => new Date(reservation.apptDate) < new Date());
+
+    if(hasPastReservation){
+      if(comment) {
+        const updateCampgroundArray = await Campground.findByIdAndUpdate(comment.campground_id , {"$push" : {"comments" : comment._id}})
+      }
+      res.status(200).json({ success: true, data: comment });
+    }
+    else {
+      return res.status(400).json({ success: false, message: "You can only comment on campgrounds you have visited in the past."});
+    }
+
   } catch (error) {
     res.status(400).json({ success: false });
   }
