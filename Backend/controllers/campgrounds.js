@@ -222,6 +222,8 @@ exports.createComment = async (req, res, next) => {
   } catch (error) {
     res.status(400).json({ success: false });
   }
+
+  next();
 }
 
 exports.updateComment = async (req, res, next) => {
@@ -300,4 +302,38 @@ exports.getComment = async (req, res, next) => {
   } catch (error) {
     res.status(400).json({ success: false });
   }
+};
+
+exports.updateCampgroundRating = async (req, res, next) => {
+
+  console.log("OK") ;
+
+  try {
+    // Find the campground by ID
+    const campground = await Campground.findById(req.params.id);
+    
+    // Find all comments for the campground
+    const comments = await Comment.find({ campground_id: campground._id });
+
+    // Calculate the sum of ratings
+    const sumOfRatings = comments.reduce((total, comment) => total + comment.user_rating, 0);
+
+    // Calculate the average rating
+    const averageRating = (sumOfRatings / comments.length).toFixed(1);
+
+    // Update the campground's rating
+    campground.rating = averageRating;
+
+    // Save the updated campground
+    await campground.save();
+
+    res.json({ message: 'Campground rating updated successfully.', newRating: averageRating });
+
+  } catch (error) {
+
+    console.error('Error updating campground rating:', error);
+    res.status(500).json({ error: 'An error occurred while updating campground rating.' });
+
+  }
+
 };

@@ -8,7 +8,8 @@ const {
   createComment,
   deleteComment,
   updateComment,
-  getComment
+  getComment,
+  updateCampgroundRating
 } = require("../controllers/campgrounds");
 
 
@@ -30,7 +31,7 @@ router
   .get(getCampground)
   .put(protect, authorize("admin"), updateCampground)
   .delete(protect, authorize("admin"), deleteCampground)
-  .post(protect, createComment)
+  .post(protect, createComment, updateCampgroundRating)
 
 router.route("/:id/comment/:commentId")
   .delete(protect, deleteComment)
