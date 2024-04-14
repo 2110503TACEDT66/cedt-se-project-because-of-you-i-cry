@@ -5,12 +5,15 @@ import Card from "@/components/Card";
 import CardPanel from "@/components/CardPanel";
 import PromoteCard from "@/components/PromoteCard";
 import TopCampground from "@/components/TopCampground";
+import TrendingNow from "@/components/trendingnow";
+import ExploreThailand from "@/components/ExploreThailand";
 
 export default function Home() {
   return (
     <main style={{ backgroundColor: "ghostwhite" }}>
-      <Banner />
-      <TopCampground></TopCampground>
+      <Banner/>
+      <TrendingNow/>
+      <ExploreThailand/>
     </main>
   );
 }
