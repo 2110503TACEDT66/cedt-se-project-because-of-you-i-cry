@@ -6,7 +6,7 @@ import TopMenu from "@/components/TopMenu";
 import { getServerSession } from "next-auth";
 import { authOptions } from "@/app/api/auth/[...nextauth]/route";
 import NextAuthProvider from "@/provider/NextAuthProvider";
-import ReduxProvider from "@/redux/ReduxProvider";
+// import ReduxProvider from "@/redux/ReduxProvider";
 import Footer from "@/components/Footer";
 import NewTopMenu from "@/components/NewTopMenu/NewTopMenu";
 
@@ -27,12 +27,12 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={inter.className}>
-        <ReduxProvider>
+        {/* <ReduxProvider> */}
           <NextAuthProvider session={session}>
             <NewTopMenu/>
             {children}
           </NextAuthProvider>
-        </ReduxProvider>
+        {/* </ReduxProvider> */}
       </body>
     </html>
   );
