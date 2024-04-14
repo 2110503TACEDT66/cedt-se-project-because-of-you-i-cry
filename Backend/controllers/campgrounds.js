@@ -178,7 +178,7 @@ exports.createComment = async (req, res, next) => {
     });
 
     if(!reservations){
-      return res.status(400).json({ success: false, message: "You are not authorize to this campground."});
+      return res.status(400).json({ success: false, message: "You are not authorize to comment this campground."});
     }
 
     const hasPastReservation = reservations.some(reservation => new Date(reservation.apptDate) < new Date());
