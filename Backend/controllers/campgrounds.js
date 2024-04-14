@@ -12,7 +12,7 @@ exports.getCampgrounds = async (req, res, next) => {
   const reqQuery = { ...req.query };
 
   //Fields to exclude
-  const removeFields = ["select", "sort", "page", "limit"];
+  const removeFields = ["select", "sort", "page", "limit", "topProvince"];
 
   // Loop over removeFields and delete them from reqQuery
   removeFields.forEach((param) => delete reqQuery[param]);
@@ -71,14 +71,44 @@ exports.getCampgrounds = async (req, res, next) => {
         limit,
       };
     }
-    res.status(200).json({
-      success: true,
-      count: camgrounds.length,
-      pagination,
-      data: camgrounds,
-    });
+
+    // Get top province
+    if (req.query.topProvince === 'true') {
+      const topProvinces = await Campground.aggregate([
+        {
+          $group: {
+            _id: "$province",
+            avgRating: { $avg: "$rating" },
+            // count: { $count: {} },
+          },
+        },
+        {
+          $sort: { avgRating: -1 },
+        },
+        {
+          $project: {
+            _id: 0,
+            province: "$_id",
+            avgRating: { $round: ["$avgRating", 1] },
+            // count: 1,
+          },
+        },
+      ]);
+
+      res.status(200).json({
+        success: true,
+        topProvinces,
+      });
+    } else {
+      res.status(200).json({
+        success: true,
+        count: camgrounds.length,
+        pagination,
+        data: camgrounds,
+      });
+    }
   } catch (error) {
-    res.status(400).json({ success: false , message:"bad request"});
+    res.status(400).json({ success: false, message: "bad request" });
   }
 };
 
@@ -176,10 +206,6 @@ exports.createComment = async (req, res, next) => {
       user: req.user.id,
       campground: req.params.id,
     });
-
-    if(!reservations){
-      return res.status(400).json({ success: false, message: "You are not authorize to comment this campground."});
-    }
 
     const hasPastReservation = reservations.some(reservation => new Date(reservation.apptDate) < new Date());
 
