@@ -12,7 +12,7 @@ exports.getCampgrounds = async (req, res, next) => {
   const reqQuery = { ...req.query };
 
   //Fields to exclude
-  const removeFields = ["select", "sort", "page", "limit"];
+  const removeFields = ["select", "sort", "page", "limit", "topProvince"];
 
   // Loop over removeFields and delete them from reqQuery
   removeFields.forEach((param) => delete reqQuery[param]);
@@ -71,14 +71,44 @@ exports.getCampgrounds = async (req, res, next) => {
         limit,
       };
     }
-    res.status(200).json({
-      success: true,
-      count: camgrounds.length,
-      pagination,
-      data: camgrounds,
-    });
+
+    // Get top province
+    if (req.query.topProvince === 'true') {
+      const topProvinces = await Campground.aggregate([
+        {
+          $group: {
+            _id: "$province",
+            avgRating: { $avg: "$rating" },
+            // count: { $count: {} },
+          },
+        },
+        {
+          $sort: { avgRating: -1 },
+        },
+        {
+          $project: {
+            _id: 0,
+            province: "$_id",
+            avgRating: { $round: ["$avgRating", 1] },
+            // count: 1,
+          },
+        },
+      ]);
+
+      res.status(200).json({
+        success: true,
+        topProvinces,
+      });
+    } else {
+      res.status(200).json({
+        success: true,
+        count: camgrounds.length,
+        pagination,
+        data: camgrounds,
+      });
+    }
   } catch (error) {
-    res.status(400).json({ success: false , message:"bad request"});
+    res.status(400).json({ success: false, message: "bad request" });
   }
 };
 
@@ -177,10 +207,6 @@ exports.createComment = async (req, res, next) => {
       campground: req.params.id,
     });
 
-    if(!reservations){
-      return res.status(400).json({ success: false, message: "You are not authorize to comment this campground."});
-    }
-
     const hasPastReservation = reservations.some(reservation => new Date(reservation.apptDate) < new Date());
 
     if(hasPastReservation){
@@ -196,6 +222,8 @@ exports.createComment = async (req, res, next) => {
   } catch (error) {
     res.status(400).json({ success: false });
   }
+
+  next();
 }
 
 exports.updateComment = async (req, res, next) => {
@@ -274,4 +302,38 @@ exports.getComment = async (req, res, next) => {
   } catch (error) {
     res.status(400).json({ success: false });
   }
+};
+
+exports.updateCampgroundRating = async (req, res, next) => {
+
+  console.log("OK") ;
+
+  try {
+    // Find the campground by ID
+    const campground = await Campground.findById(req.params.id);
+    
+    // Find all comments for the campground
+    const comments = await Comment.find({ campground_id: campground._id });
+
+    // Calculate the sum of ratings
+    const sumOfRatings = comments.reduce((total, comment) => total + comment.user_rating, 0);
+
+    // Calculate the average rating
+    const averageRating = (sumOfRatings / comments.length).toFixed(1);
+
+    // Update the campground's rating
+    campground.rating = averageRating;
+
+    // Save the updated campground
+    await campground.save();
+
+    res.json({ message: 'Campground rating updated successfully.', newRating: averageRating });
+
+  } catch (error) {
+
+    console.error('Error updating campground rating:', error);
+    res.status(500).json({ error: 'An error occurred while updating campground rating.' });
+
+  }
+
 };
