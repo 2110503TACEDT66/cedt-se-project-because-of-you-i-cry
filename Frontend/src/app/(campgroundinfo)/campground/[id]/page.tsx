@@ -1,22 +1,19 @@
-"use client";
+"use server";
 import Image from "next/image";
 import getCampground from "@/libs/getCampground";
 import DateReserve from "@/components/DateReserve";
 import Link from "next/link";
 import { Rating } from "@mui/material";
 import Available from "@/components/Available";
-// import ReserveCampground from "@/components/ReserveCampground";
-// import { addBooking } from "@/redux/features/bookSlice";
 
-export default async function CampgroundDetailPage({
-  params,
-}: {
-  params: { id: string };
-}) {
+
+export default async function CampgroundDetailPage({params}: {params : { id: string }}) {
   const campgroundReady = await getCampground(params.id);
 
-  if (!campgroundReady) return <p>Campground Loading ...</p>;
-
+  if (!campgroundReady) {
+    return <p>Campground Loading ...</p>;
+  }
+  
   let pic = 0;
   if (campgroundReady.data && Array.isArray(campgroundReady.data.picture)) {
     pic = campgroundReady.data.picture.length;

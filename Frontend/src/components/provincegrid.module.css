@@ -54,6 +54,10 @@
     letter-spacing: 2px;
 }
 
+.block img {
+    object-fit: cover;
+}
+
 .Filter {
     background-color: rgba(0, 0, 0, 0.525);
     position: relative;
