@@ -13,17 +13,21 @@ import 'swiper/css/navigation';
 
 
 export default function ImageSlider({campgroundArray} : {campgroundArray : any}) {
-    
+
+      const style : any = {
+        '--swiper-navigation-color': '#000000',
+      }
   
       return (
         <div className={styles.SliderWrapper}>
 
         <Swiper
+        style ={
+         style
+        }
         slidesPerView={3}
         spaceBetween={0}
-        pagination={{
-          clickable: true,
-        }}
+        // pagination={pagination}
         navigation={true}
         modules={[Pagination, Navigation]}
         loop={true}

@@ -5,7 +5,7 @@ export default async function ExploreThailand() {
     const topProvince = await (await fetch(`${backendurl}/api-informations/campgrounds?topProvince=true`)).json()
 
     return (
-        <div className={styles.ExploreThailandSectionWrapper}>
+        <div className={styles.ExploreThailandSectionWrapper}>      
             <div className={styles.HeaderLine}>
                     <div className={styles.line}>
                         <h2 className={styles.FloatingText}>Immerse Yourself in Thailand: Explore Beyond Expectations</h2>

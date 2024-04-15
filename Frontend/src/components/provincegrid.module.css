@@ -1,3 +1,5 @@
+@import url('https://fonts.cdnfonts.com/css/post-no-bills-jaffna');
+
 .ProvinceGridWrapper  {
     margin-top: 5%;
     height: 70%;
@@ -47,6 +49,9 @@
     border-radius: 15px;
     background-color: #D9D9D9;
     overflow: hidden;
+
+    font-family: 'Post No Bills Jaffna ExtraBold';
+    letter-spacing: 2px;
 }
 
 .Filter {
@@ -58,7 +63,7 @@
     box-sizing: border-box;
 
     color: white;
-    font-size: 30px;
+    font-size: 40px;
     font-weight: 600;
 }
 
