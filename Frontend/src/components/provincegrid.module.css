@@ -15,9 +15,19 @@
 }
 
 .UpperPart, .LowerPart {
-    display: flex;
+    display: grid ;
     justify-content: space-between;
     gap: 20px;
+    height: 100%;
+    width: 100%;
+}
+
+.UpperPart {
+    grid-template-columns: 65fr 35fr;
+}
+
+.LowerPart {
+    grid-template-columns: 36fr 42fr 32fr;
 }
 
 .LowerPart {
@@ -30,27 +40,35 @@
     width: 65%;
 }
 
-.block2 {
-
-    width: 35%;
-}
-
-.block3 {
-
-    width: 36%;
-}
-
-.block4 {
-
-    width: 42%;
-}
-
-.block5{
-
-    width: 32%;
-}
-
 .block {
+    position: relative;
+    height: 100%;
+    width: 100%;
     border-radius: 15px;
     background-color: #D9D9D9;
+    overflow: hidden;
 }
+
+.Filter {
+    background-color: rgba(0, 0, 0, 0.525);
+    position: relative;
+    height: 100%;
+    width: 100%;
+    padding: 26px;
+    box-sizing: border-box;
+
+    color: white;
+    font-size: 30px;
+    font-weight: 600;
+}
+
+.Filter2 {
+    text-align: right;
+}
+
+.Filter3, .Filter4 , .Filter5 {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
