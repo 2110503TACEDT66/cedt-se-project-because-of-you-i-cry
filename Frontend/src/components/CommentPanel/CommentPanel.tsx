@@ -12,10 +12,7 @@ export default function CommentPanel({ CommentArray }: { CommentArray: any }) {
   const indexOfFirstComment = indexOfLastComment - commentsPerPage;
 
   // Get the comments to display on the current page
-  const currentComments = CommentArray.slice(
-    indexOfFirstComment,
-    indexOfLastComment
-  );
+  const currentComments = CommentArray.slice(indexOfFirstComment, indexOfLastComment);
 
   // Function to handle page change
   const handlePageChange = (pageNumber: number) => {
@@ -28,30 +25,35 @@ export default function CommentPanel({ CommentArray }: { CommentArray: any }) {
   return (
     <div className={styles.fullBlock}>
       <div className={styles.addCommentBlock}>
-        <AddCommentCard/>
+        <AddCommentCard />
       </div>
       <div className={styles.commentBlock}>
         {currentComments.map((comment: any, index: number) => (
-          <CommentCard
-            key={index}
-            name={comment.name}
-            rating={comment.rating}
-            comment={comment.comment}
-          />
+          <CommentCard key={index} name={comment.name} rating={comment.rating} comment={comment.comment} />
         ))}
       </div>
       <div className={styles.pagination}>
+        <div
+          className={`${styles.pageArrow} ${currentPage === 1 ? styles.disabledArrow : ""}`}
+          onClick={() => currentPage > 1 && handlePageChange(currentPage - 1)}
+        >
+          {"<"}
+        </div>
         {Array.from({ length: totalPages }, (_, i) => i + 1).map((page) => (
           <div
             key={page}
-            className={`${styles.pageBullet} ${
-              currentPage === page ? styles.activeBullet : ""
-            }`}
+            className={`${styles.pageBullet} ${currentPage === page ? styles.activeBullet : ""}`}
             onClick={() => handlePageChange(page)}
           >
             •
           </div>
         ))}
+        <div
+          className={`${styles.pageArrow} ${currentPage === totalPages ? styles.disabledArrow : ""}`}
+          onClick={() => currentPage < totalPages && handlePageChange(currentPage + 1)}
+        >
+          {">"}
+        </div>
       </div>
     </div>
   );

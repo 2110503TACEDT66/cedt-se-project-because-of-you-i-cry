@@ -11,7 +11,7 @@ import styles from "./page.module.css";
 import LinkIcon from "@mui/icons-material/Link";
 import LocationOnIcon from "@mui/icons-material/LocationOn";
 import { Swiper, SwiperSlide } from "swiper/react";
-import { Navigation, Pagination, Scrollbar, A11y } from "swiper/modules";
+import { Autoplay , Navigation, Pagination, Scrollbar, A11y } from "swiper/modules";
 import "swiper/css";
 import "swiper/css/navigation";
 import "swiper/css/pagination";
@@ -251,16 +251,21 @@ export default function CampgroundDetailPage({
         <div className={styles.rowBlock}>
           <div className={styles.pictureBlock}>
             <Swiper
-              modules={[Navigation, Pagination, Scrollbar, A11y]}
+              modules={[Navigation, Pagination, Scrollbar, A11y , Autoplay ]}
               spaceBetween={50}
               slidesPerView={1}
-              navigation
-              pagination={{
-                dynamicBullets: true,
-                clickable: true,
-                //currentClass: 'pagination',
-                //el: '.swiper-pagination-custom'
+              loop={true}
+              autoplay={{
+                delay:2500,
+                disableOnInteraction: false,
               }}
+              pagination={{
+                clickable: true,
+                bulletClass: `swiper-pagination-bullet ${styles.swiperPaginationBullet}`,
+                bulletActiveClass: `swiper-pagination-bullet-active ${styles.swiperPaginationBulletActive}`,
+              }}
+
+              className={styles.swiperContainer}
             >
               <div>
                 <SwiperSlide className={styles.slideBlock}>
