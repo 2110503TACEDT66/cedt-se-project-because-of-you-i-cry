@@ -27,7 +27,6 @@ export default function ReservationBooking() {
   const [userImage, setuserImage] = useState("");
   const [userEmail, setuserEmail] = useState("");
   const [userTel, setuserTel] = useState("");
-  const [isOpened, setisOpened] = useState({});
   const [ready, setReady] = useState(false);
 
   const fetchData = async () => {
@@ -82,19 +81,25 @@ export default function ReservationBooking() {
           </div>
         </div>
       </div>
-      <div
-        className={`w-[80%] bg-[#F5F5F5] rounded-[36px] h-[60vh] overflow-y-scroll overflow-x-hidden flex flex-col 
-        justify-start items-center ${styles.bookinglist} overscroll-y-contain`}
-      >
-        {reservations && reservations.length > 0 ? (
-          reservations.map((reservationItem) => <BookingCard />)
-        ) : ready ? (
-          <h1 className="text-center text-2xl m-16">"No Campground Booking"</h1>
-        ) : (
-          <h1 className="text-center text-2xl m-16">
-            Campground Booking Loading...
-          </h1>
-        )}
+      <div className="w-[80%] bg-[#F5F5F5] rounded-[20px] p-2 flex flex-col justify-center items-center overflow-hidden">
+        <div
+          className={`w-[100%] bg-[#F5F5F5] h-[60vh] overflow-y-scroll overflow-x-hidden flex flex-col 
+        justify-start items-center ${styles.bookinglist} overscroll-y-contain py-4`}
+        >
+          {reservations && reservations.length > 0 ? (
+            reservations.map((reservationItem) => (
+              <BookingCard campgroundDetail={reservationItem} role={role} />
+            ))
+          ) : ready ? (
+            <h1 className="text-center text-2xl m-16">
+              "No Campground Booking"
+            </h1>
+          ) : (
+            <h1 className="text-center text-2xl m-16">
+              Campground Booking Loading...
+            </h1>
+          )}
+        </div>
       </div>
     </div>
   );
