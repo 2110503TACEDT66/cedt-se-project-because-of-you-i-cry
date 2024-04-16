@@ -49,7 +49,7 @@ export default function ReservationBooking() {
   useEffect(() => {}, [reservations]);
 
   return (
-    <div className="w-full mt-[5vh] space-y-8 flex flex-col justify-center items-center">
+    <div className="w-full mt-[5vh] space-y-8 flex flex-col justify-center items-center font-poppins3">
       <div className="w-full h-[15vh] bg-[#F5E5CB] flex flex-row justify-center items-center">
         <div className="w-[80%] h-full flex flex-row justify-start items-start">
           <div className="min-w-[40%] max-w-[100%] h-full bg-white flex flex-row justify-center items-center">
@@ -91,11 +91,11 @@ export default function ReservationBooking() {
               <BookingCard campgroundDetail={reservationItem} role={role} />
             ))
           ) : ready ? (
-            <h1 className="text-center text-2xl m-16">
+            <h1 className="text-center text-2xl m-12 font-poppins3">
               "No Campground Booking"
             </h1>
           ) : (
-            <h1 className="text-center text-2xl m-16">
+            <h1 className="text-center text-2xl m-12 font-poppins3">
               Campground Booking Loading...
             </h1>
           )}
