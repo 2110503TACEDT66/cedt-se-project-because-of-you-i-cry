@@ -190,9 +190,21 @@ export default function Profile() {
               <button
                 className="rounded-md bg-[#285F3E] hover:bg-green-600 px-8 py-2
               shadow-sm text-white text-bold right-0 bottom-0 mt-4"
-                onClick={() => {
+                onClick={async () => {
                   if (id && session.data.user.token) {
-                    updateUser(id, name, email, tel, session.data.user.token);
+                    const dataupdated = await updateUser(
+                      id,
+                      name,
+                      email,
+                      tel,
+                      session.data.user.token
+                    );
+
+                    if (dataupdated && dataupdated.success) {
+                      alert("User information saved successfully!");
+                    } else {
+                      alert("User information update failed!!");
+                    }
                   }
                 }}
               >
