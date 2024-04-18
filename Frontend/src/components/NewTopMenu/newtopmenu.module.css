@@ -147,8 +147,11 @@ body:has(.campgroundBlock:hover) .homeBlock {
   text-align: center;
   color: #f3f1eb;
   font-size: 1.25rem;
-  padding-top: 2%;
+  /* padding-top: 2%; */
   margin-right: 5%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 body:has(.mybookingBlock:hover) .homeBlock {

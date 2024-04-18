@@ -104,7 +104,10 @@ body:has(.homeBlock:hover) .campgroundBlock {
   padding: 2px 14px;
   text-decoration: none;
   cursor: pointer;
-  display: inline-block;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
   transition: background-color 0.15s, color 0.15s, border-color 0.15s;
 }
 
@@ -145,16 +148,19 @@ body:has(.homeBlock:hover) .campgroundBlock {
   text-align: center;
   color: #000000;
   font-size: 1.25rem;
-  padding-top: 2%;
+  /* padding-top: 2%; */
   margin-right: 5%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
-body:has(.mybookingBlock:hover) .homeBlock {
-  border-bottom: 0px solid #ffffff;
+body:has(.mybookingBlock:hover) .campgroundBlock {
+  border-bottom: 0px solid #000000;
   transition: 400ms;
 }
 
 .mybookingBlock:hover {
-  border-bottom: 6px solid #ffffff;
+  border-bottom: 6px solid #000000;
   transition: 400ms;
 }
