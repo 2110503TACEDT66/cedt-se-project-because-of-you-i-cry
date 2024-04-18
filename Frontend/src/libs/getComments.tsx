@@ -3,7 +3,7 @@
 export default async function getComments(id: string) {
   const BACKEND_URL = process.env.BACKEND_URL
   const response = await fetch(
-    `${BACKEND_URL}/api-informations/campgrounds/${id}/comment`
+    `${BACKEND_URL}/api-informations/campgrounds/${id}/comment`, {cache : 'no-store'}
   );
 
   if (!response.ok) {
