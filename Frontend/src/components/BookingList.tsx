@@ -31,6 +31,7 @@ export default function ReservationBooking() {
 
   const fetchData = async () => {
     if (session.data?.user) {
+      console.log(session)
       const res = await getBookings(session.data.user.token);
       const roleuser = await getUserProfile(session.data.user.token);
       setreservations(res.data);

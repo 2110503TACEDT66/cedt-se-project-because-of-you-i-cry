@@ -133,10 +133,10 @@ const RegisterPage: React.FC = () => {
           <a className="text-[#10561B] mr-2 text-md">
             Already have an account?
           </a>
-          <Link href="/api/auth/login">
-            <a className="text-[#10561B] underline decoration-[#10561B] text-md">
+          <Link href="/api/auth/login" className="text-[#10561B] underline decoration-[#10561B] text-md">
+            
               Login
-            </a>
+            
           </Link>
         </div>
       </div>

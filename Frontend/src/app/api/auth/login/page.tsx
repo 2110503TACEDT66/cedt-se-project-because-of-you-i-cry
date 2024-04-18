@@ -95,10 +95,10 @@ const LoginPage: React.FC = () => {
 
         <div className="mt-4 text-center flex items-center justify-center">
           <a className="text-[#10561B] mr-2 text-md">Don't have an account?</a>
-          <Link href="/api/auth/register">
-            <a className="text-[#10561B] underline decoration-[#10561B] text-md">
+          <Link href="/api/auth/register" className="text-[#10561B] underline decoration-[#10561B] text-md">
+          
               Register
-            </a>
+            
           </Link>
         </div>
       </div>
