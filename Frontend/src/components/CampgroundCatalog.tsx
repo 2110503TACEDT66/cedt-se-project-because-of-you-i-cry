@@ -10,7 +10,7 @@ import Autocomplete from "@mui/material/Autocomplete";
 
 import CircularProgress, {
   circularProgressClasses,
-  CircularProgressProps
+  CircularProgressProps,
 } from "@mui/material/CircularProgress";
 import { linearProgressClasses } from "@mui/material/LinearProgress";
 const BorderLinearProgress = styled(LinearProgress)(({ theme }) => ({
@@ -18,15 +18,22 @@ const BorderLinearProgress = styled(LinearProgress)(({ theme }) => ({
   borderRadius: 5,
   [`&.${linearProgressClasses.colorPrimary}`]: {
     backgroundColor:
-      theme.palette.grey[theme.palette.mode === "light" ? 200 : 800]
+      theme.palette.grey[theme.palette.mode === "light" ? 200 : 800],
   },
   [`& .${linearProgressClasses.bar}`]: {
     borderRadius: 5,
-    backgroundColor: theme.palette.mode === "light" ? "#1a90ff" : "#308fe8"
-  }
+    backgroundColor: theme.palette.mode === "light" ? "#1a90ff" : "#308fe8",
+  },
 }));
+
+const urlParams = new URLSearchParams(window.location.search);
+const provinceParam = urlParams.get("province");
+const formattedProvince = provinceParam
+  ? provinceParam.split(/(?=[A-Z])/).join(" ")
+  : "";
+
 export default function CampgroundCatalog({
-  campgroundJson
+  campgroundJson,
 }: {
   campgroundJson: Promise<CampgroundJson>;
 }) {
@@ -34,7 +41,8 @@ export default function CampgroundCatalog({
   const [valueMin, setMinValue] = useState<number | null>(null);
   const [selectedStars, setSelectedStars] = useState<number>(0);
   const [searchQuery, setSearchQuery] = useState<string>("");
-  const [selectedProvince, setSelectedProvince] = useState<string>("");
+  const [selectedProvince, setSelectedProvince] =
+    useState<string>(formattedProvince);
   const handleStarChange = (value: number) => {
     setSelectedStars(value);
   };
@@ -115,7 +123,7 @@ async function ListCampground({
   valueMin,
   valueMax,
   searchQuery,
-  selectedProvince
+  selectedProvince,
 }: {
   campgroundJson: Promise<CampgroundJson>;
   selectedStars: number;
@@ -182,7 +190,7 @@ function FilterPanel({
   valueMin,
   valueMax,
   selectedProvince,
-  handleProvinceChange
+  handleProvinceChange,
 }: {
   children: React.ReactNode;
   handleStarChange: (value: number) => void;
@@ -206,6 +214,7 @@ function FilterPanel({
                   onChange={(event, newValue) =>
                     handleProvinceChange(newValue || "")
                   }
+                  sx={{ backgroundColor: "white" }}
                   options={[
                     "Chiang Rai",
                     "Chiang Mai",
@@ -283,7 +292,7 @@ function FilterPanel({
                     "Krabi",
                     "Phang Nga",
                     "Phuket",
-                    "Trang"
+                    "Trang",
                   ]}
                   renderInput={(params) => (
                     <TextField

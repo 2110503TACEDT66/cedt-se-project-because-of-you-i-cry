@@ -30,7 +30,9 @@ export default function Card({
         </div>
 
         <div className="w-[65%] h-full text-left p-2 my-auto">
-          <div className="text-lg text-wrap font-inter pt-2">{campgroundName}</div>
+          <div className="text-lg text-wrap font-inter pt-2">
+            {campgroundName}
+          </div>
           <div className="text-lg items-center flex">
             <Rating
               name="campground rating"
@@ -58,7 +60,7 @@ export default function Card({
           <div className="text-xl text-black mb-2 font-inter">THB {price}</div>
 
           <div>
-            <button className="text-base p-2 bg-[#285F3E] rounded-lg text-white font-inter">
+            <button className="text-base p-2 bg-[#285F3E] rounded-lg text-white font-inter hover:bg-[#193d27]">
               Check Availability
             </button>
           </div>
