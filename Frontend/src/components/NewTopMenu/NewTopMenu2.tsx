@@ -4,7 +4,7 @@ import TopMenuItem from "../TopMenuItem";
 import { getServerSession } from "next-auth";
 import { authOptions } from "@/app/api/auth/[...nextauth]/route";
 import Link from "next/link";
-
+import BackgroundLetterAvatars from "../profile";
 export default async function NewTopMenu() {
   const session = await getServerSession(authOptions);
   return (
@@ -38,14 +38,7 @@ export default async function NewTopMenu() {
             </div>
             <div className={styles.profileBlock}>
               <Link href="/profile/information">
-                <Image
-                  src={session.user._id ? session.user.name : "/img/logo2.png"}
-                  className={styles.profilePicture}
-                  alt="logo"
-                  width={0}
-                  height={0}
-                  sizes="100vh"
-                />
+                <BackgroundLetterAvatars/>
               </Link>
             </div>
           </div>
