@@ -1,4 +1,4 @@
-//const fetch = require("node-fetch");
+'use server'
 import { UserJson } from "../../interface";
 
 export default async function getUserProfile(token: string): Promise<UserJson> {

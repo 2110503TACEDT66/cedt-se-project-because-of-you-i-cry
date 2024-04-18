@@ -1,3 +1,4 @@
+'use server'
 import { CampgroundItem, BookingJson } from "../../interface";
 //const fetch = require("node-fetch");
 

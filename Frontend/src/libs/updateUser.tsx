@@ -1,4 +1,4 @@
-//const fetch = require("node-fetch");
+'use server'
 
 export default async function updateUser(
   userid: string,

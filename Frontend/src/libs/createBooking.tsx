@@ -1,3 +1,4 @@
+'use server'
 import { CreateBookingItem } from "../../interface";
 
 const createBooking = async (campground: CreateBookingItem, token: string) => {

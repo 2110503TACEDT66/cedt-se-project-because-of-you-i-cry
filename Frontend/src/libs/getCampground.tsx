@@ -1,3 +1,4 @@
+'use server'
 import { CampgroundItem } from "../../interface";
 //const fetch = require("node-fetch");
 

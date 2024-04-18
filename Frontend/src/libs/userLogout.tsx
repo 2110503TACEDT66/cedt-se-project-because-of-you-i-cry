@@ -1,3 +1,5 @@
+'use server'
+
 export default async function userLogOut() {
   const BACKEND_URL = process.env.BACKEND_URL
   const response = await fetch(

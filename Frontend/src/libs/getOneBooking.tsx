@@ -1,3 +1,4 @@
+'use server'
 import { BookingJson, BookingItem, BookingOneJson } from "../../interface";
 //const fetch = require("node-fetch");
 

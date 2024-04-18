@@ -1,3 +1,4 @@
+'use server'
 import { CampgroundJson } from "../../interface";
 //const fetch = require("node-fetch");
 const BACKEND_URL = process.env.BACKEND_URL
