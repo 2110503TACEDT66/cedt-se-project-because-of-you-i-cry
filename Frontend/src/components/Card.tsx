@@ -31,13 +31,15 @@ export default function Card({
 
         <div className="w-[65%] h-full text-left p-2 my-auto">
           <div className="text-lg text-wrap font-inter pt-2">{campgroundName}</div>
-          <div className="text-lg items-end content-end">
+          <div className="text-lg items-center flex">
             <Rating
               name="campground rating"
               defaultValue={rating}
               max={5}
+              precision={0.1}
               readOnly
             />
+            <div ml-2>({rating})</div>
           </div>
           <div className="flex items-center text-base font-medium text-black font-inter">
             <img
