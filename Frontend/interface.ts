@@ -93,6 +93,25 @@ export interface CampgroundJson {
   count: number;
   pagination: Object;
   data: CampgroundItem[];
+} 
+
+export interface CommentItem {
+  _id: string;
+  campground_id: string;
+  user_id: User;
+  text: string;
+  user_rating: number;
+}
+
+export interface Comments {
+  success: boolean;
+  count: number;
+  data: CommentItem[];
+}
+
+export interface User {
+  _id: string;
+  name: string;
 }
 
 export interface UserJson {

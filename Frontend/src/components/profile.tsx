@@ -80,4 +80,8 @@ export default function BackgroundLetterAvatars() {
       <Avatar {...stringAvatar(userProfile.data.name)} />
     </Stack>
   );
+<<<<<<< HEAD
 }
+=======
+}
+>>>>>>> 5b6ca56cb29074a40aba790bbcf6715221682dfe
