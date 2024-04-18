@@ -62,26 +62,34 @@ export default function NewEditBooking() {
     if (id && bookingResponse && session.data) {
       try {
         if (checkin == null) {
-          updateBooking(id, bookingResponse.apptDate, session.data.user.token);
-        } else {
-          updateBooking(
-            id,
-            dayjs(checkin).toISOString(),
-            session.data.user.token
-          );
+          alert("Please select a new date for your booking.");
+          return;
+        }
+
+        // Check if the new appointment date is today or before
+        const newApptDate = dayjs(checkin);
+        const today = dayjs();
+        if (newApptDate.isBefore(today)) {
+          alert("You cannot update the booking to today or a past date.");
+          return;
+        }
+
+        updateBooking(
+          id,
+          dayjs(checkin).toISOString(),
+          session.data.user.token
+        );
+
+        alert("Edit success");
+        if (router) {
+          window.location.reload();
+          window.location.href = "/mybooking";
         }
       } catch (error) {
         console.log(error);
       }
-      // dispatch(addBooking(item));
-      alert("edit success");
-      if (router) {
-        // alert("Login success");
-        window.location.reload();
-        window.location.href = "/profile/booking";
-      }
     } else {
-      alert("the data did not change");
+      alert("Please select a new date for your booking.");
     }
   };
 
