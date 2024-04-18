@@ -308,6 +308,7 @@ export default function CampgroundDetailPage({
                           //alert("set Check IN")
                           setCheckin(value);
                         } else {
+                          setCheckin(null);
                           alert(
                             "Please select a date other than today and before today."
                           );
