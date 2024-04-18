@@ -214,7 +214,6 @@ exports.createComment = async (req, res, next) => {
       if(comment) {
         const updateCampgroundArray = await Campground.findByIdAndUpdate(comment.campground_id , {"$push" : {"comments" : comment._id}})
       }
-      res.status(200).json({ success: true, data: comment });
     }
     else {
       return res.status(400).json({ success: false, message: "You can only comment on campgrounds you have visited in the past."});
