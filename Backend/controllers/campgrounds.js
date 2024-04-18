@@ -292,7 +292,7 @@ exports.deleteComment = async (req, res, next) => {
 
 exports.getComment = async (req, res, next) => {
   try {
-    const comments = await Comment.find();
+    const comments = await Comment.find().populate('user_id', 'name');
 
     res.status(200).json({
       success: true,
