@@ -27,6 +27,8 @@
 .rightBlock{
     width: 34.3984%;
     flex-direction: column;
+    display: flex;
+    justify-content: space-between;
     /* background-color: green; */
 }
 
@@ -112,7 +114,7 @@
 
 .datePicker{
     padding-bottom: 5% ;
-    width: 28.5%;
+    width: 45%;
 }
 
 .botLeft{

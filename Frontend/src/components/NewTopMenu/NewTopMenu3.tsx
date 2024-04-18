@@ -4,8 +4,10 @@ import TopMenuItem from "../TopMenuItem";
 import { getServerSession } from "next-auth";
 import { authOptions } from "@/app/api/auth/[...nextauth]/route";
 import Link from "next/link";
+import SettingsIcon from "@mui/icons-material/Settings";
+import LogoutIcon from "@mui/icons-material/Logout";
 
-export default async function NewTopMenu() {
+export default async function NewTopMenu3() {
   const session = await getServerSession(authOptions);
   return (
     <div className={styles.fullBar}>
@@ -42,16 +44,32 @@ export default async function NewTopMenu() {
               </Link>
             </div>
             <div className={styles.profileBlock}>
-              <Link href="/profile/information">
-                <Image
-                  src={session.user._id ? session.user.name : "/img/logo2.png"}
-                  className={styles.profilePicture}
-                  alt="logo"
-                  width={0}
-                  height={0}
-                  sizes="100vh"
-                />
-              </Link>
+              <div className={styles.profileContainer}>
+                  <Image
+                    src={
+                      session.user._id ? session.user.name : "/img/logo2.png"
+                    }
+                    className={styles.profilePicture}
+                    alt="logo"
+                    width={0}
+                    height={0}
+                    sizes="100vh"
+                  />
+                <div className={styles.profileDropdown}>
+                  {/* <div className={styles.editProfile}> */}
+                    <Link href="/profile/information" className={styles.dropdownItem}>
+                    <SettingsIcon className={styles.dropdownIcon} />
+                      Edit Profile
+                    </Link>
+                  {/* </div>
+                  <div className={styles.logout}> */}
+                    <Link href="/api/auth/logout" className={styles.dropdownItem}>
+                    <LogoutIcon className={styles.dropdownIcon} />
+                      Logout
+                    </Link>
+                  {/* </div> */}
+                </div>
+              </div>
             </div>
           </div>
         ) : (
