@@ -17,6 +17,8 @@ const LoginPage: React.FC = () => {
 
     try {
       const result = await signIn("credentials", {
+        email,
+        password,
         redirect: false,
       });
 
