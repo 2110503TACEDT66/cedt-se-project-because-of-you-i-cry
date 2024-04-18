@@ -1,0 +1,56 @@
+.fullBlock {
+    width: 83vw;
+    background-color: #f8f5f0;
+    padding-bottom: 5vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    border-radius: 10px;
+    border: #b9b9b9 solid 1px;
+  }
+  
+  .commentBlock {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    margin-top: 5vh;
+    align-items: center;
+    gap: 1.4rem;
+  }
+  
+  .pagination {
+    display: flex;
+    justify-content: center;
+    margin-top: 2rem;
+    gap: 0.5rem;
+    align-items: center;
+  }
+  
+  .pageBullet {
+    font-size: 1.75rem;
+    cursor: pointer;
+    color: #d9d9d9;
+  }
+  
+  .activeBullet {
+    color: #8e8e8e;
+  }
+  
+  .addCommentBlock {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  
+  .pageArrow {
+    font-size: 1.75rem;
+    cursor: pointer;
+    color: #8e8e8e;
+    margin: 0 0.5rem;
+  }
+
+  .disabledArrow {
+    color: #d9d9d9;
+    cursor: not-allowed;
+  }

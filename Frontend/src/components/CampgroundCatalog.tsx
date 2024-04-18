@@ -132,7 +132,7 @@ async function ListCampground({
   return (
     <div
       className={`border ${showBorder ? 'border-black' : 'border-transparent'} rounded-lg px-3 pr-7 pt-2 pb-4`}
-      style={{ maxHeight: "500px", overflowY: "auto", overflowX: "hidden" }}
+      style={{ maxHeight: "70vh", overflowY: "auto", overflowX: "hidden" }}
     >
       {filteredData.map((campgroundItem) => (
         <Link
