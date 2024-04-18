@@ -1,4 +1,4 @@
-'use server'
+"use server";
 
 export default async function updateUser(
   userid: string,
@@ -24,15 +24,6 @@ export default async function updateUser(
     }
   );
 
-  let alertMessage = "";
-
-  if (response.ok) {
-    alertMessage = "User information saved successfully!";
-  } else {
-    alertMessage = `Failed to update user, try to use another email or telephone number.`;
-  }
-
-  alert(alertMessage);
   if (!response.ok) {
     return null;
   }
