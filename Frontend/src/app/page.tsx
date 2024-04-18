@@ -7,13 +7,15 @@ import PromoteCard from "@/components/PromoteCard";
 import TopCampground from "@/components/TopCampground";
 import TrendingNow from "@/components/trendingnow";
 import ExploreThailand from "@/components/ExploreThailand";
+import NewTopMenu from "@/components/NewTopMenu/NewTopMenu";
 
 export default function Home() {
   return (
     <main style={{ backgroundColor: "ghostwhite" }}>
-      <Banner/>
-      <TrendingNow/>
-      <ExploreThailand/>
+      <NewTopMenu />
+      <Banner />
+      <TrendingNow />
+      <ExploreThailand />
     </main>
   );
 }

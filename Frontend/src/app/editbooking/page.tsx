@@ -10,8 +10,12 @@ import { useState, useEffect } from "react";
 import { FormControl } from "@mui/material";
 import dayjs, { Dayjs } from "dayjs";
 import Image from "next/image";
+import styles from "./page.module.css";
+import LocationOnIcon from "@mui/icons-material/LocationOn";
+import LinkIcon from "@mui/icons-material/Link";
+import deleteBooking from "@/libs/deleteBooking";
 
-export default function EditBooking() {
+export default function NewEditBooking() {
   const router = useRouter();
   const session = useSession();
   // console.log(session.data.user);
@@ -24,6 +28,7 @@ export default function EditBooking() {
   const [name, setName] = useState<null | string>(null);
   const [email, setEmail] = useState<null | string>(null);
   const [tel, setTel] = useState<null | string>(null);
+  const [isDeleting, setisDeleting] = useState(false);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -81,108 +86,118 @@ export default function EditBooking() {
   };
 
   return (
-    <main className="w-[100%]  block items-center space-y-4 mb-10 justify-center">
-      <div className="text-2xl mx-5 mt-10 text-center relative">
-        {bookingResponse?.campground.name}
-      </div>
-      <div className="text-sm mx-5 text-center relative text-gray-500">
-        bookingID: {bookingResponse?._id}
-      </div>
-      <div
-        className="w-[100%] h-[65vh] items-center content-center
-                      space-x-5 flex flex-col relative"
-      >
-        <div className="w-[73%] text-left text-xl">Booking Detail:</div>
-        <FormControl
-          className="w-[100%] h-[90%] space-x-16 flex items-center justify-center relative"
-          style={{ flexDirection: "row" }}
-        >
-          <div className="w-[35%] h-[90%] border border-black rounded-xl flex flex-col relative overflow-y-auto overflow-x-none">
-            <div className="px-5 pt-5 pb-1 flex flex-row flex-wrap">
-              <div className="mr-2 w-[5%] mb-2">
-                <Image
-                  src={"/img/location.png"}
-                  alt="location"
-                  width={30}
-                  height={30}
-                />
+    <main>
+      <FormControl className={styles.page}>
+        <div className={styles.fullBlock}>
+          <div className={styles.leftBlock}>
+            <div className={styles.topLeft}>
+              <div className={styles.campName}>
+                {bookingResponse?.campground.name}
               </div>
-              <div>
-                {bookingResponse?.campground?.address}
-                {bookingResponse?.campground?.district} district,{" "}
-                {bookingResponse?.campground?.province}
-                {bookingResponse?.campground?.postalcode}
-              </div>
-            </div>
-            <a
-              href={bookingResponse?.campground.url}
-              className="flex items-center text-blue-500"
-            >
-              <div className="pl-5 text-sm flex items-center">
-                Visit campground website
-                <Image
-                  src={"/img/link.png"}
-                  alt="location"
-                  width={20}
-                  height={20}
-                  className="ml-2"
-                />
-              </div>
-            </a>
-            <div className="border-b border-black">
-              <div
-                className="mt-4 w-[100%] flex flex-row items-center justify-center space-x-5 p-5"
-                style={{ flexDirection: "row" }}
-              >
-                <div className="text-right">New Date</div>
-                <div>
-                  <DateReserve
-                    onDateChange={(value: Dayjs) => {
-                      setCheckin(value);
-                    }}
-                  />
+              <div className={styles.rowBlock}>
+                <div className={styles.iconBlock}>
+                  <LocationOnIcon className={styles.icon} />
+                </div>
+                <div className={styles.detailBlock}>
+                  <div className={styles.address}>
+                    {bookingResponse?.campground?.address}
+                    {bookingResponse?.campground?.district} district,{" "}
+                    {bookingResponse?.campground?.province}{" "}
+                    {bookingResponse?.campground?.postalcode}
+                  </div>
+                  <div className={styles.campLink}>
+                    <a href={bookingResponse?.campground.url}>
+                      Visit campground website{" "}
+                      <LinkIcon style={{ transform: "rotate(135deg)" }} />
+                    </a>
+                  </div>
+                  <div className={styles.checkIn}>Check In</div>
+                  <div className={styles.datePicker}>
+                    <DateReserve
+                      onDateChange={(value: Dayjs) => {
+                        setCheckin(value);
+                      }}
+                    />
+                  </div>
                 </div>
               </div>
             </div>
-            <div className="pt-5 pl-5 text-xl">Contact Information</div>
-            <div className="pt-3 pl-10 pb-5 text-gray-500">
-              <div>Name: {name}</div>
-              <div>Email: {email}</div>
-              <div>Tel: {tel}</div>
+            <div className={styles.botLeft}>
+              <div className={styles.contact}>Contact Information</div>
+              <div className={styles.rowBlock2}>
+                <div className={styles.iconBlock}>
+                  <LocationOnIcon style={{ color: "white", opacity: 0 }} />
+                </div>
+                <div className={styles.detailBlock2}>
+                  <div>Name : {name}</div>
+                  <div>Email : {email}</div>
+                  <div>Tel : {tel}</div>
+                </div>
+              </div>
             </div>
           </div>
-          <div className="w-[35%] h-[90%] flex flex-col justify-start content-start border border-black rounded-xl relative">
-            <div className="text-lg text-left w-[100%] pl-10 pt-10">Price</div>
-            <div className="text-2xl text-left w-[100%] h-[20%] pl-10">
-              THB {bookingResponse?.campground.price}/night
+          <div className={styles.rightBlock}>
+            <div className={styles.topRight}>
+              <div className={styles.priceBlock}>
+                <div className={styles.priceHead}>Price</div>
+                <div className={styles.priceDetail}>
+                  THB {bookingResponse?.campground.price}/night
+                </div>
+              </div>
+              <div className={styles.dateBlock}>
+                <div className={styles.dateHead}>Date</div>
+                <div className={styles.dateDetail}>
+                  {dayjs(bookingResponse?.apptDate).format("YYYY/MM/DD")}
+                </div>
+              </div>
+              <div className={styles.buttonBlock}>
+                <button
+                  type="submit"
+                  name="cancel"
+                  onClick={() => router.back()}
+                  className={styles.cancel}
+                >
+                  Cancel
+                </button>
+                <button
+                  type="submit"
+                  name="save"
+                  onClick={updateReservation}
+                  className={styles.save}
+                >
+                  Save
+                </button>
+              </div>
             </div>
-            <div className="text-lg text-left w-[100%] h-[30%] pl-10">
-              Current Date:{" "}
-              {dayjs(bookingResponse?.apptDate).format("YYYY/MM/DD")}
-            </div>
-            <div className="w-[100%] h-[20%] flex flex-row justify-center items-center space-x-10 my-5">
+            <div className={styles.botRight}>
               <button
                 type="submit"
-                name="Book Vaccine"
-                className="block rounded-lg bg-orange-600 hover:bg-white hover:ring-red-300 hover:text-orange-600
-                           px-3 py-2 text-white shadow-sm w-[30%] border-2 border-orange-600"
-                onClick={() => router.back()}
+                name="delete"
+                className={styles.delete}
+                disabled={isDeleting}
+                onClick={async () => {
+                  if (session.data) {
+                    setisDeleting(true);
+                    try {
+                      await deleteBooking(
+                        id as string,
+                        session.data?.user.token
+                      );
+                      router.back();
+                    } catch (error) {
+                      console.log(error);
+                    } finally {
+                      setisDeleting(false);
+                    }
+                  }
+                }}
               >
-                Cancel
-              </button>
-              <button
-                type="submit"
-                name="Book Vaccine"
-                className="block rounded-lg bg-orange-600 hover:bg-green-600 hover:ring-green-300 
-          px-3 py-2 text-white shadow-sm w-[30%] border-2 border-orange-600 hover:border-green-300"
-                onClick={updateReservation}
-              >
-                Save edit
+                Delete this booking
               </button>
             </div>
           </div>
-        </FormControl>
-      </div>
+        </div>
+      </FormControl>
     </main>
   );
 }

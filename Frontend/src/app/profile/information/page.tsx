@@ -55,7 +55,7 @@ export default function Profile() {
   if (!name && !email && !tel) return null;
 
   return (
-    <div className="w-full h-full flex flex-row justtify-center items-center">
+    <div className="w-full h-full flex flex-row justtify-center items-center h-[100vh] w-[100vw] pt-[9.5vh]">
       <Suspense
         fallback={
           <p className="m-10">
