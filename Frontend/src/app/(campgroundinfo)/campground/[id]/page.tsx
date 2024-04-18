@@ -30,7 +30,8 @@ import {
 } from "../../../../../interface";
 import CommentCard from "@/components/CommentCard/CommentCard";
 import CommentPanel from "@/components/CommentPanel/CommentPanel";
-
+import getComments from "@/libs/getComments";
+import { Comments } from "../../../../../interface";
 export default function CampgroundDetailPage({
   params,
 }: {
@@ -38,6 +39,12 @@ export default function CampgroundDetailPage({
 }) {
   const [campgroundReady, setCampgroundReady] = useState<any>(null);
   const [showSuccessModal, setShowSuccessModal] = useState(false);
+  const [campgroundData, setCampgroundData] = useState(null);
+  const [commentsData, setCommentsData] = useState<Comments>({
+    success: false,
+    count: 0,
+    data: []
+});
   const session = useSession();
   const router = useRouter();
   const urlParams = useSearchParams();
@@ -66,151 +73,34 @@ export default function CampgroundDetailPage({
       } catch (error) {
         console.log(error);
       }
-      // dispatch(addBooking(item));
-      // router.push("/success");
     } else {
       alert("Please Choose your campground to reserve");
     }
   };
 
-  if (!campgroundReady) return <p>Campground Loading ...</p>;
-
-
-  const commentsData = [
-    {
-      name: "Name of comment's owner",
-      rating: 5,
-      comment: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam",
-    },
-    {
-      name: "Bob sleepy af helpp meeeeeeeeeeeeeeeeeeeeeeeeeeee",
-      rating: 4,
-      comment: "Great product! Really enjoyed using it. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniamLorem ipsum dolor sit amet, consectetur adipiscing  et dolore magna aliqua. Ut enim ad minim veniam",
-    },
-    {
-      name: "Charlie",
-      rating: 3,
-      comment: "It's good, but there is room for improvement.",
-    },
-    {
-      name: "Dana",
-      rating: 2,
-      comment: "Not very satisfied with the quality.",
-    },
-    {
-      name: "Eve",
-      rating: 4,
-      comment: "Nice experience overall, but a bit pricey.",
-    },
-    {
-      name: "Frank",
-      rating: 5,
-      comment: "An amazing product! I highly recommend it.",
-    },
-    {
-      name: "Grace",
-      rating: 3,
-      comment: "Decent quality, but not quite what I expected.",
-    },
-    {
-      name: "Hank",
-      rating: 4,
-      comment: "Good value for the price, will buy again.",
-    },
-    {
-      name: "Ivy",
-      rating: 2,
-      comment: "Disappointed with the performance.",
-    },
-    {
-      name: "Jack",
-      rating: 5,
-      comment: "Top-notch! Can't wait to order again.",
-    },
-    {
-      name: "Karen",
-      rating: 3,
-      comment: "Okay, but not great.",
-    },
-    {
-      name: "Leo",
-      rating: 4,
-      comment: "Really nice product, but could be better.",
-    },
-    {
-      name: "Mona",
-      rating: 5,
-      comment: "Simply outstanding!",
-    },
-    {
-      name: "Nina",
-      rating: 2,
-      comment: "Not impressed with the quality.",
-    },
-    {
-      name: "Oscar",
-      rating: 4,
-      comment: "Good, but there's some room for improvement.",
-    },
-    {
-      name: "Paula",
-      rating: 5,
-      comment: "Exceeded my expectations! Highly recommend.",
-    },
-    {
-      name: "Quinn",
-      rating: 3,
-      comment: "It's okay, but I've seen better.",
-    },
-    {
-      name: "Rachel",
-      rating: 4,
-      comment: "Good quality, satisfied with my purchase.",
-    },
-    {
-      name: "Sam",
-      rating: 5,
-      comment: "Fantastic! Loved every bit of it.",
-    },
-    {
-      name: "Tina",
-      rating: 2,
-      comment: "Poor performance, not worth the money.",
-    },
-    {
-      name: "Uma",
-      rating: 4,
-      comment: "Overall, a good experience.",
-    },
-    {
-      name: "Vince",
-      rating: 3,
-      comment: "Average product, nothing special.",
-    },
-    {
-      name: "Wendy",
-      rating: 5,
-      comment: "Exceptional quality! Will buy again.",
-    },
-    {
-      name: "Xavier",
-      rating: 4,
-      comment: "Nice product, but some improvements needed.",
-    },
-    {
-      name: "Yara",
-      rating: 3,
-      comment: "Decent, but not outstanding.",
-    },
-    {
-      name: "Zane",
-      rating: 5,
-      comment: "Excellent product! Highly recommend.",
-    },
-  ];
-
   
 
+  useEffect(() => {
+    getCampground(params.id).then((data) => {
+      setCampgroundData(data);
+    });
+
+    getComments(params.id).then((data) => {
+      setCommentsData(data);
+    });
+  }, [params.id]);
+  const fetchComments = async () => {
+    const data = await getComments(params.id);
+    setCommentsData(data);
+};
+
+  if (!campgroundReady) return <p>Campground Loading ...</p>;
+  if (!campgroundData || commentsData.count === 0) {
+    return <p>Loading...</p>;
+  }
+
+  
+  
   return (
     <div className={styles.page}>
       <div className={styles.campgroundBlock}>
@@ -344,9 +234,9 @@ export default function CampgroundDetailPage({
         </div>
       </div> 
       <div className={styles.commentText}>
-        Comment
+        {commentsData.count}
       </div>
-      <CommentPanel CommentArray={commentsData}/>
+      <CommentPanel CommentArray={commentsData} Campground_id={campgroundReady.data._id} fetchComments={fetchComments} />
 
     </div>
   );
