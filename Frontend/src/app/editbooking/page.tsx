@@ -78,7 +78,7 @@ export default function NewEditBooking() {
       if (router) {
         // alert("Login success");
         window.location.reload();
-        window.location.href = "/profile/booking";
+        window.location.href = "/mybooking";
       }
     } else {
       alert("the data did not change");

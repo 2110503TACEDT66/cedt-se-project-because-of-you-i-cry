@@ -16,7 +16,7 @@ export default function CommentCard({
                     {name}
                     <Rating
                         name="comment rating"
-                        defaultValue={rating}
+                        value={rating}
                         max={5}
                         readOnly
                         className={styles.rating}

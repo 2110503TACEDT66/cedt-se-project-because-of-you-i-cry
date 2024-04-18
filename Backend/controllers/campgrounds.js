@@ -197,8 +197,6 @@ exports.deleteCampground = async (req, res, next) => {
 exports.createComment = async (req, res, next) => {
   try {
 
-    const comment = await Comment.create(req.body);
-
     if(req.user.role === 'admin') {
       return res.status(400).json({ success: false });
     }
@@ -207,10 +205,13 @@ exports.createComment = async (req, res, next) => {
       user: req.user.id,
       campground: req.params.id,
     });
-
+    
     const hasPastReservation = reservations.some(reservation => new Date(reservation.apptDate) < new Date());
 
     if(hasPastReservation){
+
+      const comment = await Comment.create(req.body);
+
       if(comment) {
         const updateCampgroundArray = await Campground.findByIdAndUpdate(comment.campground_id , {"$push" : {"comments" : comment._id}})
       }

@@ -22,7 +22,7 @@ export default function AddCommentCard({ campground_id , onCommentAdded}: { camp
 
   const handleAddComment = async () => {
     // Existing code for adding a comment
-    if (userProfile && userRating !== null && commentText && session) {
+    if (userProfile && userRating !== null && session) {
         try {
             const response = await createComment({
                 campground_id,
