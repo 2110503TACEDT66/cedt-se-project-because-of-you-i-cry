@@ -293,22 +293,24 @@ exports.deleteComment = async (req, res, next) => {
 
 exports.getComment = async (req, res, next) => {
   try {
-    
-    const comments = await Comment.find().populate({
+    const campgroundId = req.params.id;
+
+    const comments = await Comment.find({ campground_id: campgroundId }).populate({
       path: 'user_id',
       select: 'name',
     });
-   
+
     res.status(200).json({
       success: true,
       count: comments.length,
       data: comments,
     });
   } catch (error) {
-    console.log(error)
+    console.log(error);
     res.status(400).json({ success: false });
   }
 };
+
 
 exports.updateCampgroundRating = async (req, res, next) => {
 
