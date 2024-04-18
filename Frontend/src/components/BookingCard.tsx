@@ -31,7 +31,7 @@ export default function BookingCard({
             onClick={() => {
               setisOpened(!isOpened);
             }}
-            className={isOpened ? "rotate-0" : "rotate-180"}
+            className={isOpened ? "rotate-180" : "rotate-0"}
           />
         </div>
       </div>
