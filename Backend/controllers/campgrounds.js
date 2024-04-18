@@ -1,3 +1,4 @@
+const User = require("../models/User");
 const Campground = require("../models/Campground");
 const Comment = require('../models/Comment')
 const Reservation =require('../models/Reservation')
@@ -292,14 +293,19 @@ exports.deleteComment = async (req, res, next) => {
 
 exports.getComment = async (req, res, next) => {
   try {
-    const comments = await Comment.find().populate('user_id', 'name');
-
+    
+    const comments = await Comment.find().populate({
+      path: 'user_id',
+      select: 'name',
+    });
+   
     res.status(200).json({
       success: true,
       count: comments.length,
       data: comments,
     });
   } catch (error) {
+    console.log(error)
     res.status(400).json({ success: false });
   }
 };
