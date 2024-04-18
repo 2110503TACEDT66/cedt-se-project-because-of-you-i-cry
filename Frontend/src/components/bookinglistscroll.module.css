@@ -1,0 +1,21 @@
+.bookinglist::-webkit-scrollbar {
+  width: 15px; /* Width of the scrollbar */
+}
+
+/* Track */
+.bookinglist::-webkit-scrollbar-track {
+  background: transparent; /* Color of the scrollbar track */
+}
+
+/* Handle */
+.bookiinglist::-webkit-scrollbar-thumb {
+  background: #d9d9d9; /* Color of the scrollbar thumb */
+  border-radius: 9999px; /* Radius of the scrollbar thumb */
+}
+
+/* Handle on hover */
+.bookinglist::-webkit-scrollbar-thumb:hover {
+  background: #bababa; /* Color of the scrollbar thumb on hover */
+  filter: drop-shadow(0 4px 3px rgb(0 0 0 / 0.07))
+    drop-shadow(0 2px 2px rgb(0 0 0 / 0.06));
+}

@@ -39,8 +39,13 @@ export interface BookingItem {
     postalcode: string;
     tel: string;
     url: string;
-    id: string;
+    maxReservations: number;
+    coverpicture: string;
+    picture: string[];
+    description: string;
     price: number;
+    rating: number;
+    id: string;
   };
   createdAt: string;
 }

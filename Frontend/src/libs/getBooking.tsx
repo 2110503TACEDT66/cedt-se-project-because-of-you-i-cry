@@ -7,6 +7,7 @@ export default async function getBookings(token: string): Promise<BookingJson> {
   const response = await fetch(
     `${BACKEND_URL}/api-informations/reservations`,
     {
+      cache : 'no-store',
       headers: {
         "Content-Type": "application/json",
         authorization: `Bearer ${token}`,
