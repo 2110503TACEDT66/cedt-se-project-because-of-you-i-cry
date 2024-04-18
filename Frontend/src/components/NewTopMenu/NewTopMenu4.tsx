@@ -6,7 +6,7 @@ import { authOptions } from "@/app/api/auth/[...nextauth]/route";
 import Link from "next/link";
 import SettingsIcon from "@mui/icons-material/Settings";
 import LogoutIcon from "@mui/icons-material/Logout";
-
+import BackgroundLetterAvatars from "../profile";
 export default async function NewTopMenu4() {
   const session = await getServerSession(authOptions);
   return (
@@ -45,16 +45,7 @@ export default async function NewTopMenu4() {
             </div>
             <div className={styles.profileBlock}>
               <div className={styles.profileContainer}>
-                  <Image
-                    src={
-                      session.user._id ? session.user.name : "/img/logo2.png"
-                    }
-                    className={styles.profilePicture}
-                    alt="logo"
-                    width={0}
-                    height={0}
-                    sizes="100vh"
-                  />
+              <BackgroundLetterAvatars/>
                 <div className={styles.profileDropdown}>
                   {/* <div className={styles.editProfile}> */}
                     <Link href="/profile/information" className={styles.dropdownItem}>
