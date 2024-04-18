@@ -131,7 +131,9 @@ async function ListCampground({
 
   return (
     <div
-      className={`border ${showBorder ? 'border-black' : 'border-transparent'} rounded-lg px-3 pr-7 pt-2 pb-4`}
+      className={`border ${
+        showBorder ? "border-black" : "border-transparent"
+      } rounded-lg px-3 pr-7 pt-2 pb-4`}
       style={{ maxHeight: "70vh", overflowY: "auto", overflowX: "hidden" }}
     >
       {filteredData.map((campgroundItem) => (
@@ -152,7 +154,6 @@ async function ListCampground({
     </div>
   );
 }
-
 
 function FilterPanel({
   children,
@@ -208,9 +209,17 @@ function FilterPanel({
                       variant="outlined"
                       InputLabelProps={{
                         shrink: true,
-                        style: { position: "absolute", top: "-7px" },
+                        style: {
+                          position: "absolute",
+                          top: "-7px",
+                        },
                       }}
-                      inputProps={{ style: { paddingLeft: "10px" } }}
+                      inputProps={{
+                        style: {
+                          paddingLeft: "10px",
+                          backgroundColor: "white",
+                        },
+                      }}
                       style={{ width: "100px" }} // Adjust the width as needed
                       onChange={(e) => {
                         setMinValue(parseInt(e.target.value) || null);
@@ -229,7 +238,12 @@ function FilterPanel({
                         shrink: true,
                         style: { position: "absolute", top: "-7px" },
                       }}
-                      inputProps={{ style: { paddingLeft: "10px" } }}
+                      inputProps={{
+                        style: {
+                          paddingLeft: "10px",
+                          backgroundColor: "white",
+                        },
+                      }}
                       style={{ width: "100px" }} // Adjust the width as needed
                       onChange={(e) => {
                         setMaxValue(parseInt(e.target.value) || null);

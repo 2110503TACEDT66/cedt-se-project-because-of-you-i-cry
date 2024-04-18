@@ -1,12 +1,13 @@
-import styles from './provincegrid.module.css'
-import Image from 'next/image'
+import Link from "next/link";
+import styles from "./provincegrid.module.css";
+import Image from "next/image";
 
 export default function ProvinceGrid ({data} : {data ? : any}) {
 
     return( 
-        //src={'/img/province' + data[0].province + '.jpg'}
         <div className={styles.ProvinceGridWrapper}>
             <div className={styles.ProvineGrid}>
+
                 <div className={styles.UpperPart}>
                     <div className={styles.block1 + " " + styles.block}>
                         <Image  fill={true}   alt='province image' sizes='100vh' src={'/img/province/' + data[0].province.replaceAll(' ' , '') + '.jpg'}/>
@@ -41,8 +42,8 @@ export default function ProvinceGrid ({data} : {data ? : any}) {
                         </div>
                     </div>
                 </div>
-                
-            </div>
-        </div>
-    )
+                </div>
+                </div>
+
+  );
 }
