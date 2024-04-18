@@ -47,7 +47,7 @@ const RegisterPage: React.FC = () => {
   };
 
   return (
-    <div className="bg-[#F9F9F9] h-[100vh] flex justify-center items-center pt-[10vh]">
+    <div className="bg-[#F9F9F9] h-[100vh] flex justify-center items-center">
       <div className={styles.login}>
         <h2 className="text-2xl font-semibold mb-4 text-center text-[#285F3E]">
           Create new Account
@@ -133,10 +133,11 @@ const RegisterPage: React.FC = () => {
           <a className="text-[#10561B] mr-2 text-md">
             Already have an account?
           </a>
-          <Link href="/api/auth/login" className="text-[#10561B] underline decoration-[#10561B] text-md">
-            
-              Login
-            
+          <Link
+            href="/api/auth/login"
+            className="text-[#10561B] underline decoration-[#10561B] text-md"
+          >
+            Login
           </Link>
         </div>
       </div>

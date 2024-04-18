@@ -38,7 +38,7 @@ const LoginPage: React.FC = () => {
   };
 
   return (
-    <div className="bg-[#F9F9F9] h-[90vh] flex justify-center items-center">
+    <div className="bg-[#F9F9F9] h-[100vh] flex justify-center items-center">
       <div className={styles.login}>
         <h2 className="text-2xl font-semibold mb-4 text-center text-[#285F3E]">
           Login
@@ -95,10 +95,11 @@ const LoginPage: React.FC = () => {
 
         <div className="mt-4 text-center flex items-center justify-center">
           <a className="text-[#10561B] mr-2 text-md">Don't have an account?</a>
-          <Link href="/api/auth/register" className="text-[#10561B] underline decoration-[#10561B] text-md">
-          
-              Register
-            
+          <Link
+            href="/api/auth/register"
+            className="text-[#10561B] underline decoration-[#10561B] text-md"
+          >
+            Register
           </Link>
         </div>
       </div>
