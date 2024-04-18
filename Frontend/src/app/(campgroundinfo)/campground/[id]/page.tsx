@@ -234,7 +234,7 @@ export default function CampgroundDetailPage({
         </div>
       </div> 
       <div className={styles.commentText}>
-        {commentsData.count}
+        Comment
       </div>
       <CommentPanel CommentArray={commentsData} Campground_id={campgroundReady.data._id} fetchComments={fetchComments} />
 
