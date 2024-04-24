@@ -1,7 +1,7 @@
 const User = require("../models/User");
 const Campground = require("../models/Campground");
 const Comment = require('../models/Comment')
-const Reservation =require('../models/Reservation')
+const Reservation = require('../models/Reservation')
 
 //@desc Get all campgrounds
 //@route GET /api-information/campgrounds
@@ -197,7 +197,7 @@ exports.deleteCampground = async (req, res, next) => {
 exports.createComment = async (req, res, next) => {
   try {
 
-    if(req.user.role === 'admin') {
+    if (req.user.role === 'admin') {
       return res.status(400).json({ success: false });
     }
 
@@ -205,19 +205,19 @@ exports.createComment = async (req, res, next) => {
       user: req.user.id,
       campground: req.params.id,
     });
-    
+
     const hasPastReservation = reservations.some(reservation => new Date(reservation.apptDate) < new Date());
 
-    if(hasPastReservation){
+    if (hasPastReservation) {
 
       const comment = await Comment.create(req.body);
 
-      if(comment) {
-        const updateCampgroundArray = await Campground.findByIdAndUpdate(comment.campground_id , {"$push" : {"comments" : comment._id}})
+      if (comment) {
+        const updateCampgroundArray = await Campground.findByIdAndUpdate(comment.campground_id, { "$push": { "comments": comment._id } })
       }
     }
     else {
-      return res.status(400).json({ success: false, message: "You can only comment on campgrounds you have visited in the past."});
+      return res.status(400).json({ success: false, message: "You can only comment on campgrounds you have visited in the past." });
     }
 
   } catch (error) {
@@ -239,12 +239,12 @@ exports.updateComment = async (req, res, next) => {
       });
     }
 
-    if(comment.user_id !== req.user.id) {
-      return res.status(401).json({success:false,message:`User ${req.user.id} is not authorized to update this comment`});
+    if (comment.user_id !== req.user.id) {
+      return res.status(401).json({ success: false, message: `User ${req.user.id} is not authorized to update this comment` });
     }
 
-    if(req.user.role == 'admin') {
-      return res.status(401).json({success:false,message:`User ${req.user.id} is not authorized to update any comment`});
+    if (req.user.role == 'admin') {
+      return res.status(401).json({ success: false, message: `User ${req.user.id} is not authorized to update any comment` });
     }
 
     const updatedComment = await Comment.findByIdAndUpdate(
@@ -275,14 +275,14 @@ exports.deleteComment = async (req, res, next) => {
       });
     }
 
-    if(comment.user_id !== req.user.id) {
+    if (comment.user_id !== req.user.id) {
       return res.status(404).json({
         success: false,
         message: "You can't delete other comment",
       });
     }
 
-    const removeCommentFromCampground = await Campground.findByIdAndUpdate(comment.campground_id , {$pull : {comments : comment._id}})
+    const removeCommentFromCampground = await Campground.findByIdAndUpdate(comment.campground_id, { $pull: { comments: comment._id } })
     await comment.deleteOne();
     res.status(200).json({ success: true, data: {} });
   } catch (error) {
@@ -314,12 +314,12 @@ exports.getComment = async (req, res, next) => {
 
 exports.updateCampgroundRating = async (req, res, next) => {
 
-  console.log("OK") ;
+  console.log("OK");
 
   try {
     // Find the campground by ID
     const campground = await Campground.findById(req.params.id);
-    
+
     // Find all comments for the campground
     const comments = await Comment.find({ campground_id: campground._id });
 
