@@ -9,7 +9,7 @@ const {
   removeTagFromCampground,
 } = require('../controllers/tags');
 
-// router.route('/').get(getAllTags);
+router.route('/').get(getAllTags);
 // router.route('/').post(addTagToTagList);
 // router.route('/:tagId').delete(deleteTagToList);
 // router.route('/campgrounds/:campgroundId/:tagId').post(addTagToCampground);
