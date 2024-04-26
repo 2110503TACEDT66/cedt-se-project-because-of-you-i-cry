@@ -3,7 +3,7 @@ const Tag = require('../models/Tag');
 
 exports.getAllTags = async (req, res, next) => {
     try {
-      const tags = await Tag.find();
+      const tags = await Tag.find().select('-__v');
       res.status(200).json({ success: true, tags });
     } catch (error) {
       res.status(400).json({ success: false, error: error.message });
@@ -61,16 +61,17 @@ exports.removeTagFromCampground = async (req, res, next) => {
     }
 
 }
+
 exports.addTagToTagList = async (req, res, next) => {
     try {  
-      const tag = await Tag.create({ name: req.body.tagName });
+      const tag = await Tag.create({ name: req.body.name });
       res.status(201).json({ success: true, tag });
     } catch (error) {
       res.status(400).json({ success: false, error: error.message });
     }
   };
   
-  exports.deleteTagToList = async (req, res, next) => {
+exports.deleteTagFromList = async (req, res, next) => {
     try {
       const tag = await Tag.findById(req.params.tagId);
       if (!tag) {
