@@ -10,8 +10,8 @@ const {
 } = require('../controllers/tags');
 
 router.route('/').get(getAllTags);
-// router.route('/').post(addTagToTagList);
-// router.route('/:tagId').delete(deleteTagToList);
+router.route('/').post(addTagToTagList);
+router.route('/:tagId').delete(deleteTagToList);
 router.route('/campgrounds/:campgroundId/:tagId').post(addTagToCampground);
 router.route('/campgrounds/:campgroundId/:tagId').delete(removeTagFromCampground);
 
