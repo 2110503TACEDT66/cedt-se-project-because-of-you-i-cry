@@ -8,7 +8,8 @@ exports.getAllTags = async (req, res, next) => {
     } catch (error) {
       res.status(400).json({ success: false, error: error.message });
     }
-  };
+};
+
 exports.addTagToCampground = async (req, res, next) => {
 
     try {
@@ -30,9 +31,9 @@ exports.addTagToCampground = async (req, res, next) => {
 
     }
 
-}
+};
 
-exports.removeTagToCampground = async (req, res, next) => {
+exports.removeTagFromCampground = async (req, res, next) => {
 
     try {
 
