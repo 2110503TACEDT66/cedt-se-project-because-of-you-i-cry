@@ -202,11 +202,77 @@ function FilterPanel({
   selectedProvince: string;
   handleProvinceChange: (newValue: string) => void;
 }) {
+
+
+  //Mock Data
+  const allTags = [
+    {
+      id : 123,
+      name : "Tag1"
+    },
+    {
+      id : 123,
+      name : "AAAAAAAA"
+    },
+    {
+      id : 123,
+      name : "BABABA"
+    },
+    {
+      id : 123,
+      name : "SEA"
+    },
+    {
+      id : 123,
+      name : "Tag2"
+    },
+    {
+      id: 123,
+      name: "Cat"
+  },
+  {
+      id: 124,
+      name: "Dogss"
+  },
+  {
+      id: 125,
+      name: "Mountain"
+  },
+  {
+      id: 126,
+      name: "Vadal"
+  },
+  {
+      id: 127,
+      name: "Phantom"
+  },
+  {
+      id: 128,
+      name: "Spike"
+  },
+  {
+      id: 129,
+      name: "Odin"
+  },
+  {
+      id: 130,
+      name: "Classic"
+  },
+  {
+      id: 131,
+      name: "Cloud"
+  },
+  {
+      id: 132,
+      name: "Ice Box"
+  }
+]
+  
   return (
     <>
       <div className="w-[95%] m-5 p-5 flex flex-row flex-wrap space-x-10 justify-center items-start ">
         <div className="w-[20%] relative items-start">
-          <div className="bg-[#F5F5F5] w-full my-auto block border border-black rounded-lg">
+          <div className="bg-[#F5F5F5] w-full my-auto block border border-black rounded-lg overflow-hidden h-[70vh]">
             <div className="w-[100%] block items-center">
               <div className="p-8">
                 <Autocomplete
@@ -382,9 +448,38 @@ function FilterPanel({
                 </div>
               </div>
             </div>
+
+
+            <div className="flex items-center justify-center mx-2 ">
+                <div className="bg-[#909090] w-[80%] h-px"></div>
+              </div>
+
+
+            <div className="p-8 h-[250px] w-[100%]">
+                <div className="flex flex-row w-[100%] pr-[5%] h-[20%] items-center text-center justify-between">
+                <div className=" w-[20%] text-base font-inter text-left flex items-center justify-center">
+                    Tags
+                  </div>
+
+                  <input type="text" className=" w-[70%] border-2 rounded-[5px]"/>
+                </div>
+                <div className=" mt-[15px] flex flex-row flex-wrap gap-y-[1px] w-[100%] h-[160px] overflow-y-scroll ">
+                  
+                  {allTags.map((tag) => (
+                    <div className="mt-[3%] text-[#7D7D7D] mr-[3%] p-3  w-auto h-[30px] rounded-[5px] bg-[#E1E1E1] flex items-center justify-center">{tag.name}</div>
+                  ))}
+                 
+
+                </div>
+            </div>
+
+
+
+
+
           </div>
         </div>
-        <div className="w-[60%] relative items-center ">{children}</div>
+        <div className="w-[60%] relative items-center">{children}</div>
       </div>
     </>
   );
