@@ -11,56 +11,67 @@ exports.getAllTags = async (req, res, next) => {
 };
 
 exports.addTagToCampground = async (req, res, next) => {
-
     try {
-        
         const campground = await Campground.findById(req.params.campgroundId);
         const tag = await Tag.findById(req.params.tagId);
+
+        if (!campground) {
+            return res.status(404).json({
+                success: false,
+                message: "Campground not found",
+            });
+        }
+
+        if (!tag) {
+            return res.status(404).json({
+                success: false,
+                message: "Tag not found",
+            });
+        }
 
         campground.tags.push(tag);
         await campground.save();
 
-        res.status(200).json({success : true});
-
+        res.status(200).json({ success: true });
     } catch (error) {
-
         res.status(400).json({
-            success : false, 
-            message : error
+            success: false,
+            message: error.message,
         });
-
     }
-
 };
 
 exports.removeTagFromCampground = async (req, res, next) => {
-
     try {
-
         const campground = await Campground.findById(req.params.campgroundId);
-        const tag = await campground.tags.findById(req.params.tagId);
+        const tagId = req.params.tagId;
 
-        if ( !tag ) {
+        if (!campground) {
             return res.status(404).json({
                 success: false,
-                message: `Cannot find a tag with id ${req.params.tagId}`,
-              });
+                message: "Campground not found",
+            });
         }
 
-        await tag.deleteOne();
+        const index = campground.tags.indexOf(tagId);
+        if (index === -1) {
+            return res.status(404).json({
+                success: false,
+                message: `Tag with ID ${tagId} is not associated with this campground`,
+            });
+        }
+
+        campground.tags.splice(index, 1);
+        await campground.save();
+
         res.status(200).json({ success: true });
-
     } catch (error) {
-        
         res.status(400).json({
-            success : false, 
-            message : error
+            success: false,
+            message: error.message,
         });
-
-
     }
-
-}
+};
 
 exports.addTagToTagList = async (req, res, next) => {
     try {  
