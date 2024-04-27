@@ -95,7 +95,7 @@ exports.deleteTagFromList = async (req, res, next) => {
     }
   };
 
-  //@desc Get all campgrounds
+//@desc Get all campgrounds
 //@route GET /api-information/campgrounds
 //@access Public
 exports.getCampgroundWithMatchandSimilarTag = async (req, res, next) => {
