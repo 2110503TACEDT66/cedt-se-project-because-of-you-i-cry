@@ -14,8 +14,8 @@ const {
 const { protect, authorize } = require('../middleware/user');
 
 router.route('/').get(getAllTags);
-router.route('/similar').get(getCampgroundWithMatchandSimilarTag);
-router.route('/similar2').get(getCampgroundWithMatchandSimilarTag2);
+router.route('/campgrounds/:campgroundId/similar').get(getCampgroundWithMatchandSimilarTag);
+router.route('/campgrounds/:campgroundId/similar2').get(getCampgroundWithMatchandSimilarTag2);
 router.route('/').post(protect, authorize('admin'), addTagToTagList);
 router.route('/:tagId').delete(protect, authorize('admin'), deleteTagFromList);
 router.route('/campgrounds/:campgroundId/:tagId').post(protect, authorize('admin'), addTagToCampground);
