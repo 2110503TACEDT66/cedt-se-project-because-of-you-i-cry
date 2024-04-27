@@ -363,14 +363,14 @@ exports.similarTag = async (req, res, next) => {
       // Match to exclude the current campground
       { $match: { _id: { $ne: campground._id } } },
       // Unwind the tags array
-      { $unwind: "$tag" },
+      { $unwind: "$tags" },
       // Group by name and count the number of matching tags with the target tags
       {
         $group: {
           _id: "$name",
           count: {
             $sum: {
-              $cond: { if: { $in: ["$tag", campTag] }, then: 1, else: 0 }
+              $cond: { if: { $in: ["$tags", campTag] }, then: 1, else: 0 }
             }
           },
           data: { $first: "$$ROOT" } // Preserve the original document data
@@ -380,6 +380,46 @@ exports.similarTag = async (req, res, next) => {
       { $sort: { count: -1, _id: 1 } },
       // Project to include only the preserved document data
       { $replaceRoot: { newRoot: "$data" } }
+    ]).toArray();
+
+    // Return the result as JSON
+    res.status(200).json({ success: true, data: allSimilar });
+  } catch (error) {
+    console.log(error);
+    res.status(400).json({ success: false });
+  }
+}
+
+
+//@desc Get all campgrounds
+//@route GET /api-information/campgrounds
+//@access Public
+exports.similarTag2 = async (req, res, next) => {
+  try {
+    // Find the campground by ID
+    const campground = await Campground.findById(req.params.id);
+
+    // Bring tags from the current campground
+    const campTag = campground.tag;
+
+    // Aggregate to find campgrounds with similar tags
+    const allSimilar = await Campground.aggregate([
+      // Match to exclude the current campground
+      { $match: { _id: { $ne: campground._id } } },
+      // search campground that have same tags
+      { tags: { $elemMatch: { $in: campTag } } },
+      {
+        $addFields: {
+          "count": {
+            $sum: {
+              $cond: { if: { $in: ["$tags", campTag] }, then: 1, else: 0 }
+            }
+          },
+        }
+      },
+      // Sort by count descending, then by _id ascending
+      { $sort: { count: -1, name: 1 } },
+      { $unset: "count" }
     ]).toArray();
 
     // Return the result as JSON
