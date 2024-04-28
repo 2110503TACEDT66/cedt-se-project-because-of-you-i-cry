@@ -4,7 +4,9 @@ const Tag = require('../models/Tag');
 exports.getAllTags = async (req, res, next) => {
   try {
     const tags = await Tag.find().select('-__v');
-    res.status(200).json({ success: true, tags });
+    const count = await Tag.countDocuments();
+    
+    res.status(200).json({ success: true, count, tags });
   } catch (error) {
     res.status(400).json({ success: false, error: error.message });
   }
@@ -171,3 +173,17 @@ exports.getCampgroundWithMatchandSimilarTag2 = async (req, res, next) => {
     res.status(400).json({ success: false });
   }
 }
+
+exports.getAllTagsForCampground = async (req, res, next) => {
+  try {
+    const campground = await Campground.findById(req.params.campgroundId).populate('tags', '-__v');
+
+    if (!campground) {
+      return res.status(404).json({ success: false, message: "Campground not found" });
+    }
+
+    res.status(200).json({ success: true, tags: campground.tags });
+  } catch (error) {
+    res.status(400).json({ success: false, error: error.message });
+  }
+};
