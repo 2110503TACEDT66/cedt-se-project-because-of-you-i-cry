@@ -52,6 +52,8 @@
 
     font-family: 'Post No Bills Jaffna ExtraBold';
     letter-spacing: 2px;
+
+    cursor: pointer;
 }
 
 .block img {
