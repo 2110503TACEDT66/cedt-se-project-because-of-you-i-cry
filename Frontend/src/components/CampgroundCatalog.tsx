@@ -417,7 +417,7 @@ function FilterPanel({
               <div className="bg-[#909090] w-[80%] h-px"></div>
             </div>
 
-            <div className="p-8 h-[250px] w-[100%]">
+            <div className="p-8 h-[40%] w-[100%]">
               <div className="flex flex-row w-[100%] pr-[5%] h-[20%] items-center text-center justify-between">
                 <div className=" w-[20%] text-base font-inter text-left flex items-center justify-center">
                   Tags
