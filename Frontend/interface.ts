@@ -124,5 +124,14 @@ export interface UserJson {
     password: string;
     role: string;
     createdAt: string;
-  };
+  }
+}
+
+export interface Tag {
+  id: string;
+  name : string;
+}
+export interface TagJson {
+  success: boolean;
+  tags: Tag[];
 }

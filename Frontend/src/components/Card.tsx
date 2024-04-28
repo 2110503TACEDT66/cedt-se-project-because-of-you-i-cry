@@ -19,7 +19,7 @@ export default function Card({
   return (
     <InteractiveCard>
       <div className="w-full h-full relative rounded-lg flex flex-row shadow-md bg-[#F5F5F5]">
-        <div className="w-[35%] h-[90%] rounded-lg p-3 mx-3 my-auto flex items-center justify-center relative">
+        <div className="w-[35%] h-[80%] rounded-lg p-3 mx-3 my-auto flex items-center justify-center relative pl-2">
           <Image
             src={imgSrc}
             alt="reduce risk"
