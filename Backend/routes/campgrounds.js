@@ -1,43 +1,25 @@
-const express = require("express");
+const express = require('express');
 const {
   getCampgrounds,
   getCampground,
   createCampground,
   updateCampground,
   deleteCampground,
-  createComment,
-  deleteComment,
-  updateComment,
-  getComment,
-  updateCampgroundRating
-} = require("../controllers/campgrounds");
-
-
-//Include other resource routers
-const reservationRouter = require("./reservations");
-
-
+} = require('../controllers/campgrounds');
+const reservationRouter = require('./reservations');
+const commentRouter = require('./comments');
 const router = express.Router();
-const { protect, authorize } = require("../middleware/user");
+const { protect, authorize } = require('../middleware/user');
 
+// Re-route into other resource routers
+router.use('/:campgroundId/reservations/', reservationRouter);
+router.use('/:id/comments', commentRouter); // Use the new comment router
 
-//Re-route into other resource routers
-router.use("/:campgroundId/reservations/", reservationRouter);
-
-
-router.route("/").get(getCampgrounds).post(protect, authorize("admin"), createCampground);
+router.route('/').get(getCampgrounds).post(protect, authorize('admin'), createCampground);
 router
-  .route("/:id")
+  .route('/:id')
   .get(getCampground)
-  .put(protect, authorize("admin"), updateCampground)
-  .delete(protect, authorize("admin"), deleteCampground)
-  .post(protect, createComment, updateCampgroundRating)
-
-router.route("/:id/comment/:commentId")
-  .delete(protect, deleteComment)
-  .put(protect, updateComment)
-
-  router.route("/:id/comment")
-  .get(getComment)
+  .put(protect, authorize('admin'), updateCampground)
+  .delete(protect, authorize('admin'), deleteCampground);
 
 module.exports = router;
