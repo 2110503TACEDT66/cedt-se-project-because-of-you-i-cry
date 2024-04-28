@@ -11,6 +11,7 @@ export default function Campground() {
   return (
     <main className="text-center p-5 mt-10">
       <CampgroundCatalog campgroundJson={campgrounds} />
+      
     </main>
   );
 }
