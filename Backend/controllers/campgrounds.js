@@ -81,12 +81,41 @@ exports.getCampgrounds = async (req, res, next) => {
       };
     }
 
+    // Get top province
+    if (req.query.topProvince === 'true') {
+      const topProvinces = await Campground.aggregate([
+        {
+          $group: {
+            _id: "$province",
+            avgRating: { $avg: "$rating" },
+            // count: { $count: {} },
+          },
+        },
+        {
+          $sort: { avgRating: -1 },
+        },
+        {
+          $project: {
+            _id: 0,
+            province: "$_id",
+            avgRating: { $round: ["$avgRating", 1] },
+            // count: 1,
+          },
+        },
+      ]);
+
+      res.status(200).json({
+        success: true,
+        topProvinces,
+      });
+    } else {
     res.status(200).json({
       success: true,
       count: populatedCampgrounds.length,
       pagination,
       data: populatedCampgrounds,
     });
+  }
   } catch (error) {
     res.status(400).json({ success: false, message: "bad request" });
   }
