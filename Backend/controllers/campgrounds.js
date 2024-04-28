@@ -7,10 +7,10 @@ const Campground = require("../models/Campground");
 exports.getCampgrounds = async (req, res, next) => {
   let query;
 
-  //Copy req.query
+  // Copy req.query
   const reqQuery = { ...req.query };
 
-  //Fields to exclude
+  // Fields to exclude
   const removeFields = ["select", "sort", "page", "limit", "topProvince"];
 
   // Loop over removeFields and delete them from reqQuery
@@ -25,7 +25,7 @@ exports.getCampgrounds = async (req, res, next) => {
   );
 
   // Finding resource
-  query = Campground.find(JSON.parse(queryStr)).populate("reservations");
+  query = Campground.find(JSON.parse(queryStr)).populate("reservations").populate("tags");
 
   // Select Fields
   if (req.query.select) {
@@ -52,7 +52,17 @@ exports.getCampgrounds = async (req, res, next) => {
     query = query.skip(startIndex).limit(limit);
 
     // Executing query
-    const camgrounds = await query;
+    const campgrounds = await query;
+
+    // Populate tags into two arrays: tagsID and tagsName
+    const populatedCampgrounds = campgrounds.map((campground) => {
+      const tagsID = campground.tags.map((tag) => tag._id);
+      const tagsName = campground.tags.map((tag) => tag.name);
+    // Exclude the tags field from the campground object
+      const { tags, ...campgroundWithoutTags } = campground.toObject();
+      return { ...campgroundWithoutTags, tagsID, tagsName };
+    });
+
 
     // Pagination result
     const pagination = {};
@@ -71,45 +81,17 @@ exports.getCampgrounds = async (req, res, next) => {
       };
     }
 
-    // Get top province
-    if (req.query.topProvince === 'true') {
-      const topProvinces = await Campground.aggregate([
-        {
-          $group: {
-            _id: "$province",
-            avgRating: { $avg: "$rating" },
-            // count: { $count: {} },
-          },
-        },
-        {
-          $sort: { avgRating: -1 },
-        },
-        {
-          $project: {
-            _id: 0,
-            province: "$_id",
-            avgRating: { $round: ["$avgRating", 1] },
-            // count: 1,
-          },
-        },
-      ]);
-
-      res.status(200).json({
-        success: true,
-        topProvinces,
-      });
-    } else {
-      res.status(200).json({
-        success: true,
-        count: camgrounds.length,
-        pagination,
-        data: camgrounds,
-      });
-    }
+    res.status(200).json({
+      success: true,
+      count: populatedCampgrounds.length,
+      pagination,
+      data: populatedCampgrounds,
+    });
   } catch (error) {
     res.status(400).json({ success: false, message: "bad request" });
   }
 };
+
 
 //@desc Get single campgrounds
 //@route GET /api-information/campgrounds/:id
