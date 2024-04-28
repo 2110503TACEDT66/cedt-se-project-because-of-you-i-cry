@@ -38,7 +38,7 @@ const CampgroundSchema = mongoose.Schema(
     },
     maxReservations: {
       type: Number,
-      required: [true, "Please add a max reservation"]
+      required: [true, "Please add a max reservation"],
     },
     coverpicture: {
       type: String,
@@ -61,19 +61,28 @@ const CampgroundSchema = mongoose.Schema(
       required: [true, "Please add a rating"],
     },
     comments: {
-      type: [{
-          type:mongoose.Schema.ObjectId,
-          ref: "Comment"
-      }]
+      type: [
+        {
+          type: mongoose.Schema.ObjectId,
+          ref: "Comment",
+        },
+      ],
+    },
+    tags: {
+      type: [
+        {
+          type: mongoose.Schema.ObjectId,
+          ref: "Tag",
+        },
+      ],
     },
   },
-  
+
   {
     toJSON: { virtuals: true },
     toObject: { virtuals: true },
   }
 );
-
 
 //Reverse populate with virtuals
 CampgroundSchema.virtual("reservations", {

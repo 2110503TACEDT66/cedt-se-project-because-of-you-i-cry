@@ -41,10 +41,14 @@ app.use(cors());
 const campgrounds = require('./routes/campgrounds');
 const users = require('./routes/users');
 const reservations = require('./routes/reservations');
+const comments = require('./routes/comments');
+const tags = require('./routes/tags');
 
 app.use('/api-informations/campgrounds', campgrounds);
 app.use('/api-informations/users', users);
 app.use('/api-informations/reservations', reservations);
+app.use('/api-informations/comments', comments);
+app.use('/api-informations/tags', tags);
 
 const PORT=process.env.PORT || 5000;
 

@@ -22,7 +22,7 @@ export default function AddCommentCard({ campground_id , onCommentAdded}: { camp
 
   const handleAddComment = async () => {
     // Existing code for adding a comment
-    if (userProfile && userRating !== null && commentText && session) {
+    if (userProfile && userRating !== null && session) {
         try {
             const response = await createComment({
                 campground_id,
@@ -36,8 +36,10 @@ export default function AddCommentCard({ campground_id , onCommentAdded}: { camp
             // Call the function passed as a prop to notify the parent component about the new comment
             onCommentAdded();
         } catch (error) {
-            console.error("Error creating comment:", error);
+            console.log("Error creating comment", error);
         }
+    } else {
+      alert("Error creating comment");
     }
 };
   useEffect(() => {

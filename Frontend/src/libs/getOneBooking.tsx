@@ -10,6 +10,7 @@ export default async function getOneBooking(
   const response = await fetch(
     `${BACKEND_URL}/api-informations/reservations/${id}`,
     {
+      cache : 'no-store',
       headers: {
         "Content-Type": "application/json",
         authorization: `Bearer ${token}`,

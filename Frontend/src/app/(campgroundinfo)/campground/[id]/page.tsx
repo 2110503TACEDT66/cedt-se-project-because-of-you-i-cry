@@ -95,7 +95,7 @@ export default function CampgroundDetailPage({
 };
 
   if (!campgroundReady) return <p>Campground Loading ...</p>;
-  if (!campgroundData || commentsData.count === 0) {
+  if (!campgroundData) {
     return <p>Loading...</p>;
   }
 

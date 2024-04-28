@@ -6,6 +6,7 @@ export default async function getUserProfile(token: string): Promise<UserJson> {
   const response = await fetch(
     `${BACKEND_URL}/api-informations/users/me`,
     {
+      cache : 'no-store',
       method: "GET",
       headers: {
         authorization: `Bearer ${token}`,
