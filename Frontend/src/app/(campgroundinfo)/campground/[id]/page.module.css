@@ -10,7 +10,6 @@
   
   .campgroundBlock {
     margin-top: 17.5vh;
-    height: 56.25vh;
     width: 83vw;
     background-color: #ffffff;
     border-radius: 10px;
@@ -115,17 +114,31 @@
     padding-left: 1.5vw;
     display: flex;
     flex-direction: column;
-    justify-content: space-between;
+    /* justify-content: space-between; */
   }
   
+
   .rowBlock2 {
     width: 100%;
     display: flex;
     flex-direction: row;
     border-radius: 10px;
-    padding: 1rem;
     justify-content: space-between;
     align-items: center;
+    margin-top: auto;
+  }
+
+  .formBlock{
+    margin-top: auto;
+  }
+
+  
+
+  .tagBlock{
+    width: 100%;
+    display: block;
+    margin-bottom: 2vh;
+    margin-top: 2vh;
   }
   
   .dateReserve {
@@ -152,6 +165,7 @@
   
   .checkInBlock{
     width: 60%;
+    margin-top: auto;
   }
 
   .buttonBlock{

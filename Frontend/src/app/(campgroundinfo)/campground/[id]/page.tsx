@@ -32,14 +32,19 @@ import CommentCard from "@/components/CommentCard/CommentCard";
 import CommentPanel from "@/components/CommentPanel/CommentPanel";
 import getComments from "@/libs/getComments";
 import { Comments } from "../../../../../interface";
+import getTagsForCampground from "@/libs/getTagsForCampgrounds";
+import CampgroundTag from "@/components/CampgroundTag/CampgroundTag";
+import CampgroundTagsPanel from "@/components/CampgroundTagsPanel/CampgroundTagsPanel";
 export default function CampgroundDetailPage({
   params,
 }: {
   params: { id: string };
 }) {
   const [campgroundReady, setCampgroundReady] = useState<any>(null);
+  const [campgroundTagsReady, setCampgroundTagsReady] = useState<any>(null);
   const [showSuccessModal, setShowSuccessModal] = useState(false);
   const [campgroundData, setCampgroundData] = useState(null);
+  const [campgroundTagsData, setCampgroundTagsData] = useState(null);
   const [commentsData, setCommentsData] = useState<Comments>({
     success: false,
     count: 0,
@@ -57,9 +62,18 @@ export default function CampgroundDetailPage({
     setCampgroundReady(campgroundData);
   }, [params.id]);
 
+  const fetchCampgroundTags = useCallback(async () => {
+    const campgroundTagsData = await getTagsForCampground(params.id);
+    setCampgroundTagsReady(campgroundTagsData);
+  }, [params.id]);
+
   useEffect(() => {
     fetchCampground();
   }, [params.id, fetchCampground]);
+
+  useEffect(() => {
+    fetchCampgroundTags();
+  }, [params.id, fetchCampgroundTags]);
 
   const makeReservation = () => {
     if (params.id && campgroundReady && session.data) {
@@ -88,7 +102,12 @@ export default function CampgroundDetailPage({
     getComments(params.id).then((data) => {
       setCommentsData(data);
     });
+
+    getTagsForCampground(params.id).then((data) => {
+      setCampgroundTagsData(data);
+    }); 
   }, [params.id]);
+
   const fetchComments = async () => {
     const data = await getComments(params.id);
     setCommentsData(data);
@@ -187,6 +206,10 @@ export default function CampgroundDetailPage({
             <div className={styles.description}>
               {campgroundReady.data.description}
             </div>
+            <div className={styles.tagBlock}>
+                <CampgroundTagsPanel tagsArray={campgroundTagsReady}/>
+            </div>
+            <div className={styles.formBlock}>
             <FormControl className={styles.rowBlock2}>
               <div className={styles.rowBlock}>
                 <div className={styles.checkInBlock}>
@@ -230,6 +253,7 @@ export default function CampgroundDetailPage({
                 onClose={() => setShowSuccessModal(false)}
               />
             </FormControl>
+            </div>
           </div>
         </div>
       </div> 
