@@ -2,7 +2,10 @@ import styles from "./slidercard.module.css";
 import Image from "next/image";
 export default function SliderCard({ data }: { data: any }) {
   return (
-    <div className={styles.Card} onClick={event => window.location.href=`./campground/${data.id}`}>
+    <div
+      className={styles.Card}
+      onClick={(event) => (window.location.href = `./campground/${data.id}`)}
+    >
       <Image
         height={0}
         width={0}
@@ -37,6 +40,16 @@ export default function SliderCard({ data }: { data: any }) {
               ? data.province.substr(0, 18) + "..."
               : data.province}
           </h2>
+          <div className={styles.LowerTag}>
+            {data.tagsName.map((tagName: string) => (
+              <div
+                key={tagName}
+                className={`m-1 py-1 px-2 rounded-lg cursor-pointer bg-[#AF9670] text-white`}
+              >
+                {tagName}
+              </div>
+            ))}
+          </div>
         </div>
       </div>
     </div>

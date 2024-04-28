@@ -88,7 +88,7 @@
   height: 60%;
   width: 100%;
   display: grid;
-  grid-template-columns: 2fr 1.5fr;
+  grid-template-rows: 1fr;
   gap: 5%;
 
   font-size: 18px;
@@ -97,4 +97,12 @@
 
 .LowerPart h2 {
   line-height: 120%;
+}
+
+.LowerTag {
+  display: flex;
+  flex-direction: row;
+  overflow-x: scroll;
+  overflow-y: hidden;
+  scrollbar-width: none;
 }
