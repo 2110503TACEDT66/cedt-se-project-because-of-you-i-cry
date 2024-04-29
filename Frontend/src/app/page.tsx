@@ -10,6 +10,7 @@ import ExploreThailand from "@/components/ExploreThailand";
 import NewTopMenu from "@/components/NewTopMenu/NewTopMenu";
 import ChooseYourStyles from "@/components/ChooseYourstyles";
 import ScrollToTopButton from "@/components/ScrollToTop";
+import Footer from "@/components/Footer";
 
 export default function Home() {
   return (
@@ -20,6 +21,7 @@ export default function Home() {
       <ExploreThailand />
       <ChooseYourStyles />
       <ScrollToTopButton />
+      <Footer />
     </main>
   );
 }

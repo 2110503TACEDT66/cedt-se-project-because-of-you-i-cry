@@ -1,33 +1,60 @@
 import Image from "next/image";
+import styles from "@/components/footer.module.css";
+import Link from "next/link";
 
 export default function Footer() {
   return (
     <div
-      className="inset-x-0 bottom-0 relative z-40 block
-    h-[25vh] border border-solid border-slate-300
-    bg-stone-800 px-2 py-1.5 justify-center
-    text-slate-100 font-sans font-normal text-wrap"
+      className="relative z-40 block h-[25vh] bg-[#285F3E] p-2 justify-center 
+      text-slate-100 font-sans font-normal text-wrap"
     >
-      <div className="flex flex-row justify-center items-center h-[100%] p-5 m-5">
-        <div className="right-0 w-[10%] h-auto flex flex-row justify-center items-right">
+      <div className="grid grid-cols-3 gap-5 justify-center items-center h-full p-5">
+        <div className="flex justify-center">
           <Image
-            src={"/img/logo1.png"}
+            src={"/img/bestlogo.png"}
             className="w-auto h-[50%]"
             alt="logo"
             width={0}
             height={0}
-            sizes="10vh"
+            sizes="35vh"
           />
         </div>
-        <div className="text-left w-[27%] items-center space-y-1">
-          <h1 className="text-2xl text-left underline"> Contact </h1>
-          <h2> Email : example@gmail.com </h2>
-          <h2> Tel : 0xx-xxx-xxxx </h2>
+        <div className="text-left space-y-4">
+          <div className="h-[30%] pl-2">
+            <h1 className="text-2xl"> Contact </h1>
+          </div>
+          <div className="h-[70%] text-lg">
+            <table className="border-spacing-x-2 border-separate table-auto">
+              <tbody>
+                <tr>
+                  <td>Email </td>
+                  <td>:</td>
+                  <td>
+                    {" "}
+                    <a href="mailto:example@gmail.com">example@gmail.com</a>
+                  </td>
+                </tr>
+                <tr>
+                  <td>Tel </td>
+                  <td>:</td>
+                  <td>0XX-XXX-XXXX</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
         </div>
-        <div className="text-left w-[27%] items-center space-y-1">
-          <h1 className="text-2xl text-left underline"> Get Outside </h1>
-          <h2> Home </h2>
-          <h2> All Campground </h2>
+        <div className="text-left space-y-4">
+          <div className="h-[30%]">
+            <h1 className="text-2xl"> Get Outside </h1>
+          </div>
+          <div className="h-[70%] text-lg">
+            <Link href={"/"} className="hover:underline">
+              <h2> Home </h2>
+            </Link>
+            <Link href={"/campground"} className="hover:underline">
+              <h2> All Campground </h2>
+            </Link>
+          </div>
         </div>
       </div>
     </div>
