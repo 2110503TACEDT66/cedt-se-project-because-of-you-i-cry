@@ -1,0 +1,19 @@
+.tagContainer {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+  }
+  
+  .dropdownIconContainer {
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    margin-left: 0.5rem;
+  }
+  
+  .dropdownContainer {
+    margin-top: 0.5rem;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+  }

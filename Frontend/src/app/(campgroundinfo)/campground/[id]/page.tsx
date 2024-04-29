@@ -32,14 +32,23 @@ import CommentCard from "@/components/CommentCard/CommentCard";
 import CommentPanel from "@/components/CommentPanel/CommentPanel";
 import getComments from "@/libs/getComments";
 import { Comments } from "../../../../../interface";
+import getTagsForCampground from "@/libs/getTagsForCampgrounds";
+import CampgroundTag from "@/components/CampgroundTag/CampgroundTag";
+import CampgroundTagsPanel from "@/components/CampgroundTagsPanel/CampgroundTagsPanel";
+import getSimilarCampgrounds from "@/libs/getSimilarCampgrounds";
+import ImageSlider from "@/components/ImageSlider";
 export default function CampgroundDetailPage({
   params,
 }: {
   params: { id: string };
 }) {
+  const [similarCampgroundReady,setSimilarCampgroundReady] = useState<any>(null);
   const [campgroundReady, setCampgroundReady] = useState<any>(null);
+  const [campgroundTagsReady, setCampgroundTagsReady] = useState<any>(null);
   const [showSuccessModal, setShowSuccessModal] = useState(false);
   const [campgroundData, setCampgroundData] = useState(null);
+  const [campgroundTagsData, setCampgroundTagsData] = useState(null);
+  const [similarCampgroundData,setSimilarCampgroundData] = useState(null);
   const [commentsData, setCommentsData] = useState<Comments>({
     success: false,
     count: 0,
@@ -57,9 +66,27 @@ export default function CampgroundDetailPage({
     setCampgroundReady(campgroundData);
   }, [params.id]);
 
+  const fetchCampgroundTags = useCallback(async () => {
+    const campgroundTagsData = await getTagsForCampground(params.id);
+    setCampgroundTagsReady(campgroundTagsData);
+  }, [params.id]);
+
+  const fetchSimilarCampground = useCallback(async () => {
+    const similarCampgroundData = await getSimilarCampgrounds(params.id);
+    setSimilarCampgroundReady(similarCampgroundData);
+  }, [params.id]);
+
   useEffect(() => {
     fetchCampground();
   }, [params.id, fetchCampground]);
+
+  useEffect(() => {
+    fetchCampgroundTags();
+  }, [params.id, fetchCampgroundTags]);
+
+  useEffect(() => {
+    fetchSimilarCampground();
+  }, [params.id, fetchSimilarCampground]);
 
   const makeReservation = () => {
     if (params.id && campgroundReady && session.data) {
@@ -88,7 +115,16 @@ export default function CampgroundDetailPage({
     getComments(params.id).then((data) => {
       setCommentsData(data);
     });
+
+    getTagsForCampground(params.id).then((data) => {
+      setCampgroundTagsData(data);
+    }); 
+
+    getSimilarCampgrounds(params.id).then((data) => {
+      setSimilarCampgroundData(data);
+    }); 
   }, [params.id]);
+
   const fetchComments = async () => {
     const data = await getComments(params.id);
     setCommentsData(data);
@@ -187,6 +223,10 @@ export default function CampgroundDetailPage({
             <div className={styles.description}>
               {campgroundReady.data.description}
             </div>
+            <div className={styles.tagBlock}>
+                <CampgroundTagsPanel tagsArray={campgroundTagsReady}/>
+            </div>
+            <div className={styles.formBlock}>
             <FormControl className={styles.rowBlock2}>
               <div className={styles.rowBlock}>
                 <div className={styles.checkInBlock}>
@@ -230,6 +270,7 @@ export default function CampgroundDetailPage({
                 onClose={() => setShowSuccessModal(false)}
               />
             </FormControl>
+            </div>
           </div>
         </div>
       </div> 
@@ -237,7 +278,10 @@ export default function CampgroundDetailPage({
         Comment
       </div>
       <CommentPanel CommentArray={commentsData} Campground_id={campgroundReady.data._id} fetchComments={fetchComments} />
-
+      <div className={styles.similarText}>
+        Similar Campground
+      </div>
+      <ImageSlider campgroundArray={similarCampgroundReady.data}/>
     </div>
   );
 }
