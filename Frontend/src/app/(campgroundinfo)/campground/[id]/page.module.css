@@ -180,3 +180,11 @@
     font-size: 1.9rem;
     font-weight: 600;
   }
+
+  .similarText{
+    width: 100%;
+    padding: 0vh 11.75vw;
+    font-size: 1.9rem;
+    font-weight: 600;
+    margin-top: 10vh;
+  }

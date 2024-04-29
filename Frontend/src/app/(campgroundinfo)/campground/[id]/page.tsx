@@ -35,16 +35,20 @@ import { Comments } from "../../../../../interface";
 import getTagsForCampground from "@/libs/getTagsForCampgrounds";
 import CampgroundTag from "@/components/CampgroundTag/CampgroundTag";
 import CampgroundTagsPanel from "@/components/CampgroundTagsPanel/CampgroundTagsPanel";
+import getSimilarCampgrounds from "@/libs/getSimilarCampgrounds";
+import ImageSlider from "@/components/ImageSlider";
 export default function CampgroundDetailPage({
   params,
 }: {
   params: { id: string };
 }) {
+  const [similarCampgroundReady,setSimilarCampgroundReady] = useState<any>(null);
   const [campgroundReady, setCampgroundReady] = useState<any>(null);
   const [campgroundTagsReady, setCampgroundTagsReady] = useState<any>(null);
   const [showSuccessModal, setShowSuccessModal] = useState(false);
   const [campgroundData, setCampgroundData] = useState(null);
   const [campgroundTagsData, setCampgroundTagsData] = useState(null);
+  const [similarCampgroundData,setSimilarCampgroundData] = useState(null);
   const [commentsData, setCommentsData] = useState<Comments>({
     success: false,
     count: 0,
@@ -67,6 +71,11 @@ export default function CampgroundDetailPage({
     setCampgroundTagsReady(campgroundTagsData);
   }, [params.id]);
 
+  const fetchSimilarCampground = useCallback(async () => {
+    const similarCampgroundData = await getSimilarCampgrounds(params.id);
+    setSimilarCampgroundReady(similarCampgroundData);
+  }, [params.id]);
+
   useEffect(() => {
     fetchCampground();
   }, [params.id, fetchCampground]);
@@ -74,6 +83,10 @@ export default function CampgroundDetailPage({
   useEffect(() => {
     fetchCampgroundTags();
   }, [params.id, fetchCampgroundTags]);
+
+  useEffect(() => {
+    fetchSimilarCampground();
+  }, [params.id, fetchSimilarCampground]);
 
   const makeReservation = () => {
     if (params.id && campgroundReady && session.data) {
@@ -105,6 +118,10 @@ export default function CampgroundDetailPage({
 
     getTagsForCampground(params.id).then((data) => {
       setCampgroundTagsData(data);
+    }); 
+
+    getSimilarCampgrounds(params.id).then((data) => {
+      setSimilarCampgroundData(data);
     }); 
   }, [params.id]);
 
@@ -261,7 +278,10 @@ export default function CampgroundDetailPage({
         Comment
       </div>
       <CommentPanel CommentArray={commentsData} Campground_id={campgroundReady.data._id} fetchComments={fetchComments} />
-
+      <div className={styles.similarText}>
+        Similar Campground
+      </div>
+      <ImageSlider campgroundArray={similarCampgroundReady.data}/>
     </div>
   );
 }
