@@ -41,7 +41,7 @@ export default function ChooseYourStyles() {
       const filtered = allCampgrounds?.data.filter(
         (campground: any) =>
           campground.tagsName &&
-          updatedSelectedTags.every((selectedTag) =>
+          updatedSelectedTags.some((selectedTag) =>
             campground.tagsName.includes(selectedTag)
           )
       );
