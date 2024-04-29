@@ -85,11 +85,11 @@ export interface CampgroundItem {
   description: string;
   price: number;
   rating: number;
-  comments : string[];
+  comments: string[];
   reservation: ReservationItem[];
   id: string;
-  tagsID : string[];
-  tagsName : string[];
+  tagsID: string[];
+  tagsName: string[];
 }
 
 export interface CampgroundJson {
@@ -100,10 +100,10 @@ export interface CampgroundJson {
 }
 
 export interface ReservationItem {
-  id : string;
+  id: string;
   apptDate: Date;
   user: string;
-  campground : string;
+  campground: string;
   createdAt: Date;
 }
 export interface CommentItem {
@@ -140,7 +140,7 @@ export interface UserJson {
 
 export interface Tag {
   _id: string;
-  name : string;
+  name: string;
 }
 export interface TagJson {
   success: boolean;
