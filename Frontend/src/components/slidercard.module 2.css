@@ -1,0 +1,91 @@
+.Card {
+    height: 296px;
+    width: 342px;
+
+    border-radius: 15px;
+    overflow: hidden;
+
+    position: relative;
+}
+
+.Card img {
+    height: 100%;
+    width: 100%;
+
+    position: relative;
+}
+
+.Card .InfoCard {
+
+    position: relative;
+    background-color: #242424c0;
+    height: 40%;
+    width: 100%;
+
+    top: -20%;
+
+    display: flex;
+    flex-direction: column;
+
+    padding: 2% 5%;
+    box-sizing: border-box;
+    transition: top ease-in 0.5s;
+
+
+}
+
+
+.Card:hover .InfoCard {
+
+    top: -40%;
+
+    transition: top ease-in 0.5s;
+}
+
+.UpperPart {
+    height: 60%;
+    width: 100%;
+    display: grid;
+    grid-template-columns: 2fr 1.5fr;
+    gap: 5%;
+
+    font-size: 18px;
+    color: white;
+}
+
+.UpperPart h2 {
+    line-height: 120%;
+}
+
+.RatingBox {
+    max-height: 32px;
+    height: 60%;
+    width: 50%;
+    background-color: #e7e7e77c;
+    align-items: center;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    font-size: 18px;
+    font-weight: 500;
+
+    border-radius: 5px;
+    
+    color: #FFFFFF;
+
+}
+
+.RatingBox h2 {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.RatingBox img {
+    height: 24px;
+    aspect-ratio: 1;
+    width: auto;
+    margin-bottom: 5%;
+}
