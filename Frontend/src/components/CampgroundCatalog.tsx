@@ -28,11 +28,8 @@ const BorderLinearProgress = styled(LinearProgress)(({ theme }) => ({
   },
 }));
 
-const urlParams = new URLSearchParams(window.location.search);
-const provinceParam = urlParams.get("province");
-const formattedProvince = provinceParam
-  ? provinceParam.split(/(?=[A-Z])/).join(" ")
-  : "";
+
+
 
 export default function CampgroundCatalog({
   campgroundJson,
@@ -44,8 +41,11 @@ export default function CampgroundCatalog({
   const [selectedStars, setSelectedStars] = useState<number>(0);
   const [searchQuery, setSearchQuery] = useState<string>("");
   const [selectedProvince, setSelectedProvince] =
-    useState<string>(formattedProvince);
+    useState<string>("");
   const [tagsData, setTagsData] = useState<string[]>([]);
+  const [selectedTags, setSelectedTags] = useState<{ [key: string]: boolean }>(
+    {}
+  );
   const handleStarChange = (value: number) => {
     setSelectedStars(value);
   };
@@ -57,6 +57,14 @@ export default function CampgroundCatalog({
   const handleProvinceChange = (newValue: string) => {
     setSelectedProvince(newValue);
   };
+  useEffect(() => {
+    const urlParams = new URLSearchParams(window.location.search);
+    const provinceParam = urlParams.get("province");
+    const formattedProvince = provinceParam
+      ? provinceParam.split(/(?=[A-Z])/).join(" ")
+      : "";
+    setSelectedProvince(formattedProvince);
+  }, []);
   useEffect(() => {
     getTags()
       .then((data: TagJson) => {
@@ -90,6 +98,13 @@ export default function CampgroundCatalog({
         selectedProvince={selectedProvince}
         handleProvinceChange={handleProvinceChange}
         tagsData={tagsData}
+        selectedTags={selectedTags}
+        handleTagClick={(tagName: string) =>
+          setSelectedTags((prevState) => ({
+            ...prevState,
+            [tagName]: !prevState[tagName],
+          }))
+        }
       >
         <Suspense
           fallback={
@@ -123,6 +138,7 @@ export default function CampgroundCatalog({
             valueMax={valueMax}
             searchQuery={searchQuery}
             selectedProvince={selectedProvince}
+            selectedTags={selectedTags}
           />
         </Suspense>
       </FilterPanel>
@@ -137,6 +153,7 @@ async function ListCampground({
   valueMax,
   searchQuery,
   selectedProvince,
+  selectedTags,
 }: {
   campgroundJson: Promise<CampgroundJson>;
   selectedStars: number;
@@ -144,6 +161,7 @@ async function ListCampground({
   valueMax: number | null;
   searchQuery: string;
   selectedProvince: string;
+  selectedTags: { [key: string]: boolean };
 }) {
   const campgroundReady = await campgroundJson;
 
@@ -158,11 +176,20 @@ async function ListCampground({
       item.name.toLowerCase().includes(searchQuery.toLowerCase());
     const passedProvinceFilter =
       selectedProvince === "" || item.province === selectedProvince;
+      const anyTagSelected = Object.values(selectedTags).some(
+        (isSelected) => isSelected
+      );
+  
+      
+      const passedTagFilter = !anyTagSelected || 
+        item.tagsName.some((tag) => selectedTags[tag]);
+
     return (
       passedStarFilter &&
       passedPriceFilter &&
       passedSearchQuery &&
-      passedProvinceFilter
+      passedProvinceFilter && 
+      passedTagFilter
     );
   });
 
@@ -187,6 +214,7 @@ async function ListCampground({
             price={campgroundItem.price}
             province={campgroundItem.province}
             rating={campgroundItem.rating}
+            campgroundTags={campgroundItem.tagsName}
           />
         </Link>
       ))}
@@ -205,6 +233,8 @@ function FilterPanel({
   selectedProvince,
   handleProvinceChange,
   tagsData,
+  selectedTags,
+  handleTagClick,
 }: {
   children: React.ReactNode;
   handleStarChange: (value: number) => void;
@@ -216,22 +246,17 @@ function FilterPanel({
   selectedProvince: string;
   handleProvinceChange: (newValue: string) => void;
   tagsData: string[];
+  selectedTags: { [key: string]: boolean };
+  handleTagClick: (tagName: string) => void;
 }) {
-  const [selectedTags, setSelectedTags] = useState<{ [key: string]: boolean }>(
-    {}
-  );
+  
   const [searchInput, setSearchInput] = useState<string>("");
 
-  const handleTagClick = (tagName: string) => {
-    setSelectedTags((prevState) => ({
-      ...prevState,
-      [tagName]: !prevState[tagName],
-    }));
-  };
-
-  const filteredTags = tagsData.filter(tag =>
+  const filteredTags = tagsData.filter((tag) =>
     tag.toLowerCase().includes(searchInput.toLowerCase())
   );
+
+
   return (
     <>
       <div className="w-[95%] m-5 p-5 flex flex-row flex-wrap space-x-10 justify-center items-start ">
@@ -418,8 +443,8 @@ function FilterPanel({
             </div>
 
             <div className="p-8 h-[40%] w-[100%]">
-              <div className="flex flex-row w-[100%] pr-[5%] h-[20%] items-center text-center justify-between">
-                <div className=" w-[20%] text-base font-inter text-left flex items-center justify-center">
+            <div className="flex flex-row w-[100%] pr-[5%] h-[20%] items-center text-center justify-between">
+                <div className="w-[20%] text-base font-inter text-left flex items-center justify-center">
                   Tags
                 </div>
                 <input
@@ -430,10 +455,10 @@ function FilterPanel({
                   placeholder="Search Tag"
                 />
               </div>
-              <div className=" h-[70%] w-[100%] overflow-auto">
+              <div className="h-[70%] w-[100%] overflow-auto">
                 <div className="flex flex-col  h-[20%] ">
-                  <div className=" flex flex-wrap justify-start mt-2">
-                  {filteredTags.map((tagName) => (
+                  <div className="flex flex-wrap justify-start mt-2">
+                    {filteredTags.map((tagName) => (
                       <div
                         key={tagName}
                         className={`m-1 py-1 px-2 rounded-lg cursor-pointer ${
@@ -441,7 +466,7 @@ function FilterPanel({
                             ? "bg-[#AF9670] text-white"
                             : "bg-[#E1E1E1] text-[#7D7D7D]"
                         }`}
-                        onClick={() => handleTagClick(tagName)}
+                        onClick={() => handleTagClick(tagName)} // Pass tagName to the click handler
                       >
                         {tagName}
                       </div>
