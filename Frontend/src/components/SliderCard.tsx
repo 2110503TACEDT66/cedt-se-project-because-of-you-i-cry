@@ -42,12 +42,13 @@ export default function SliderCard({ data }: { data: any }) {
           </h2>
           <div className={styles.LowerTag}>
             {data.tagsName.map((tagName: string) => (
-              <div
-                key={tagName}
-                className={`m-1 py-1 px-2 rounded-lg cursor-pointer bg-[#AF9670] text-white`}
-              >
-                {tagName}
-              </div>
+              <span key={tagName}>
+                <div
+                  className={`m-1 py-1 px-2 rounded-lg cursor-pointer bg-[#AF9670] text-white`}
+                >
+                  {tagName}
+                </div>
+              </span>
             ))}
           </div>
         </div>

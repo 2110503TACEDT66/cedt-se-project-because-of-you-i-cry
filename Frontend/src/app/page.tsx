@@ -9,6 +9,7 @@ import TrendingNow from "@/components/trendingnow";
 import ExploreThailand from "@/components/ExploreThailand";
 import NewTopMenu from "@/components/NewTopMenu/NewTopMenu";
 import ChooseYourStyles from "@/components/ChooseYourstyles";
+import Footer from "@/components/Footer";
 
 export default function Home() {
   return (
@@ -18,6 +19,7 @@ export default function Home() {
       <TrendingNow />
       <ExploreThailand />
       <ChooseYourStyles />
+      <Footer />
     </main>
   );
 }

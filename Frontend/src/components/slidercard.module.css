@@ -106,3 +106,7 @@
   overflow-y: hidden;
   scrollbar-width: none;
 }
+
+.LowerTag div {
+  white-space: nowrap; /* Prevents line breaks */
+}

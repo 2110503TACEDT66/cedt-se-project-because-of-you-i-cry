@@ -50,7 +50,7 @@ export default function Banner() {
         >
           Choose Your Campground Escape!
         </button>
-        <div className="absolute bottom-5 mb-5">
+        <div className="absolute bottom-5 mb-5 cursor-pointer">
           <p className="text-white">View more</p>
           <div className="transform rotate-180 text-center">
             <span className="text-white">^</span>
