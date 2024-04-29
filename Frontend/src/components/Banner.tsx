@@ -10,6 +10,14 @@ export default function Banner() {
   const { data: session } = useSession();
   //console.log(session?.user.token)
 
+  const scrollToContent = () => {
+    // Scroll to a position just below the banner
+    window.scrollTo({
+      top: window.innerHeight - 100, // Adjust this value as needed
+      behavior: "smooth", // Optional: Adds smooth scrolling animation
+    });
+  };
+
   return (
     <div className={styles.banner}>
       <Image
@@ -50,7 +58,7 @@ export default function Banner() {
         >
           Choose Your Campground Escape!
         </button>
-        <div className="absolute bottom-5 mb-5">
+        <div className="absolute bottom-5 mb-5" onClick={scrollToContent}>
           <p className="text-white">View more</p>
           <div className="transform rotate-180 text-center">
             <span className="text-white">^</span>
