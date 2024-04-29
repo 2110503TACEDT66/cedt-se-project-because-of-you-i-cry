@@ -1,4 +1,9 @@
 import React, { useState, useEffect } from 'react';
+import getTags from "@/libs/getTags";
+import { TagJson } from "../../interface";
+import createTagToCampground from '@/libs/createTagToCampground';
+
+
 
 interface EditTagPopupProps {
   onClose: () => void;
@@ -6,18 +11,22 @@ interface EditTagPopupProps {
 
 const EditTagPopup: React.FC<EditTagPopupProps> = ({ onClose }) => {
   const [searchTag, setSearchTag] = useState('');
-  const [allTags, setAllTags] = useState([
-    'Camping', 'Hiking', 'Campfires', 'Tent', 'Sleeping Bags', 'Wildlife',
-    'Trails', 'Lakes', 'Fishing', 'Sunrises', 'Sunsets', 'Nature', 'Woods',
-    'Firewood', 'Grilling', 'Barbecue', 'Canoeing', 'Kayaking', 'RV', 'Cabins',
-    'Birds', 'Stars', 'Stargazing', 'Maps', 'Biking', 'Running', 'Adventure',
-    'Boating', 'Campgrounds', 'Scenery', 'Smores', 'Picnics', 'Rivers',
-    'Marshmallows', 'Hiking Boots', 'Waterfalls', 'Camping Gear', 'Forests',
-    'Wildlife Photography', 'Campfire Songs', 'Family Fun', 'Relaxation',
-    'Quiet Time', 'Beach', 'Swimming', 'Cliff Jumping', 'Day Trips', 'Campsites',
-  ]);
+  const [allTags, setAllTags] = useState<string[]>([]);
 
+  
   const [filteredTags, setFilteredTags] = useState(allTags);
+
+
+  useEffect(() => {
+    getTags()
+      .then((data: TagJson) => {
+        const tagNames = data.tags.map((tag) => tag.name);
+        setAllTags(tagNames);
+      })
+      .catch((error) => {
+        console.error("Error fetching tags:", error);
+      });
+  }, []);
 
   useEffect(() => {
     if (searchTag.trim()) {
@@ -76,6 +85,10 @@ const EditTagPopup: React.FC<EditTagPopupProps> = ({ onClose }) => {
       [tagName]: !prevState[tagName],
     }));
   };
+
+  const [tagsData, setTagsData] = useState<string[]>([]);
+
+
 
   return (
     <div
@@ -138,7 +151,7 @@ const EditTagPopup: React.FC<EditTagPopupProps> = ({ onClose }) => {
 
       <div className="flex justify-center mt-4">
         <button
-          onClick={onClose}
+          onClick={createTagToCampground}
           className="bg-green-500 text-white px-6 py-2 rounded-md hover:bg-green-600"
           aria-label="Save and close"
         >
