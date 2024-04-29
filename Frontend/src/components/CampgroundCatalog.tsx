@@ -215,6 +215,7 @@ async function ListCampground({
             province={campgroundItem.province}
             rating={campgroundItem.rating}
             campgroundTags={campgroundItem.tagsName}
+            campgroundId={campgroundItem.id}
           />
         </Link>
       ))}
