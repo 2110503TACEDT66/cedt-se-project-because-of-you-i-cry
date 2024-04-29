@@ -13,6 +13,8 @@ export default function Card({
   province,
   rating,
   campgroundTags,
+  setEnable,
+  setCampgroundId
 }: {
   campgroundId: string; // Add campgroundId type
   campgroundName: string;
@@ -21,6 +23,8 @@ export default function Card({
   province: string;
   rating: number;
   campgroundTags: string[];
+  setEnable : any
+  setCampgroundId : any
 }) {
   const [visibleTags, setVisibleTags] = useState<string[]>([]);
   const containerRef = useRef<HTMLDivElement>(null);
@@ -85,10 +89,13 @@ export default function Card({
     return 0;
   };
   const handleEditTagsClick = () => {
+    setEnable(true)
+    setCampgroundId(campgroundId)
     setShowEditTagPopup(true); // Show the popup when the pencil icon is clicked
   };
 
   const handleCloseEditTagPopup = () => {
+    setEnable(false)
     setShowEditTagPopup(false); // Close the popup when the "Save" button is clicked
   };
   return (
@@ -182,12 +189,7 @@ export default function Card({
           </div>
         </div>
       </div>
-      {showEditTagPopup && ( // Render the EditTagPopupEach component when showEditTagPopup is true
-        <EditTagPopupEach
-          onClose={handleCloseEditTagPopup}
-          campgroundId={campgroundId} // Pass the campgroundId to the EditTagPopupEach component
-        />
-      )}
+      
     </InteractiveCard>
   );
 }

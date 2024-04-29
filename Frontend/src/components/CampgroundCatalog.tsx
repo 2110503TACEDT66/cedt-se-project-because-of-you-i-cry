@@ -33,8 +33,12 @@ const BorderLinearProgress = styled(LinearProgress)(({ theme }) => ({
 
 export default function CampgroundCatalog({
   campgroundJson,
+  setEnable,
+  setCampgroundId
 }: {
-  campgroundJson: Promise<CampgroundJson>;
+  campgroundJson: Promise<CampgroundJson>,
+  setEnable : any,
+  setCampgroundId : any
 }) {
   const [valueMax, setMaxValue] = useState<number | null>(null);
   const [valueMin, setMinValue] = useState<number | null>(null);
@@ -139,6 +143,8 @@ export default function CampgroundCatalog({
             searchQuery={searchQuery}
             selectedProvince={selectedProvince}
             selectedTags={selectedTags}
+            setEnable = {setEnable}
+            setCampgroundId = {setCampgroundId}
           />
         </Suspense>
       </FilterPanel>
@@ -154,6 +160,8 @@ async function ListCampground({
   searchQuery,
   selectedProvince,
   selectedTags,
+  setEnable,
+  setCampgroundId
 }: {
   campgroundJson: Promise<CampgroundJson>;
   selectedStars: number;
@@ -162,6 +170,8 @@ async function ListCampground({
   searchQuery: string;
   selectedProvince: string;
   selectedTags: { [key: string]: boolean };
+  setEnable : any
+  setCampgroundId : any
 }) {
   const campgroundReady = await campgroundJson;
 
@@ -216,6 +226,8 @@ async function ListCampground({
             rating={campgroundItem.rating}
             campgroundTags={campgroundItem.tagsName}
             campgroundId={campgroundItem.id}
+            setEnable = {setEnable}
+            setCampgroundId = {setCampgroundId}
           />
         </Link>
       ))}
