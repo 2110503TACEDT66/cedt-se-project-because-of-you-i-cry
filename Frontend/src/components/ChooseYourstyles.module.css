@@ -1,0 +1,65 @@
+.TrendingSectionWrapper {
+  height: 70vh;
+  width: 100vw;
+  /* background-color: aqua; */
+
+  padding: 2.5% 3.75% 2.5% 3.75%;
+
+  box-sizing: border-box;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+}
+
+.HeaderLine {
+  height: 70px;
+  width: 100%;
+
+  display: grid;
+  grid-template-columns: 57fr 515fr 551fr;
+
+  align-items: center;
+}
+
+.line {
+  height: 22px;
+  background-color: #d9d9d9;
+  border-bottom: 4px solid #8c0adb;
+}
+
+.HeaderTextWrapper {
+  height: 100%;
+  width: 100%;
+  /* background-color: aquamarine; */
+
+  /* font-family: 'Poppins'; */
+
+  text-align: center;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  font-size: 50px;
+  font-weight: 600;
+}
+
+.FloatingText {
+  position: relative;
+  top: -25px;
+  font-weight: 700;
+  font-size: 20px;
+
+  color: rgba(0, 0, 0, 0.4);
+}
+
+.info {
+  display: flex;
+  flex-direction: column;
+  width: 80%;
+  height: 50px;
+  justify-content: center;
+  align-items: center;
+}

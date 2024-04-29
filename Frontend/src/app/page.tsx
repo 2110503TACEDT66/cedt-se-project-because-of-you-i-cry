@@ -8,6 +8,7 @@ import TopCampground from "@/components/TopCampground";
 import TrendingNow from "@/components/trendingnow";
 import ExploreThailand from "@/components/ExploreThailand";
 import NewTopMenu from "@/components/NewTopMenu/NewTopMenu";
+import ChooseYourStyles from "@/components/ChooseYourstyles";
 
 export default function Home() {
   return (
@@ -16,6 +17,7 @@ export default function Home() {
       <Banner />
       <TrendingNow />
       <ExploreThailand />
+      <ChooseYourStyles />
     </main>
   );
 }

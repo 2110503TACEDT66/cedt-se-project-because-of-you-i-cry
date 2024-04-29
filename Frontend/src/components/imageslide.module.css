@@ -1,9 +1,9 @@
 .SliderWrapper {
-    margin-top: 5%;
-    padding: 0 7%;
-    width: 100%;
-    height: 100%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
+  margin-top: 1%;
+  padding: 0 7%;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
