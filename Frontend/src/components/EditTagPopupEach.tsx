@@ -66,6 +66,17 @@ const EditTagPopup: React.FC<EditTagPopupProps> = ({ onClose }) => {
     e.preventDefault();
   };
 
+  const [selectedTags, setSelectedTags] = useState<{ [key: string]: boolean }>(
+    {}
+  );
+
+  const handleTagClick = (tagName: string) => {
+    setSelectedTags((prevState) => ({
+      ...prevState,
+      [tagName]: !prevState[tagName],
+    }));
+  };
+
   return (
     <div
       className="fixed top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-white rounded-lg shadow-lg p-6"
@@ -100,17 +111,19 @@ const EditTagPopup: React.FC<EditTagPopupProps> = ({ onClose }) => {
             className="flex flex-wrap overflow-y-auto"
             style={{ maxHeight: '240px' }}
           >
-            {filteredTags.map((tag, index) => (
-              <div
-                key={`${tag}-${index}`}
-                className="flex items-center bg-gray-200 rounded-md px-2 py-1 mr-2 mb-2"
-                // onClick={}
-                // draggable
-                // onDragStart={handleDragStart(tag)}
-              >
-                <span>{tag}</span>
-              </div>
-            ))}
+            {filteredTags.map((tagName) => (
+                      <div
+                        key={tagName}
+                        className={`m-1 py-1 px-2 rounded-lg cursor-pointer ${
+                          selectedTags[tagName]
+                            ? "bg-[#AF9670] text-white"
+                            : "bg-[#E1E1E1] text-[#7D7D7D]"
+                        }`}
+                        onClick={() => handleTagClick(tagName)}
+                      >
+                        {tagName}
+                      </div>
+                    ))}
             <button
               onClick={addTagFromPrompt}
               className="bg-transparent border border-dashed border-gray-300 rounded-md px-2 py-1 mr-2 mb-2 hover:bg-gray-200"
