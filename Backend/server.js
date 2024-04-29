@@ -14,7 +14,11 @@ const swaggerUI = require('swagger-ui-express');
 
 dotenv.config({path:"./config/config.env"});
 
-connectDB();
+
+if(process.env.NODE_ENV !== 'test'){
+    connectDB();
+}
+
 
 const app=express();
 
@@ -84,3 +88,5 @@ process.on('unhandledRejection',(err,promise)=> {
     console.log(`Error: ${err.message}`);
     server.close(()=>process.exit(1));
 })
+
+module.exports = app;

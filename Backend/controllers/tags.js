@@ -4,6 +4,7 @@ const Tag = require('../models/Tag');
 exports.getAllTags = async (req, res, next) => {
   try {
     const tags = await Tag.find().select('-__v');
+    console.log('Retrieved Tags:', tags);
     const count = await Tag.countDocuments();
     
     res.status(200).json({ success: true, count, tags });
