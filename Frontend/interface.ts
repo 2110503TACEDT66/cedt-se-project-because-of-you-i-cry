@@ -128,7 +128,7 @@ export interface UserJson {
 }
 
 export interface Tag {
-  id: string;
+  _id: string;
   name : string;
 }
 export interface TagJson {
