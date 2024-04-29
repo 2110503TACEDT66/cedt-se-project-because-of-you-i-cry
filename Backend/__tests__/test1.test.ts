@@ -206,4 +206,100 @@ describe("Tag Routes", () => {
       );
     });
   });
+
+  describe("GET /api-informations/campgrounds?sort=-rating&limit=3", () => {
+    it("should get top 3 campground", async () => {
+      const campground1 = new Campground({
+        name: 'Campground 1',
+        address: '123 Main St',
+        district: 'District 1',
+        province: 'Province 1',
+        region: 'Region 1',
+        postalcode: '12345',
+        tel: '1234567890',
+        url: 'https://example.com',
+        maxReservations: 10,
+        coverpicture: 'https://example.com/cover.jpg',
+        picture: ['https://example.com/pic1.jpg', 'https://example.com/pic2.jpg'],
+        description: 'This is a campground',
+        price: 100,
+        rating: 4.2,
+        tags: []
+      });
+      await campground1.save();
+
+      // Create another campground with tag2 and tag3
+      const campground2 = new Campground({
+        name: 'Campground 2',
+        address: '456 Main St',
+        district: 'District 2',
+        province: 'Province 2',
+        region: 'Region 2',
+        postalcode: '67890',
+        tel: '0987654321',
+        url: 'https://example.com/campground2',
+        maxReservations: 15,
+        coverpicture: 'https://example.com/cover2.jpg',
+        picture: ['https://example.com/pic3.jpg', 'https://example.com/pic4.jpg'],
+        description: 'This is another campground',
+        price: 150,
+        rating: 4.8,
+        tags: []
+      });
+      await campground2.save();
+
+      const campground3 = new Campground({
+        name: 'Campground 3',
+        address: '456 Main St',
+        district: 'District 3',
+        province: 'Province 3',
+        region: 'Region 3',
+        postalcode: '67890',
+        tel: '0987654321',
+        url: 'https://example.com/campground2',
+        maxReservations: 15,
+        coverpicture: 'https://example.com/cover2.jpg',
+        picture: ['https://example.com/pic3.jpg', 'https://example.com/pic4.jpg'],
+        description: 'This is another campground',
+        price: 150,
+        rating: 3.0,
+        tags: []
+      });
+      await campground3.save();
+
+      const campground4 = new Campground({
+        name: 'Campground 4',
+        address: '456 Main St',
+        district: 'District 4',
+        province: 'Province 4',
+        region: 'Region 4',
+        postalcode: '67890',
+        tel: '0987654321',
+        url: 'https://example.com/campground2',
+        maxReservations: 15,
+        coverpicture: 'https://example.com/cover2.jpg',
+        picture: ['https://example.com/pic3.jpg', 'https://example.com/pic4.jpg'],
+        description: 'This is another campground',
+        price: 150,
+        rating: 4.5,
+        tags: []
+      });
+      await campground4.save();
+
+      const response = await request(app).get("/api-informations/campgrounds?sort=-rating&limit=3s")
+      console.log("Response Body:", response.body);
+      expect(response.status).toBe(200);
+      expect(response.body.success).toBe(true);
+      expect(response.body.data.length).toBe(3);
+      expect(response.body.data[0].name).toBe('Campground 2');
+      expect(response.body.data[1].name).toBe('Campground 4');
+      expect(response.body.data[2].name).toBe('Campground 1');
+      expect(response.body.data).not.toContainEqual(
+        expect.objectContaining({ name: 'Campground 3' })
+      );
+    });
+  });
 });
+
+
+// /api-informations/campgrounds?sort=-rating&limit=3
