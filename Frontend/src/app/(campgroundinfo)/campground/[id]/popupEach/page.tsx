@@ -1,10 +1,12 @@
 'use client';
 
 import React, { useState } from 'react';
+import { useParams } from 'react-router-dom';
 import EditTagPopupEach from '@/components/EditTagPopupEach';
 
-const PopupExample: React.FC = () => {
+export default function PopupExample() {
   const [isPopupOpen, setIsPopupOpen] = useState(false);
+  const { id } = useParams();
 
   const handleButtonClick = () => {
     setIsPopupOpen(true);
@@ -19,14 +21,12 @@ const PopupExample: React.FC = () => {
       <button
         className="bg-blue-500 text-white font-bold py-2 px-4 rounded hover:bg-blue-700 focus:outline-none"
         onClick={handleButtonClick}
-        >
+      >
         Open Popup
       </button>
       {isPopupOpen && (
-        <EditTagPopupEach onClose={handleClosePopup}/>
+        <EditTagPopupEach onClose={handleClosePopup} campgroundId={id} />
       )}
     </div>
   );
-};
-
-export default PopupExample;
+}

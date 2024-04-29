@@ -15,7 +15,8 @@ const createTagToCampground = async (campgroundID:string , token: string , tagID
   );
 
   if (!response.ok) {
-    throw new Error("Failed to create tags for this campground");
+    const errorMessage = await response.text(); // Get error message from server response
+    throw new Error(`Failed to create tag: ${errorMessage}`);
   }
 
   return await response.json();
