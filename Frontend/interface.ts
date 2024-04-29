@@ -86,6 +86,7 @@ export interface CampgroundItem {
   price: number;
   rating: number;
   id: string;
+  tagsName: string[];
 }
 
 export interface CampgroundJson {
@@ -93,7 +94,7 @@ export interface CampgroundJson {
   count: number;
   pagination: Object;
   data: CampgroundItem[];
-} 
+}
 
 export interface CommentItem {
   _id: string;
@@ -124,12 +125,12 @@ export interface UserJson {
     password: string;
     role: string;
     createdAt: string;
-  }
+  };
 }
 
 export interface Tag {
   id: string;
-  name : string;
+  name: string;
 }
 export interface TagJson {
   success: boolean;
