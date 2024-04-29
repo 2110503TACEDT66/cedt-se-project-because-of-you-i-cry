@@ -149,25 +149,43 @@ exports.getCampgroundWithMatchandSimilarTag2 = async (req, res, next) => {
     const campTag = campground.tags;
 
     // Aggregate to find campgrounds with similar tags
-    const allSimilar = await Campground.aggregate([
+    const similarCampgrounds = await Campground.aggregate([
       // Match to exclude the current campground
-      { $match: { _id: { $ne: campground._id }, tags: { $in: campTag } } },
       {
-        $addFields: {
-          "count": {
-            $sum: {
-              $cond: { if: { $in: ["$tags", campTag] }, then: 1, else: 0 }
-            }
-          },
+        $match: {
+          _id: { $ne: campground._id },
+          tags: { $in: campTag }
         }
       },
-      // Sort by count descending, then by _id ascending
-      { $sort: { count: -1, name: 1 } },
-      { $unset: "count" }
+      {
+        $lookup: {
+          from: "tags",
+          localField: "tags",
+          foreignField: "_id",
+          as: "tagDetails"
+        }
+      },
+      {
+        $addFields: {
+          "tagsID": "$tags",
+          "tagsName": "$tagDetails.name"
+        }
+      },
+      // Sort by name ascending
+      {
+        $sort: { name: 1 }
+      },
+      // Unset the tags and tagDetails fields
+      {
+        $unset: ["tags", "tagDetails"]
+      }
     ]);
 
-    // Return the result as JSON
-    res.status(200).json({ success: true, data: allSimilar });
+    // Return the result as JSON with only the similar campgrounds
+    res.status(200).json({
+      success: true,
+      data: similarCampgrounds
+    });
   } catch (error) {
     console.log(error);
     res.status(400).json({ success: false });
