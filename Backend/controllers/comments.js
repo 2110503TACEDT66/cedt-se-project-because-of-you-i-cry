@@ -47,7 +47,7 @@ exports.createComment = async (req, res, next) => {
         });
       }
   
-      if (comment.user_id !== req.user.id) {
+      if (comment.user_id.toString() !== req.user.id) {
         return res.status(401).json({ success: false, message: `User ${req.user.id} is not authorized to update this comment` });
       }
   
@@ -72,9 +72,12 @@ exports.createComment = async (req, res, next) => {
   
   
   exports.deleteComment = async (req, res, next) => {
-    // console.log(req.params.commentId)
     try {
       const comment = await Comment.findById(req.params.commentId);
+
+      // console.log(req.params.commentId)
+      // console.log(req.params.id)
+      // console.log(comment.user_id)
   
       if (!comment) {
         return res.status(404).json({
@@ -83,7 +86,7 @@ exports.createComment = async (req, res, next) => {
         });
       }
   
-      if (comment.user_id !== req.user.id) {
+      if (comment.user_id.toString() !== req.user.id) {
         return res.status(404).json({
           success: false,
           message: "You can't delete other comment",
