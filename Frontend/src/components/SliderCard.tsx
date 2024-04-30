@@ -1,10 +1,12 @@
 import styles from "./slidercard.module.css";
 import Image from "next/image";
+
 export default function SliderCard({ data }: { data: any }) {
+  
   return (
     <div
       className={styles.Card}
-      onClick={(event) => (window.location.href = `./campground/${data.id}`)}
+      onClick={(event) => (window.location.replace(`/campground/${data._id}`))}
     >
       <Image
         height={0}
