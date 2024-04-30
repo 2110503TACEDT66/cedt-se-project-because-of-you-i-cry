@@ -42,6 +42,7 @@ export default function CampgroundCatalog({
   setCampgroundId: any;
   toggleEditTagPopup: any;
 }) {
+  const [role, setRole] = useState<string>("user");
   const [valueMax, setMaxValue] = useState<number | null>(null);
   const [valueMin, setMinValue] = useState<number | null>(null);
   const [selectedStars, setSelectedStars] = useState<number>(0);
@@ -51,6 +52,7 @@ export default function CampgroundCatalog({
   const [selectedTags, setSelectedTags] = useState<{ [key: string]: boolean }>(
     {}
   );
+  const session = useSession();
 
   const handleStarChange = (value: number) => {
     setSelectedStars(value);
@@ -63,6 +65,22 @@ export default function CampgroundCatalog({
   const handleProvinceChange = (newValue: string) => {
     setSelectedProvince(newValue);
   };
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        if (session && session.data && session.data.user) {
+          const profile = await getUserProfile(session.data.user.token);
+          setRole(profile.data.role);
+        }
+      } catch (error) {
+        console.log(error);
+      }
+    };
+
+    fetchData();
+  }, [session.data?.user]);
+
   useEffect(() => {
     const urlParams = new URLSearchParams(window.location.search);
     const provinceParam = urlParams.get("province");
@@ -71,6 +89,7 @@ export default function CampgroundCatalog({
       : "";
     setSelectedProvince(formattedProvince);
   }, []);
+
   useEffect(() => {
     getTags()
       .then((data: TagJson) => {
@@ -112,6 +131,7 @@ export default function CampgroundCatalog({
           }))
         }
         toggleEditTagPopup={toggleEditTagPopup}
+        role={role}
       >
         <Suspense
           fallback={
@@ -148,6 +168,7 @@ export default function CampgroundCatalog({
             selectedTags={selectedTags}
             setEnable={setEnable}
             setCampgroundId={setCampgroundId}
+            role={role}
           />
         </Suspense>
       </FilterPanel>
@@ -165,6 +186,7 @@ async function ListCampground({
   selectedTags,
   setEnable,
   setCampgroundId,
+  role,
 }: {
   campgroundJson: Promise<CampgroundJson>;
   selectedStars: number;
@@ -175,6 +197,7 @@ async function ListCampground({
   selectedTags: { [key: string]: boolean };
   setEnable: any;
   setCampgroundId: any;
+  role: string;
 }) {
   const campgroundReady = await campgroundJson;
 
@@ -230,6 +253,7 @@ async function ListCampground({
             campgroundId={campgroundItem.id}
             setEnable={setEnable}
             setCampgroundId={setCampgroundId}
+            role={role}
           />
         </Link>
       ))}
@@ -251,6 +275,7 @@ function FilterPanel({
   selectedTags,
   handleTagClick,
   toggleEditTagPopup,
+  role,
 }: {
   children: React.ReactNode;
   handleStarChange: (value: number) => void;
@@ -265,28 +290,13 @@ function FilterPanel({
   selectedTags: { [key: string]: boolean };
   handleTagClick: (tagName: string) => void;
   toggleEditTagPopup: any;
+  role: string;
 }) {
   const [searchInput, setSearchInput] = useState<string>("");
   const session = useSession();
   const filteredTags = tagsData.filter((tag) =>
     tag.toLowerCase().includes(searchInput.toLowerCase())
   );
-  const [role, setRole] = useState<null | string>(null);
-
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        if (session && session.data && session.data.user) {
-          const profile = await getUserProfile(session.data.user.token);
-          setRole(profile.data.role);
-        }
-      } catch (error) {
-        console.log(error);
-      }
-    };
-
-    fetchData();
-  }, [session.data?.user]);
 
   return (
     <>

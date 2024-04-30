@@ -17,6 +17,7 @@ export default function Card({
   campgroundTags,
   setEnable,
   setCampgroundId,
+  role,
 }: {
   campgroundId: string; // Add campgroundId type
   campgroundName: string;
@@ -27,6 +28,7 @@ export default function Card({
   campgroundTags: string[];
   setEnable: any;
   setCampgroundId: any;
+  role: string;
 }) {
   const [visibleTags, setVisibleTags] = useState<string[]>([]);
   const containerRef = useRef<HTMLDivElement>(null);
@@ -35,24 +37,6 @@ export default function Card({
   const [overflow, setOverflow] = useState<boolean>(false);
   const [pencilIconWidth, setPencilIconWidth] = useState<number>(0);
   const [showEditTagPopup, setShowEditTagPopup] = useState<boolean>(false);
-  const session = useSession();
-
-  const [role, setRole] = useState<null | string>(null);
-
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        if (session && session.data && session.data.user) {
-          const profile = await getUserProfile(session.data.user.token);
-          setRole(profile.data.role);
-        }
-      } catch (error) {
-        console.log(error);
-      }
-    };
-
-    fetchData();
-  }, [session.data?.user]);
 
   useEffect(() => {
     const container = containerRef.current;
