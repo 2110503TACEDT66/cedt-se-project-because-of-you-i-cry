@@ -167,30 +167,36 @@ exports.getCampgroundWithMatchandSimilarTag2 = async (req, res, next) => {
       },
       {
         $addFields: {
+          "count": {
+            $size: {
+              $setIntersection: [campTag, "$tags"]
+            }
+          },
           "tagsID": "$tags",
           "tagsName": "$tagDetails.name"
         }
       },
-      // Sort by name ascending
+      // Sort by count descending and name ascending
       {
-        $sort: { name: 1 }
+        $sort: { count: -1, name: 1 }
       },
       // Unset the tags and tagDetails fields
       {
-        $unset: ["tags", "tagDetails"]
+        $unset: ["tags", "tagDetails"],
       }
     ]);
 
-    // Return the result as JSON with only the similar campgrounds
     res.status(200).json({
       success: true,
       data: similarCampgrounds
     });
-  } catch (error) {
-    console.log(error);
-    res.status(400).json({ success: false });
+  } catch (err) {
+    res.status(500).json({
+      success: false,
+      error: "Server Error"
+    });
   }
-}
+};
 
 exports.getAllTagsForCampground = async (req, res, next) => {
   try {
