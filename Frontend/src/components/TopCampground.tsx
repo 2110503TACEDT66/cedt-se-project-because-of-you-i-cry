@@ -1,4 +1,3 @@
-import CardPanel from "@/components/CardPanel";
 import getCampgrounds from "@/libs/getCampgrounds";
 import TopCampgroundCatalog from "./TopCC";
 import { Suspense } from "react";

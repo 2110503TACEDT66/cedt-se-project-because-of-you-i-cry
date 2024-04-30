@@ -1,6 +1,6 @@
 import React, { useState, useRef, useEffect } from 'react';
 import styles from './campgroundtagspanel.module.css';
-import CampgroundTag from '../CampgroundTag/CampgroundTag';
+import CampgroundTag from '@/components/CampgroundTag/CampgroundTag';
 import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown';
 import ArrowDropUpIcon from '@mui/icons-material/ArrowDropUp';
 
@@ -55,7 +55,7 @@ export default function CampgroundTagsPanel({ tagsArray }: { tagsArray: any }) {
       const context = canvas.getContext('2d');
       if (context) {
         const metrics = context.measureText(tagName);
-        return metrics.width + 30; // Add some padding (20 pixels in this example)
+        return metrics.width + 35; // Add some padding (20 pixels in this example)
       }
     }
     return 0;
