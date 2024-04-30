@@ -8,7 +8,7 @@ import getCampgrounds from "@/libs/getCampgrounds";
 import CampgroundCatalog from "./CampgroundCatalog";
 import getTagsForCampground from "@/libs/getTagsForCampgrounds";
 import deleteTagFromCampground from "@/libs/deleteTagFromCampground";
-
+import EditTagPopup from "./EditTagPopup";
 interface EditTagPopupProps {
   onClose: () => void;
   campgroundId: string;
@@ -32,7 +32,7 @@ const EditTagPopupEach = ({
 
   const campgrounds = getCampgrounds();
   const isFirstRender = useRef(true);
-
+  const [showEditTagPopup, setShowEditTagPopup] = useState(false);
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -133,7 +133,9 @@ const EditTagPopupEach = ({
       [tagName]: !prevState[tagName],
     }));
   };
-
+  const toggleEditTagPopup = () => {
+    setShowEditTagPopup(!showEditTagPopup);
+  };
   if (isEnable)
     return (
       <div>
@@ -204,8 +206,32 @@ const EditTagPopupEach = ({
           setEnable={setEnable}
           setCampgroundId={setCampgroundId}
           campgroundJson={campgrounds}
+          toggleEditTagPopup={toggleEditTagPopup}
         />
       </div>
+    );
+  else if (showEditTagPopup)
+    return (
+      <div>
+      {showEditTagPopup && (
+        <div className="z-[100] fixed top-0 left-0 bg-black w-[100vw] h-[100vh] bg-opacity-70">
+          <div
+            className="fixed top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-white rounded-lg shadow-lg p-6"
+            style={{ width: "700px", height: "500px" }}
+            role="dialog"
+            aria-modal="true"
+          >
+            {showEditTagPopup && <EditTagPopup onClose={toggleEditTagPopup} />}
+          </div>
+        </div>
+      )}
+      <CampgroundCatalog
+        setEnable={setEnable}
+        setCampgroundId={setCampgroundId}
+        campgroundJson={campgrounds}
+        toggleEditTagPopup={toggleEditTagPopup}
+      />
+    </div>
     );
   else
     return (
@@ -214,6 +240,7 @@ const EditTagPopupEach = ({
           setEnable={setEnable}
           setCampgroundId={setCampgroundId}
           campgroundJson={campgrounds}
+          toggleEditTagPopup={toggleEditTagPopup}
         />
       </div>
     );

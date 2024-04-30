@@ -28,28 +28,27 @@ const BorderLinearProgress = styled(LinearProgress)(({ theme }) => ({
   },
 }));
 
-
-
-
 export default function CampgroundCatalog({
   campgroundJson,
   setEnable,
-  setCampgroundId
+  setCampgroundId,
+  toggleEditTagPopup,
 }: {
-  campgroundJson: Promise<CampgroundJson>,
-  setEnable : any,
-  setCampgroundId : any
+  campgroundJson: Promise<CampgroundJson>;
+  setEnable: any;
+  setCampgroundId: any;
+  toggleEditTagPopup: any;
 }) {
   const [valueMax, setMaxValue] = useState<number | null>(null);
   const [valueMin, setMinValue] = useState<number | null>(null);
   const [selectedStars, setSelectedStars] = useState<number>(0);
   const [searchQuery, setSearchQuery] = useState<string>("");
-  const [selectedProvince, setSelectedProvince] =
-    useState<string>("");
+  const [selectedProvince, setSelectedProvince] = useState<string>("");
   const [tagsData, setTagsData] = useState<string[]>([]);
   const [selectedTags, setSelectedTags] = useState<{ [key: string]: boolean }>(
     {}
   );
+
   const handleStarChange = (value: number) => {
     setSelectedStars(value);
   };
@@ -109,6 +108,7 @@ export default function CampgroundCatalog({
             [tagName]: !prevState[tagName],
           }))
         }
+        toggleEditTagPopup={toggleEditTagPopup}
       >
         <Suspense
           fallback={
@@ -143,8 +143,8 @@ export default function CampgroundCatalog({
             searchQuery={searchQuery}
             selectedProvince={selectedProvince}
             selectedTags={selectedTags}
-            setEnable = {setEnable}
-            setCampgroundId = {setCampgroundId}
+            setEnable={setEnable}
+            setCampgroundId={setCampgroundId}
           />
         </Suspense>
       </FilterPanel>
@@ -161,7 +161,7 @@ async function ListCampground({
   selectedProvince,
   selectedTags,
   setEnable,
-  setCampgroundId
+  setCampgroundId,
 }: {
   campgroundJson: Promise<CampgroundJson>;
   selectedStars: number;
@@ -170,8 +170,8 @@ async function ListCampground({
   searchQuery: string;
   selectedProvince: string;
   selectedTags: { [key: string]: boolean };
-  setEnable : any
-  setCampgroundId : any
+  setEnable: any;
+  setCampgroundId: any;
 }) {
   const campgroundReady = await campgroundJson;
 
@@ -186,19 +186,18 @@ async function ListCampground({
       item.name.toLowerCase().includes(searchQuery.toLowerCase());
     const passedProvinceFilter =
       selectedProvince === "" || item.province === selectedProvince;
-      const anyTagSelected = Object.values(selectedTags).some(
-        (isSelected) => isSelected
-      );
-  
-      
-      const passedTagFilter = !anyTagSelected || 
-        item.tagsName.some((tag) => selectedTags[tag]);
+    const anyTagSelected = Object.values(selectedTags).some(
+      (isSelected) => isSelected
+    );
+
+    const passedTagFilter =
+      !anyTagSelected || item.tagsName.some((tag) => selectedTags[tag]);
 
     return (
       passedStarFilter &&
       passedPriceFilter &&
       passedSearchQuery &&
-      passedProvinceFilter && 
+      passedProvinceFilter &&
       passedTagFilter
     );
   });
@@ -226,8 +225,8 @@ async function ListCampground({
             rating={campgroundItem.rating}
             campgroundTags={campgroundItem.tagsName}
             campgroundId={campgroundItem.id}
-            setEnable = {setEnable}
-            setCampgroundId = {setCampgroundId}
+            setEnable={setEnable}
+            setCampgroundId={setCampgroundId}
           />
         </Link>
       ))}
@@ -248,6 +247,7 @@ function FilterPanel({
   tagsData,
   selectedTags,
   handleTagClick,
+  toggleEditTagPopup,
 }: {
   children: React.ReactNode;
   handleStarChange: (value: number) => void;
@@ -261,14 +261,13 @@ function FilterPanel({
   tagsData: string[];
   selectedTags: { [key: string]: boolean };
   handleTagClick: (tagName: string) => void;
+  toggleEditTagPopup: any;
 }) {
-  
   const [searchInput, setSearchInput] = useState<string>("");
 
   const filteredTags = tagsData.filter((tag) =>
     tag.toLowerCase().includes(searchInput.toLowerCase())
   );
-
 
   return (
     <>
@@ -456,7 +455,7 @@ function FilterPanel({
             </div>
 
             <div className="p-8 h-[40%] w-[100%]">
-            <div className="flex flex-row w-[100%] pr-[5%] h-[20%] items-center text-center justify-between">
+              <div className="flex flex-row w-[100%] pr-[5%] h-[20%] items-center text-center justify-between">
                 <div className="w-[20%] text-base font-inter text-left flex items-center justify-center">
                   Tags
                 </div>
@@ -484,6 +483,12 @@ function FilterPanel({
                         {tagName}
                       </div>
                     ))}
+                    <img
+                      src="/img/pencil.png"
+                      alt="Edit tags"
+                      className="w-8 h-8 ml-2 mt-1 cursor-pointer"
+                      onClick={toggleEditTagPopup}
+                    />
                   </div>
                 </div>
               </div>
