@@ -3,7 +3,7 @@ services:
   frontend:
     build: ./Frontend
     ports:
-      - "3000:80" # Map port 3000 on host to port 80 on container
+      - "3000:3000" # Map port 3000 on host to port 80 on container
   backend:
     build: ./Backend
     ports:
