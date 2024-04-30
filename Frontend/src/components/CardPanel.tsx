@@ -29,6 +29,8 @@ export default function CardPanel() {
               imgSrc={campgroundItem.coverpicture}
               price={campgroundItem.price}
               province={campgroundItem.province}
+              rating={campgroundItem.rating}
+              campgroundTags={campgroundItem.tagsName}
             />
           </Link>
         ))}
