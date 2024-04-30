@@ -89,6 +89,7 @@ export default function AddCommentCard({ campground_id , onCommentAdded}: { camp
                 variant="outlined"
                 value={commentText}
                 onChange={handleCommentChange}
+                data-test="addCommentBlock"
               />
             </div>
           </div>
