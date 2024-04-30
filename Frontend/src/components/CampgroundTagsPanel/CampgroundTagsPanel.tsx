@@ -55,7 +55,7 @@ export default function CampgroundTagsPanel({ tagsArray }: { tagsArray: any }) {
       const context = canvas.getContext('2d');
       if (context) {
         const metrics = context.measureText(tagName);
-        return metrics.width + 35; // Add some padding (20 pixels in this example)
+        return metrics.width + 45; // Add some padding (20 pixels in this example)
       }
     }
     return 0;

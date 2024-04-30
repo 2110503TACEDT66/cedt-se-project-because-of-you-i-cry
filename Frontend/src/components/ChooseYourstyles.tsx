@@ -93,16 +93,16 @@ export default function ChooseYourStyles() {
           Riverside
         </button>
         <button
-          key="Seaside"
+          key="Canyon Camp"
           className={`m-1 py-3 px-4 rounded-xl cursor-pointer wrap border border-[#A1A5FF]
                     ${
-                      selectedTags.includes("Seaside")
+                      selectedTags.includes("Canyon Camp")
                         ? "bg-[#A1A5FF] text-white"
                         : "bg-[#A1A5FF1A] text-[#A1A5FF]"
                     }`}
-          onClick={() => handleTagClick("Seaside")}
+          onClick={() => handleTagClick("Canyon Camp")}
         >
-          Seaside
+          Canyon Camp
         </button>
         <button
           key="Valley View"
