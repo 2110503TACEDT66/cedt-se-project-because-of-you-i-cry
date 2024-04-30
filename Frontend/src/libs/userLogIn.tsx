@@ -20,7 +20,7 @@ export default async function userLogIn(
   );
 
   if (!response.ok) {
-    throw new Error("Failed to Log-In");
+    //throw new Error("Failed to Log-In");
   }
 
   return await response.json();

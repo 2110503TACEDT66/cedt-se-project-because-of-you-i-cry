@@ -7,7 +7,7 @@ export default async function getComments(id: string) {
   );
 
   if (!response.ok) {
-    throw new Error("Failed to fetch comment");
+    //throw new Error("Failed to fetch comment");
   }
 
   return await response.json();

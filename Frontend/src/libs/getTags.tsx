@@ -9,7 +9,7 @@ export default async function getTags(): Promise<TagJson> {
   );
 
   if (!response.ok) {
-    throw new Error(`${BACKEND_URL}/api-informations/tags`);
+    //throw new Error(`${BACKEND_URL}/api-informations/tags`);
   }
 
   return await response.json();

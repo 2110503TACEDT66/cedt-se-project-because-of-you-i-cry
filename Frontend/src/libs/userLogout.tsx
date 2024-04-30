@@ -14,7 +14,7 @@ export default async function userLogOut() {
   );
 
   if (!response.ok) {
-    throw new Error("Failed to Log-Out");
+    //throw new Error("Failed to Log-Out");
   }
 
   return await response.json();

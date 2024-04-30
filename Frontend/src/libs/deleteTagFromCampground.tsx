@@ -20,7 +20,7 @@ const deleteTagFromCampground = async (
 
   if (!response.ok) {
     const errorMessage = await response.text(); // Get error message from server response
-    throw new Error(`Failed to delete tag: ${errorMessage}`);
+    //throw new Error(`Failed to delete tag: ${errorMessage}`);
   }
 
   return await response.json();

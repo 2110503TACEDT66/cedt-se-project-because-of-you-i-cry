@@ -16,7 +16,7 @@ export default async function getBookings(token: string): Promise<BookingJson> {
   );
 
   if (!response.ok) {
-    throw new Error("Failed to fetch bookings");
+    //throw new Error("Failed to fetch bookings");
   }
 
   return await response.json();

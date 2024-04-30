@@ -19,7 +19,7 @@ export default async function getOneBooking(
   );
 
   if (!response.ok) {
-    throw new Error("Failed to fetch booking");
+    //throw new Error("Failed to fetch booking");
   }
 
   return await response.json();

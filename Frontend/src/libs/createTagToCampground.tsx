@@ -20,7 +20,7 @@ const createTagToCampground = async (
 
   if (!response.ok) {
     const errorMessage = await response.text(); // Get error message from server response
-    throw new Error(`Failed to create tag: ${errorMessage}`);
+    //throw new Error(`Failed to create tag: ${errorMessage}`);
   }
 
   return await response.json();

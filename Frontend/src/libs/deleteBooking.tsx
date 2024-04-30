@@ -17,7 +17,7 @@ export default async function deleteBooking(id: string, token: string) {
   );
 
   if (!response.ok) {
-    throw new Error("Failed to fetch delete booking");
+    //throw new Error("Failed to fetch delete booking");
   }
 
   return await response.json();

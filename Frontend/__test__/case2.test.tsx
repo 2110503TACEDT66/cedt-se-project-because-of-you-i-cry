@@ -8,7 +8,7 @@ export default async function getCampgrounds(): Promise<CampgroundJson> {
     `${BACKEND_URL}/api-informations/campgrounds`
   );
   if (!response.ok) {
-    throw new Error("Failed to fetch campgrounds");
+    //throw new Error("Failed to fetch campgrounds");
   }
   return (await response.json()) as Promise<CampgroundJson>; // Specify return type explicitly
 }

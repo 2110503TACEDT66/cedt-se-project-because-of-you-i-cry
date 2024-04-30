@@ -4,7 +4,7 @@ const BACKEND_URL = process.env.BACKEND_URL;
 
 export default async function deleteTag(tagId: string, token: string): Promise<void> {
   if (!tagId || !token) {
-    throw new Error("Invalid arguments: tagId or token is missing.");
+    //throw new Error("Invalid arguments: tagId or token is missing.");
   }
 
   try {
@@ -21,10 +21,10 @@ export default async function deleteTag(tagId: string, token: string): Promise<v
 
     if (!response.ok) {
       const errorText = await response.text(); // Get detailed error message
-      throw new Error(`Failed to delete tag. Status: ${response.status}, Message: ${errorText}`);
+      //throw new Error(`Failed to delete tag. Status: ${response.status}, Message: ${errorText}`);
     }
   } catch (error) {
     console.error("Error in deleteTag:", error);
-    throw error; // Re-throw error to handle in the calling function
+    //throw error; // Re-//throw error to handle in the calling function
   }
 }
