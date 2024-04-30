@@ -1,3 +1,4 @@
+import EditTagPopupEach from "@/components/EditTagPopupEach";
 import NewTopMenu2 from "@/components/NewTopMenu/NewTopMenu2";
 import { Inter } from "next/font/google";
 

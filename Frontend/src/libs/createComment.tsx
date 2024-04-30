@@ -13,7 +13,7 @@ const createComment = async (commentData: CreateCommentItem) => {
     const BACKEND_URL = process.env.BACKEND_URL;
 
     const response = await fetch(
-        `${BACKEND_URL}/api-informations/campgrounds/${campground_id}`,
+        `${BACKEND_URL}/api-informations/comments/${campground_id}`,
         {
             method: "POST",
             headers: {
