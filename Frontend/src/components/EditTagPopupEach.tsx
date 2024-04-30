@@ -14,7 +14,11 @@ interface EditTagPopupProps {
   campgroundId: string;
 }
 
-const EditTagPopupEach = () => {
+const EditTagPopupEach = ({
+  campgroundJson,
+}: {
+  campgroundJson: Promise<CampgroundJson>;
+}) => {
   const [searchTag, setSearchTag] = useState("");
   const [filteredTags, setFilteredTags] = useState<Tag[]>([]);
   const [allTags, setAllTags] = useState<Tag[]>([]);

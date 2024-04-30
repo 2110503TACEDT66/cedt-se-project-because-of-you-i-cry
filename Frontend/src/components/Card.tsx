@@ -14,7 +14,7 @@ export default function Card({
   rating,
   campgroundTags,
   setEnable,
-  setCampgroundId
+  setCampgroundId,
 }: {
   campgroundId: string; // Add campgroundId type
   campgroundName: string;
@@ -23,8 +23,8 @@ export default function Card({
   province: string;
   rating: number;
   campgroundTags: string[];
-  setEnable : any
-  setCampgroundId : any
+  setEnable: any;
+  setCampgroundId: any;
 }) {
   const [visibleTags, setVisibleTags] = useState<string[]>([]);
   const containerRef = useRef<HTMLDivElement>(null);
@@ -45,7 +45,7 @@ export default function Card({
 
       campgroundTags.forEach((tag: string, index: number) => {
         const tagWidth = calculateTagWidth(tag);
-        if (totalTagWidth + tagWidth <= containerWidth - pencilIconWidth) {
+        if (totalTagWidth + tagWidth <= containerWidth - 60) {
           visibleTags.push(tag);
           totalTagWidth += tagWidth;
         } else {
@@ -70,7 +70,7 @@ export default function Card({
       const context = canvas.getContext("2d");
       if (context) {
         context.font = "bold 14px Arial";
-        const pencilIconWidth = context.measureText("...").width +60; // Adjust the value 30 as needed
+        const pencilIconWidth = context.measureText("...").width + 60; // Adjust the value 30 as needed
         setPencilIconWidth(pencilIconWidth);
       }
     }
@@ -89,13 +89,13 @@ export default function Card({
     return 0;
   };
   const handleEditTagsClick = () => {
-    setEnable(true)
-    setCampgroundId(campgroundId)
+    setEnable(true);
+    setCampgroundId(campgroundId);
     setShowEditTagPopup(true); // Show the popup when the pencil icon is clicked
   };
 
   const handleCloseEditTagPopup = () => {
-    setEnable(false)
+    setEnable(false);
     setShowEditTagPopup(false); // Close the popup when the "Save" button is clicked
   };
   return (
@@ -125,29 +125,29 @@ export default function Card({
             <div ml-2>({rating})</div>
           </div>
           <div
-          className="flex items-center mt-2 overflow-ellipsis max-w-80 "
-          ref={containerRef}
-        >
-          {visibleTags.map((tag, index) => (
-            <div
-              key={index}
-              className="px-2 py-1 mr-2 rounded-lg bg-[#AF9670] text-white whitespace-nowrap"
-            >
-              {tag}
-            </div>
-          ))}
-          {visibleTags.length !== campgroundTags.length && (
-            <div
-              className="px-2 py-1 mr-2 rounded-lg bg-[#AF9670] text-white whitespace-nowrap"
-              ref={tagRef}
-            >
-              ...
-            </div>
-          )}
-          {/* Container for tags and pencil icon */}
-          <div className="flex items-center">
-            {/* Pencil icon */}
-            <img
+            className="flex items-center mt-2 overflow-ellipsis max-w-80 "
+            ref={containerRef}
+          >
+            {visibleTags.map((tag, index) => (
+              <div
+                key={index}
+                className="px-2 py-1 mr-2 rounded-lg bg-[#AF9670] text-white whitespace-nowrap"
+              >
+                {tag}
+              </div>
+            ))}
+            {visibleTags.length !== campgroundTags.length && (
+              <div
+                className="px-2 py-1 mr-2 rounded-lg bg-[#AF9670] text-white whitespace-nowrap"
+                ref={tagRef}
+              >
+                ...
+              </div>
+            )}
+            {/* Container for tags and pencil icon */}
+            <div className="flex items-center">
+              {/* Pencil icon */}
+              <img
                 src="/img/pencil.png"
                 alt="edit"
                 className="h-8 ml-1 cursor-pointer" // Add cursor-pointer class
@@ -157,14 +157,14 @@ export default function Card({
                   handleEditTagsClick();
                 }} // Call the handleEditTagsClick function when clicked
               />
+            </div>
+            <canvas
+              ref={canvasRef}
+              width={1}
+              height={1}
+              style={{ display: "none" }}
+            />
           </div>
-          <canvas
-            ref={canvasRef}
-            width={1}
-            height={1}
-            style={{ display: "none" }}
-          />
-        </div>
 
           <div className="flex items-center text-base font-medium text-black font-inter mt-2">
             <img
@@ -189,7 +189,6 @@ export default function Card({
           </div>
         </div>
       </div>
-      
     </InteractiveCard>
   );
 }

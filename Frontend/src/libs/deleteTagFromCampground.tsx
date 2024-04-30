@@ -9,6 +9,7 @@ const deleteTagFromCampground = async (
   const response = await fetch(
     `${BACKEND_URL}/api-informations/tags/campgrounds/${campgroundID}/${tagID}`,
     {
+      cache: "no-store",
       method: "DELETE",
       headers: {
         "Content-Type": "application/json",
