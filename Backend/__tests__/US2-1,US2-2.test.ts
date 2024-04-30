@@ -179,7 +179,7 @@ describe("User Story 2-1 | GET /api-informations/tags & GET /api-informations/ca
     const response = await request(app).get(
       `/api-informations/tags/campgrounds/${campground1._id}/tags`
     );
-    console.log("Response Body:", response.body);
+    // console.log("Response Body:", response.body);
 
     expect(response.body.success).toBe(true);
     expect(response.body.tags.length).toBe(3);
