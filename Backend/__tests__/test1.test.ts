@@ -287,7 +287,7 @@ describe("Tag Routes", () => {
       await campground4.save();
 
       const response = await request(app).get("/api-informations/campgrounds?sort=-rating&limit=3s")
-      console.log("Response Body:", response.body);
+      // console.log("Response Body:", response.body);
       expect(response.status).toBe(200);
       expect(response.body.success).toBe(true);
       expect(response.body.data.length).toBe(3);
