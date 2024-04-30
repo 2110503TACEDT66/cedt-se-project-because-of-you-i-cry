@@ -15,6 +15,9 @@ import CircularProgress, {
   CircularProgressProps,
 } from "@mui/material/CircularProgress";
 import { linearProgressClasses } from "@mui/material/LinearProgress";
+import { useSession } from "next-auth/react";
+import { Session } from "inspector";
+import getUserProfile from "@/libs/getUserProfile";
 const BorderLinearProgress = styled(LinearProgress)(({ theme }) => ({
   height: 10,
   borderRadius: 5,
@@ -264,10 +267,26 @@ function FilterPanel({
   toggleEditTagPopup: any;
 }) {
   const [searchInput, setSearchInput] = useState<string>("");
-
+  const session = useSession();
   const filteredTags = tagsData.filter((tag) =>
     tag.toLowerCase().includes(searchInput.toLowerCase())
   );
+  const [role, setRole] = useState<null | string>(null);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        if (session && session.data && session.data.user) {
+          const profile = await getUserProfile(session.data.user.token);
+          setRole(profile.data.role);
+        }
+      } catch (error) {
+        console.log(error);
+      }
+    };
+
+    fetchData();
+  }, [session.data?.user]);
 
   return (
     <>
@@ -483,12 +502,14 @@ function FilterPanel({
                         {tagName}
                       </div>
                     ))}
-                    <img
-                      src="/img/pencil.png"
-                      alt="Edit tags"
-                      className="w-8 h-8 ml-2 mt-1 cursor-pointer"
-                      onClick={toggleEditTagPopup}
-                    />
+                    {role === "admin" ? (
+                      <img
+                        src="/img/pencil.png"
+                        alt="Edit tags"
+                        className="w-8 h-8 ml-2 mt-1 cursor-pointer"
+                        onClick={toggleEditTagPopup}
+                      />
+                    ) : null}
                   </div>
                 </div>
               </div>

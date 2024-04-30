@@ -4,6 +4,8 @@ import InteractiveCard from "./InteractiveCard";
 import { Rating } from "@mui/material";
 import { useState, useEffect, useRef } from "react";
 import EditTagPopupEach from "./EditTagPopupEach"; // Import the EditTagPopupEach component
+import { useSession } from "next-auth/react";
+import getUserProfile from "@/libs/getUserProfile";
 
 export default function Card({
   campgroundId, // Add campgroundId to the props
@@ -33,6 +35,24 @@ export default function Card({
   const [overflow, setOverflow] = useState<boolean>(false);
   const [pencilIconWidth, setPencilIconWidth] = useState<number>(0);
   const [showEditTagPopup, setShowEditTagPopup] = useState<boolean>(false);
+  const session = useSession();
+
+  const [role, setRole] = useState<null | string>(null);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        if (session && session.data && session.data.user) {
+          const profile = await getUserProfile(session.data.user.token);
+          setRole(profile.data.role);
+        }
+      } catch (error) {
+        console.log(error);
+      }
+    };
+
+    fetchData();
+  }, [session.data?.user]);
 
   useEffect(() => {
     const container = containerRef.current;
@@ -144,20 +164,22 @@ export default function Card({
                 ...
               </div>
             )}
+            {role === "admin" ? (
+              <div className="flex items-center">
+                {/* Pencil icon */}
+                <img
+                  src="/img/pencil.png"
+                  alt="edit"
+                  className="h-8 ml-1 cursor-pointer" // Add cursor-pointer class
+                  style={{ width: "auto" }}
+                  onClick={(event) => {
+                    event.preventDefault();
+                    handleEditTagsClick();
+                  }} // Call the handleEditTagsClick function when clicked
+                />
+              </div>
+            ) : null}
             {/* Container for tags and pencil icon */}
-            <div className="flex items-center">
-              {/* Pencil icon */}
-              <img
-                src="/img/pencil.png"
-                alt="edit"
-                className="h-8 ml-1 cursor-pointer" // Add cursor-pointer class
-                style={{ width: "auto" }}
-                onClick={(event) => {
-                  event.preventDefault();
-                  handleEditTagsClick();
-                }} // Call the handleEditTagsClick function when clicked
-              />
-            </div>
             <canvas
               ref={canvasRef}
               width={1}
