@@ -3,6 +3,7 @@ import Image from "next/image";
 export default function SliderCard({ data }: { data: any }) {
   return (
     <div
+      data-test = "SliderCard"
       className={styles.Card}
       onClick={(event) => (window.location.href = `./campground/${data.id}`)}
     >

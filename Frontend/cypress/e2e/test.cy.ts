@@ -71,7 +71,7 @@ describe('User Story 1-2', () => {
           cy.get('button').contains('Add').click()
           cy.wait(3000)
 
-          cy.get('[data-test="commentBlock"]') .children().should('have.length' , 0)
+          cy.get('[data-test="commentBlock"]').children().should('have.length' , 0)
             
         }
         else {
