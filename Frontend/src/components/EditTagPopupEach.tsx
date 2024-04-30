@@ -7,6 +7,7 @@ import { useSession } from "next-auth/react";
 import getCampgrounds from "@/libs/getCampgrounds";
 import CampgroundCatalog from "./CampgroundCatalog";
 import getTagsForCampground from "@/libs/getTagsForCampgrounds";
+import deleteTagFromCampground from "@/libs/deleteTagFromCampground";
 
 interface EditTagPopupProps {
   onClose: () => void;
@@ -37,6 +38,14 @@ const EditTagPopupEach = () => {
           const campgroundTag = await getTagsForCampground(campgroundId);
           console.log(campgroundTag.tags);
           setTagCamp(campgroundTag.tags);
+          // Populate selectedTags with the tags from tagCamp
+          const selectedTagsData: { [key: string]: boolean } = {};
+          if (campgroundTag.tags) {
+            campgroundTag.tags.forEach((tag: any) => {
+              selectedTagsData[tag.name] = true;
+            });
+          }
+          setSelectedTags(selectedTagsData);
         } else {
           setTagCamp(null);
         }
@@ -64,17 +73,42 @@ const EditTagPopupEach = () => {
       (tagName) => selectedTags[tagName]
     );
 
-    // Create tags one by one
-    for (const tagID of selectedTagIDs) {
-      try {
-        await createTagToCampground(campgroundId, session.user.token, tagID);
-      } catch (error) {
-        console.error("Error creating tag:", error);
-        // Handle error if needed
+    try {
+      // Remove associations for tags that are in tagCamp but not selected
+      if (tagCamp) {
+        for (const tag of tagCamp) {
+          if (!selectedTags[tag.name]) {
+            // Remove association from the database
+            await deleteTagFromCampground(
+              campgroundId,
+              session.user.token,
+              tag._id
+            );
+          }
+        }
       }
+
+      // Add associations for tags that are selected but not in tagCamp
+      for (const tagName of selectedTagIDs) {
+        if (!tagCamp || !tagCamp.some((tag) => tag.name === tagName)) {
+          // Find the tag object based on its name
+          const tagObject = allTags.find((tag) => tag.name === tagName);
+          if (tagObject) {
+            // Add association to the database
+            await createTagToCampground(
+              campgroundId,
+              session.user.token,
+              tagObject._id
+            );
+          }
+        }
+      }
+    } catch (error) {
+      console.error("Error saving tags:", error);
+      // Handle error if needed
     }
 
-    // Close the popup after creating all tags
+    // Close the popup after handling all tag associations
     setEnable(false);
   };
 
@@ -139,8 +173,6 @@ const EditTagPopupEach = () => {
                       key={tag.name}
                       className={`m-1 py-1 px-2 rounded-lg cursor-pointer ${
                         selectedTags[tag.name]
-                          ? "bg-[#AF9670] text-white"
-                          : tagCamp && tagCamp.some((t) => t.name === tag.name)
                           ? "bg-[#AF9670] text-white"
                           : "bg-[#E1E1E1] text-[#7D7D7D]"
                       }`}
