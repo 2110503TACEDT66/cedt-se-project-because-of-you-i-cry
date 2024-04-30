@@ -69,7 +69,7 @@ const EditTagPopupEach = ({
     isFirstRender.current = false;
   }, []);
 
-  if (!session) return null;
+
 
   const saveTags = async () => {
     // Extract IDs of selected tags
@@ -79,9 +79,9 @@ const EditTagPopupEach = ({
 
     try {
       // Remove associations for tags that are in tagCamp but not selected
-      if (tagCamp) {
+      if (tagCamp && session) {
         for (const tag of tagCamp) {
-          if (!selectedTags[tag.name]) {
+          if (!selectedTags[tag.name] ) {
             // Remove association from the database
             await deleteTagFromCampground(
               campgroundId,
@@ -97,7 +97,7 @@ const EditTagPopupEach = ({
         if (!tagCamp || !tagCamp.some((tag) => tag.name === tagName)) {
           // Find the tag object based on its name
           const tagObject = allTags.find((tag) => tag.name === tagName);
-          if (tagObject) {
+          if (tagObject && session) {
             // Add association to the database
             await createTagToCampground(
               campgroundId,
