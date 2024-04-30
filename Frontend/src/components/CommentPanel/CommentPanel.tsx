@@ -37,7 +37,7 @@ export default function CommentPanel({ CommentArray, Campground_id , fetchCommen
             <div className={styles.addCommentBlock}>
                 <AddCommentCard campground_id={Campground_id} onCommentAdded={handleCommentAdded} />
             </div>
-            <div className={styles.commentBlock}>
+            <div data-test="commentBlock" className={styles.commentBlock}>
                 {currentComments.map((comment: any, index: number) => (
                     <CommentCard
                         key={index}
