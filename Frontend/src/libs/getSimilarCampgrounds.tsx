@@ -8,7 +8,7 @@ export default async function getSimilarCampgrounds(id: string) {
   );
 
   if (!response.ok) {
-    throw new Error("Failed to fetch campground");
+    //throw new Error("Failed to fetch campground");
   }
 
   return await response.json();

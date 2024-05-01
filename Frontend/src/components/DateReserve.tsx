@@ -13,7 +13,7 @@ export default function DateReserve({
   const [reserveDate, setReserveDate] = useState<Dayjs | null>(null);
 
   return (
-    <div className="">
+    <div className="" data-test="mui-datepicker" >
       <LocalizationProvider dateAdapter={AdapterDayjs}>
         <DatePicker
           className="bg-white rounded-lg"

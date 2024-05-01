@@ -42,7 +42,7 @@ const RegisterPage: React.FC = () => {
     } catch (error: unknown) {
       const err = error as any;
       alert("Please check your tel. or Email it already registered.");
-      // throw new Error(err.message || "Failed to register user");
+      // //throw new Error(err.message || "Failed to register user");
     }
   };
 

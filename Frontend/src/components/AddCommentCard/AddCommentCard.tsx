@@ -78,6 +78,7 @@ export default function AddCommentCard({ campground_id , onCommentAdded}: { camp
                 size="large"
                 value={userRating}
                 onChange={handleRatingChange}
+                data-testid="RatingBox"
               />
             </div>
             <div className={styles.commentBlock}>

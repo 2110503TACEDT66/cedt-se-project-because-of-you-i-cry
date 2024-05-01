@@ -23,7 +23,7 @@ export default async function addTag(tag: NewTag , token: string): Promise<TagJs
   );
 
   if (!response.ok) {
-    throw new Error(`Failed to add tag: ${response.statusText}`);
+    //throw new Error(`Failed to add tag: ${response.statusText}`);
   } 
 
   return await response.json();

@@ -23,7 +23,7 @@ export default async function updateBooking(
   );
 
   if (!response.ok) {
-    throw new Error("Failed to update booking");
+    //throw new Error("Failed to update booking");
   }
 
   return await response.json();

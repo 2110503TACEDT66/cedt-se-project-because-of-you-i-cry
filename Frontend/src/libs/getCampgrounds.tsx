@@ -9,7 +9,7 @@ export default async function getCampgrounds(): Promise<CampgroundJson> {
   );
 
   if (!response.ok) {
-    throw new Error(`${BACKEND_URL}/api-informations/campgrounds`);
+    //throw new Error(`${BACKEND_URL}/api-informations/campgrounds`);
   }
 
   return await response.json();

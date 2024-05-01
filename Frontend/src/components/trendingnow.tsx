@@ -8,7 +8,7 @@ import Image from 'next/image'
 
 export default async function TrendingNow() {
     const backendurl = process.env.BACKEND_URL
-    const allcampgroundData = await (await fetch(`${backendurl}/api-informations/campgrounds?sort=-rating&limit=6`)).json()
+    const allcampgroundData = await (await fetch(`${backendurl}/api-informations/campgrounds?sort=-rating&limit=6`, {method : "GET" , cache : 'no-store'})).json()
     
     return (
         <div className={styles.TrendingSectionWrapper}>

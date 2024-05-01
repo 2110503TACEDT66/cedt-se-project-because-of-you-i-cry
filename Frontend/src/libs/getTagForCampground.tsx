@@ -7,7 +7,7 @@ export default async function getTagsForCampground(id: string) {
   );
 
   if (!response.ok) {
-    throw new Error("Failed to fetch tags");
+    //throw new Error("Failed to fetch tags");
   }
 
   return await response.json();
