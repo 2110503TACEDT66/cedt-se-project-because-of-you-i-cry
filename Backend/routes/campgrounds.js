@@ -162,6 +162,38 @@ const { protect, authorize } = require('../middleware/user');
  *         user_id: "609bda561452242d88d36e38"
  *         text: "This campground is amazing!"
  *         user_rating: 5
+ *     User:
+ *       type: object
+ *       required:
+ *         - name
+ *         - tel
+ *         - email
+ *         - password
+ *       properties:
+ *         name:
+ *           type: string
+ *           example: John Doe
+ *         tel:
+ *           type: string
+ *           example: "0812345678"
+ *           pattern: '^\d{10}$'
+ *         email:
+ *           type: string
+ *           example: john.doe@example.com
+ *           pattern: '^[\w-\.]+@([\w-]+\.)+[\w-]{2,}$'
+ *         role:
+ *           type: string
+ *           enum:
+ *             - user
+ *             - admin
+ *           default: user
+ *         password:
+ *           type: string
+ *           minLength: 6
+ *         createdAt:
+ *           type: string
+ *           format: date-time
+ *           default: current date
  */
 
  /**
@@ -629,6 +661,182 @@ const { protect, authorize } = require('../middleware/user');
 *                    $ref: '#/components/schemas/Campground'
 *      500:
 *        description: Server error
+ */
+
+/**
+ * @swagger
+ * tags:
+ *   name: Users
+ *   description: API endpoints for managing users
+ *   security:
+ *     - bearerAuth: []
+ */
+
+/**
+ * @swagger
+ * /users/register:
+ *   post:
+ *     summary: Register a new user
+ *     tags: [Users]
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             properties:
+ *               name:
+ *                 type: string
+ *               tel:
+ *                 type: string
+ *               email:
+ *                 type: string
+ *               password:
+ *                 type: string
+ *               role:
+ *                 type: string
+ *     responses:
+ *       200:
+ *         description: Successful registration
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 success:
+ *                   type: boolean
+ *                 token:
+ *                   type: string
+ *       400:
+ *         description: Bad request
+ */
+
+/**
+ * @swagger
+ * /users/login:
+ *   post:
+ *     summary: Log in a user
+ *     tags: [Users]
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             properties:
+ *               email:
+ *                 type: string
+ *               password:
+ *                 type: string
+ *     responses:
+ *       200:
+ *         description: Successful login
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 success:
+ *                   type: boolean
+ *                 token:
+ *                   type: string
+ *       400:
+ *         description: Invalid credentials
+ *       401:
+ *         description: Cannot convert email or password to string
+ */
+
+/**
+ * @swagger
+ * /users/update/{id}:
+ *   put:
+ *     summary: Update a user
+ *     tags: [Users]
+ *     security:
+ *       - bearerAuth: []
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         required: true
+ *         schema:
+ *           type: string
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             properties:
+ *               name:
+ *                 type: string
+ *               tel:
+ *                 type: string
+ *               email:
+ *                 type: string
+ *               password:
+ *                 type: string
+ *               role:
+ *                 type: string
+ *     responses:
+ *       200:
+ *         description: User updated successfully
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 success:
+ *                   type: boolean
+ *                 data:
+ *                   $ref: '#/components/schemas/User'
+ *       404:
+ *         description: User not found
+ *       400:
+ *         description: Bad request
+ */
+
+/**
+ * @swagger
+ * /users/logout:
+ *   get:
+ *     summary: Log out a user
+ *     tags: [Users]
+ *     security:
+ *       - bearerAuth: []
+ *     responses:
+ *       200:
+ *         description: Successful logout
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 success:
+ *                   type: boolean
+ *                 data:
+ *                   type: object
+ */
+
+/**
+ * @swagger
+ * /users/me:
+ *   get:
+ *     summary: Get current logged in user
+ *     tags: [Users]
+ *     security:
+ *       - bearerAuth: []
+ *     responses:
+ *       200:
+ *         description: Successful response
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 success:
+ *                   type: boolean
+ *                 data:
+ *                   $ref: '#/components/schemas/User'
  */
 
 // Re-route into other resource routers
