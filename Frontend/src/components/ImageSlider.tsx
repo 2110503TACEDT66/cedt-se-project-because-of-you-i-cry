@@ -1,14 +1,15 @@
 "use client";
 
 import styles from "./imageslide.module.css";
+
 import SliderCard from "./SliderCard";
 
-export default function ImageSlider({ campgroundArray }: { campgroundArray?: any }) {
-  // ตรวจสอบและกำหนดค่าเริ่มต้นให้ campgroundArray เป็นอะเรย์ว่าง หากมีค่าเป็น undefined
-  const campgroundArrayData = campgroundArray ?? [];
+import { Swiper, SwiperSlide } from "swiper/react";
+import { Pagination, Navigation, Mousewheel, Keyboard } from "swiper/modules";
 
-  // ตัด campgroundArray ให้มีความยาวเพียง 3 รายการ
-  const slicedCampgroundArray = campgroundArrayData.slice(0, 3);
+import "swiper/css/pagination";
+import "swiper/css";
+import "swiper/css/navigation";
 
 export default function ImageSlider({
   campgroundArray,
@@ -38,5 +39,4 @@ export default function ImageSlider({
         ))}
     </div>
   );
-}
 }
