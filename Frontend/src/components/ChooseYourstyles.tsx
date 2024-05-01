@@ -6,6 +6,7 @@ import getCampgrounds from "@/libs/getCampgrounds";
 import { CampgroundItem, CampgroundJson } from "../../interface";
 
 import Image from "next/image";
+import ImageSliderSwiper from "./ImageSliderSwiper";
 
 export default function ChooseYourStyles() {
   const [allCampgrounds, setAllCampgrounds] = useState<null | CampgroundJson>();
@@ -117,7 +118,7 @@ export default function ChooseYourStyles() {
           Valley View
         </button>
       </div>
-      <ImageSlider campgroundArray={filteredCampgrounds} />
+      <ImageSliderSwiper campgroundArray={filteredCampgrounds} />
     </div>
   );
 }

@@ -1,8 +1,7 @@
 import styles from './explorethailand.module.css'
 import ProvinceGrid from './ProvinceGrid'
 export default async function ExploreThailand() {
-    const backendurl = process.env.BACKEND_URL
-    const topProvince = await (await fetch(`${backendurl}/api-informations/campgrounds?topProvince=true`)).json()
+    
 
     return (
         <div className={styles.ExploreThailandSectionWrapper}>      
@@ -15,7 +14,7 @@ export default async function ExploreThailand() {
                     </div>
             </div>
 
-            <ProvinceGrid data = {topProvince.topProvinces}/>
+            <ProvinceGrid/>
 
         </div>
     )

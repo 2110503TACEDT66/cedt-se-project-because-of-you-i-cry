@@ -83,12 +83,14 @@ export default function AddCommentCard({ campground_id , onCommentAdded}: { camp
             </div>
             <div className={styles.commentBlock}>
               <TextField
+                data-test="addCommentBlock"
                 fullWidth
                 multiline
                 rows={4}
                 variant="outlined"
                 value={commentText}
                 onChange={handleCommentChange}
+                
               />
             </div>
           </div>

@@ -5,6 +5,7 @@ export default function SliderCard({ data }: { data: any }) {
   
   return (
     <div
+      data-test = "SliderCard"
       className={styles.Card}
       onClick={(event) => (window.location.replace(`/campground/${data._id}`))}
     >

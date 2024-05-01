@@ -1,17 +1,30 @@
-'use server'
+'use client'
 
+import { useEffect, useState } from 'react'
 import ImageSlider from './ImageSlider'
 import styles from './trendingnow.module.css'
 
 import Image from 'next/image'
 
 
-export default async function TrendingNow() {
-    const backendurl = process.env.BACKEND_URL
-    const allcampgroundData = await (await fetch(`${backendurl}/api-informations/campgrounds?sort=-rating&limit=6`, {method : "GET" , cache : 'no-store'})).json()
+export default function TrendingNow() {
+
+    const backendurl = process.env.NEXT_PUBLIC_BACKEND_URL
+    const[allcampgroundData , setAllCampgroundData] = useState<any>(null)
+    const[isReady , setReady] = useState(false)
+    
+    useEffect(() => {
+        fetch(`${backendurl}/api-informations/campgrounds?sort=-rating`, {method : "GET" , cache : 'no-store'})
+        .then((res) => res.json())
+        .then((data) => {
+          setAllCampgroundData(data)
+          setReady(true)
+        })
+    } , [])
     
     return (
-        <div className={styles.TrendingSectionWrapper}>
+
+        <div data-test = "TrendingNow" className={styles.TrendingSectionWrapper}>
             <div className={styles.HeaderLine}>
                     <div className={styles.line}></div>
                     <div className={styles.HeaderTextWrapper}>Trending Now</div>
@@ -20,7 +33,10 @@ export default async function TrendingNow() {
                     </div>
             </div>
 
-           <ImageSlider campgroundArray={allcampgroundData.data}/>
+            {
+                isReady? <ImageSlider campgroundArray={allcampgroundData.data}/> :  <div></div>
+            }
+           
 
 
         </div>
