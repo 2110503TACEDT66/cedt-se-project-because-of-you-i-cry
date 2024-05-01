@@ -1,0 +1,25 @@
+{
+    "success": true,
+    "topProvinces": [
+        {
+            "province": "Suphanburi",
+            "avgRating": 4.4
+        },
+        {
+            "province": "Phetchabun",
+            "avgRating": 4
+        },
+        {
+            "province": "Chiang Mai",
+            "avgRating": 3
+        },
+        {
+            "province": "Mae Hong Son",
+            "avgRating": 2
+        },
+        {
+            "province": "Krabi",
+            "avgRating": 1.6
+        }
+    ]
+}
